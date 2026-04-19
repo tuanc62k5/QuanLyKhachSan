@@ -24,6 +24,10 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult About()
+    {
+        return View();
+    }
 
     [Route("/room-{id:long}.html")]
     public IActionResult Details(long id)

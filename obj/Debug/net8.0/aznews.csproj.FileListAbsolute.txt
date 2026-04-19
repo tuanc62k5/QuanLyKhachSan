@@ -93,3 +93,4 @@ D:\Bài tập\Đồ án chuyên ngành\KhachSan\DoAn\bin\Debug\net8.0\Microsoft.
 D:\Bài tập\Đồ án chuyên ngành\KhachSan\DoAn\bin\Debug\net8.0\MySqlConnector.dll
 D:\Bài tập\Đồ án chuyên ngành\KhachSan\DoAn\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 D:\Bài tập\Đồ án chuyên ngành\KhachSan\DoAn\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+D:\Bài tập\Đồ án chuyên ngành\KhachSan\DoAn\obj\Debug\net8.0\aznews.sourcelink.json
