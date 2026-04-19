@@ -31,7 +31,6 @@ public class HomeController : Controller
         return View();
     }
 
-    // 👉 Chi tiết phòng
     [Route("/Phong-{id:long}.html")]
     public IActionResult Details(long id)
     {
@@ -42,8 +41,6 @@ public class HomeController : Controller
         {
             return NotFound();
         }
-
-        // 👉 Nếu bảng review bạn chưa sửa thì giữ RoomID
         var gioiThieus = _context.GioiThieus
             .Where(gt => gt.P_ID == id)
             .OrderByDescending(gt => gt.GT_NgayTao)

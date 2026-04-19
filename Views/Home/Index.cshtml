@@ -47,36 +47,31 @@
             <div class="bg-white shadow" style="padding: 35px;">
                 <div class="row g-2">
 
-                    <!-- Người lớn -->
+                    <!-- SỐ NGƯỜI -->
                     <div class="col-md-2">
-                        <select name="NguoiLon" class="form-select">
-                            <option value="1">1 người lớn</option>
-                            <option value="2">2 người lớn</option>
-                            <option value="3">3 người lớn</option>
-                            <option value="4">4 người lớn</option>
+                        <input type="number" name="SoNguoi" class="form-control" placeholder="Số người" min="1" />
+                    </div>
+
+                    <!-- GIÁ MIN -->
+                    <div class="col-md-3">
+                        <input type="number" name="GiaMin" class="form-control" placeholder="Giá từ (VD: 100000)" />
+                    </div>
+
+                    <!-- GIÁ MAX -->
+                    <div class="col-md-3">
+                        <input type="number" name="GiaMax" class="form-control" placeholder="Đến (VD: 500000)" />
+                    </div>
+
+                    <!-- SẮP XẾP -->
+                    <div class="col-md-2">
+                        <select name="SapXep" class="form-select">
+                            <option value="">Sắp xếp</option>
+                            <option value="giaTang">Giá tăng</option>
+                            <option value="giaGiam">Giá giảm</option>
                         </select>
                     </div>
 
-                    <!-- Trẻ em -->
-                    <div class="col-md-2">
-                        <select name="TreEm" class="form-select">
-                            <option value="0">0 trẻ em</option>
-                            <option value="1">1 trẻ em</option>
-                            <option value="2">2 trẻ em</option>
-                        </select>
-                    </div>
-
-                    <!-- giá min -->
-                    <div class="col-md-3">
-                        <input type="number" name="GiaMin" class="form-control" placeholder="VD: 100000" />
-                    </div>
-
-                    <!-- giá max -->
-                    <div class="col-md-3">
-                        <input type="number" name="GiaMax" class="form-control" placeholder="VD: 500000" />
-                    </div>
-
-                    <!-- Button -->
+                    <!-- BUTTON -->
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fa fa-search me-2"></i>Tìm phòng

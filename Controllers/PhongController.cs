@@ -11,24 +11,37 @@ public class PhongController : Controller
         _context = context;
     }
 
-    public IActionResult DanhSach(int SoNguoi = 1, decimal? GiaMin = null, decimal? GiaMax = null)
+    public IActionResult DanhSach(int? SoNguoi, decimal? GiaMin, decimal? GiaMax, string SapXep)
     {
-        var query = _context.Phongs
-            .Where(p => p.P_TrangThai && p.P_SucChua >= SoNguoi);
+        var query = _context.Phongs.AsQueryable();
 
+        // chỉ lấy phòng đang hoạt động
+        query = query.Where(p => p.P_TrangThai);
+
+        // lọc số người
+        if (SoNguoi.HasValue && SoNguoi > 0)
+            query = query.Where(p => p.P_SucChua >= SoNguoi.Value);
+
+        // lọc giá
         if (GiaMin.HasValue)
             query = query.Where(p => p.P_GiaPhong >= GiaMin.Value);
 
         if (GiaMax.HasValue)
             query = query.Where(p => p.P_GiaPhong <= GiaMax.Value);
 
-        var phongs = query
-            .OrderBy(p => p.P_GiaPhong)
-            .ToList();
+        // sắp xếp
+        if (SapXep == "GiaTang")
+            query = query.OrderBy(p => p.P_GiaPhong);
+        else if (SapXep == "GiaGiam")
+            query = query.OrderByDescending(p => p.P_GiaPhong);
 
+        var phongs = query.ToList();
+
+        // giữ lại giá trị filter
         ViewBag.SoNguoi = SoNguoi;
         ViewBag.GiaMin = GiaMin;
         ViewBag.GiaMax = GiaMax;
+        ViewBag.SapXep = SapXep;
 
         return View(phongs);
     }

@@ -17,25 +17,45 @@
 
                 <h5>Tìm kiếm phòng</h5>
 
-                <form method="get" action="/Phongs">
+                <form method="get" action="/Phong/DanhSach">
 
-                    <label>Người lớn</label>
-                    <input type="number" name="NguoiLon" class="form-control mb-2"
-                           value="@ViewBag.NguoiLon" />
-
-                    <label>Trẻ em</label>
-                    <input type="number" name="TreEm" class="form-control mb-2"
-                           value="@ViewBag.TreEm" />
+                    <label>Số người</label>
+                    <input type="number" name="SoNguoi" class="form-control mb-2" value="@(ViewBag.SoNguoi ?? "")"
+                           min="1" />
 
                     <label>Giá từ</label>
-                    <input type="number" name="giaMin" class="form-control mb-2"
-                           value="@ViewBag.GiaMin" />
+                    <input type="number" name="GiaMin" class="form-control mb-2" value="@(ViewBag.GiaMin ?? "")" />
 
                     <label>Đến</label>
-                    <input type="number" name="giaMax" class="form-control mb-3"
-                           value="@ViewBag.GiaMax" />
+                    <input type="number" name="GiaMax" class="form-control mb-2" value="@(ViewBag.GiaMax ?? "")" />
+
+                    <label>Sắp xếp</label>
+                    <select name="SapXep" class="form-control mb-3">
+
+                        @if (ViewBag.SapXep == "GiaTang")
+                        {
+                            <option value="GiaTang" selected>Giá tăng dần</option>
+                        }
+                        else
+                        {
+                            <option value="GiaTang">Giá tăng dần</option>
+                        }
+
+                        @if (ViewBag.SapXep == "GiaGiam")
+                        {
+                            <option value="GiaGiam" selected>Giá giảm dần</option>
+                        }
+                        else
+                        {
+                            <option value="GiaGiam">Giá giảm dần</option>
+                        }
+                    </select>
 
                     <button class="btn btn-primary w-100">Tìm phòng</button>
+
+                    <a href="/Phong/DanhSach" class="btn btn-secondary w-100 mt-2">
+                        Xóa lọc
+                    </a>
 
                 </form>
             </div>
