@@ -1,0 +1,11 @@
+@model List<DoAn.Models.tblPhong>
+
+<h2>Danh sách phòng</h2>
+
+@foreach (var p in Model)
+{
+    <div>
+        <h4>@p.P_TenPhong</h4>
+        <p>Giá: @p.P_GiaPhong</p>
+    </div>
+}

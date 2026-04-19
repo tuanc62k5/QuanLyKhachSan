@@ -1,8 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DoAn.Models;
+using System.Linq;
 
-namespace aznews.Controllers;
+namespace DoAn.Controllers; // ✔ sửa lại namespace
 
 public class HomeController : Controller
 {
@@ -24,27 +25,40 @@ public class HomeController : Controller
     {
         return View();
     }
+
     public IActionResult About()
     {
         return View();
     }
 
-    [Route("/room-{id:long}.html")]
+    // 👉 Chi tiết phòng
+    [Route("/Phong-{id:long}.html")]
     public IActionResult Details(long id)
     {
-        var room = _context.Rooms.FirstOrDefault(x => x.RoomID == id);
+        var phong = _context.Phongs
+            .FirstOrDefault(x => x.P_ID == id);
 
-        var reviews = _context.Reviews
-            .Where(r => r.RoomID == id)
-            .OrderByDescending(r => r.CreatedDate)
+        if (phong == null)
+        {
+            return NotFound();
+        }
+
+        // 👉 Nếu bảng review bạn chưa sửa thì giữ RoomID
+        var gioiThieus = _context.GioiThieus
+            .Where(gt => gt.P_ID == id)
+            .OrderByDescending(gt => gt.GT_NgayTao)
             .ToList();
 
-        ViewBag.Reviews = reviews;
+        ViewBag.GioiThieus = gioiThieus;
 
-        return View(room);
+        return View(phong);
     }
+
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel 
+        { 
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
+        });
     }
 }

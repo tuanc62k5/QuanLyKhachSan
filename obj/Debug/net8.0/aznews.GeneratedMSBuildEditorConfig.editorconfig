@@ -34,12 +34,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Bài tập/Đồ án chuyên ngành/KhachSan/DoAn/Views/Phong/DanhSach.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGhvbmdcRGFuaFNhY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Bài tập/Đồ án chuyên ngành/KhachSan/DoAn/Views/Shared/Components/Menu/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudVxEZWZhdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Bài tập/Đồ án chuyên ngành/KhachSan/DoAn/Views/Shared/Components/Room/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUm9vbVxEZWZhdWx0LmNzaHRtbA==
+[D:/Bài tập/Đồ án chuyên ngành/KhachSan/DoAn/Views/Shared/Components/Phong/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUGhvbmdcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Bài tập/Đồ án chuyên ngành/KhachSan/DoAn/Views/Shared/Error.cshtml]

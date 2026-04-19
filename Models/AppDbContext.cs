@@ -9,6 +9,6 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<tblMenu> Menus { get; set; }
-    public DbSet<tblRoom> Rooms { get; set; }
-    public DbSet<tblReview> Reviews { get; set; }
+    public DbSet<tblPhong> Phongs { get; set; }
+    public DbSet<tblGioiThieu> GioiThieus { get; set; }
 }

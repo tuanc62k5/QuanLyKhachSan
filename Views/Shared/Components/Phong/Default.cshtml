@@ -1,21 +1,21 @@
-@model List<DoAn.Models.tblRoom>
+@model List<DoAn.Models.tblPhong>
 
 <div class="row g-4">
-@foreach (var r in Model)
+@foreach (var p in Model)
 {
     <div class="col-lg-4 col-md-6 wow fadeInUp">
         <div class="room-item shadow rounded overflow-hidden">
             
             <div class="position-relative">
-                <img class="img-fluid" src="@r.Image" alt="">
+                <img class="img-fluid" src="~/img/@p.P_HinhAnh" alt="">
                 <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
-                    @r.Price đ /Night
+                    @p.P_GiaPhong đ /Night
                 </small>
             </div>
 
             <div class="p-4 mt-2">
                 <div class="d-flex justify-content-between mb-3">
-                    <h5 class="mb-0">@r.RoomName</h5>
+                    <h5 class="mb-0">@p.P_TenPhong</h5>
                     <div class="ps-2">
                         <small class="fa fa-star text-primary"></small>
                         <small class="fa fa-star text-primary"></small>
@@ -37,11 +37,11 @@
                     </small>
                 </div>
 
-                <p class="text-body mb-3">@r.Description</p>
+                <p class="text-body mb-3">@p.P_MoTa</p>
 
                 <div class="d-flex justify-content-between">
                     <!-- 🔥 SỬA CHỖ NÀY -->
-                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/room-@(r.RoomID).html">
+                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Phong-@(p.P_ID).html">
                         View Detail
                     </a>
 

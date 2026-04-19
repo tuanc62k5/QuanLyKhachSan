@@ -1,4 +1,4 @@
-@model DoAn.Models.tblRoom
+@model DoAn.Models.tblPhong
 
 <div class="container mt-5">
     <div class="row">
@@ -7,7 +7,7 @@
         <div class="col-lg-8">
 
             <!-- ẢNH -->
-            <img src="@Model.Image" class="img-fluid rounded mb-3" />
+            <img src="~/img/@Model.P_HinhAnh" class="img-fluid rounded mb-3" />
 
             <!-- THÔNG TIN KHÁCH SẠN -->
             <div class="bg-light p-3 rounded mb-3 shadow-sm">
@@ -39,7 +39,7 @@
                 <h5 class="mb-3"><b>Mô tả</b></h5>
 
                 <p class="text-muted" style="line-height: 1.8;">
-                    @Model.Description
+                    @Model.P_MoTa
                 </p>
 
                 <hr />
@@ -86,7 +86,7 @@
 
                 <!-- GIÁ -->
                 <h4 class="text-primary">
-                    @Model.Price đ / đêm
+                    @Model.P_GiaPhong đ / đêm
                 </h4>
 
                 <!-- FORM -->

@@ -1,8 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DoAn.Models;
-
-namespace aznews.Controllers;
+using System.Linq;
 
 public class PhongController : Controller
 {
@@ -13,16 +11,19 @@ public class PhongController : Controller
         _context = context;
     }
 
-    [Route("Rooms")]
-    public IActionResult DanhSach(DateTime? checkIn, DateTime? checkOut, int adults = 1, int children = 0)
+    [Route("Phongs")]
+    public IActionResult DanhSach(int NguoiLon = 1, int TreEm = 0)
     {
-        int totalPeople = adults + children;
+        int tongNguoi = NguoiLon + TreEm;
 
-        var rooms = _context.Rooms
-            .Where(r => r.IsActive && r.Capacity >= totalPeople)
-            .OrderBy(r => r.Price)
+        var phongs = _context.Phongs
+            .Where(p => p.P_TrangThai && p.P_SucChua >= tongNguoi)
+            .OrderBy(p => p.P_GiaPhong)
             .ToList();
 
-        return View(rooms);
+        ViewBag.NguoiLon = NguoiLon;
+        ViewBag.TreEm = TreEm;
+
+        return View(phongs);
     }
 }
