@@ -29,12 +29,32 @@
       "PackagePath": "staticwebassets\\img\\about-4.jpg"
     },
     {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\airport.jpg",
+      "PackagePath": "staticwebassets\\img\\airport.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\buffet.jpg",
+      "PackagePath": "staticwebassets\\img\\buffet.jpg"
+    },
+    {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\carousel-1.jpg",
       "PackagePath": "staticwebassets\\img\\carousel-1.jpg"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\carousel-2.jpg",
       "PackagePath": "staticwebassets\\img\\carousel-2.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\dinner.jpg",
+      "PackagePath": "staticwebassets\\img\\dinner.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\giatui.jpg",
+      "PackagePath": "staticwebassets\\img\\giatui.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\hoboi.jpg",
+      "PackagePath": "staticwebassets\\img\\hoboi.jpg"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\logo_hotel.png",
@@ -51,6 +71,10 @@
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\room-3.jpg",
       "PackagePath": "staticwebassets\\img\\room-3.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\spa.jpg",
+      "PackagePath": "staticwebassets\\img\\spa.jpg"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\team-1.jpg",
@@ -83,6 +107,10 @@
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\testimonial-4.jpg",
       "PackagePath": "staticwebassets\\img\\testimonial-4.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\thuexe.jpg",
+      "PackagePath": "staticwebassets\\img\\thuexe.jpg"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\video.jpg",

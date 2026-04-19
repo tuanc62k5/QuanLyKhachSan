@@ -90,34 +90,46 @@
                 </h4>
 
                 <!-- FORM -->
-                <form>
+                <form asp-controller="Phong" asp-action="DatPhong" method="post">
+
+                    <!-- ID PHÒNG -->
+                    <input type="hidden" name="P_ID" value="@Model.P_ID" />
+
+                    <!-- THÔNG TIN KHÁCH -->
+                    <div class="mb-3">
+                        <label>Họ tên khách</label>
+                        <input type="text" name="KH_TenKhach" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="KH_Email" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Số điện thoại</label>
+                        <input type="text" name="KH_DienThoai" class="form-control" required />
+                    </div>
+
+                    <!-- THÔNG TIN ĐẶT -->
                     <div class="mb-3">
                         <label>Ngày nhận phòng</label>
-                        <input type="date" class="form-control" />
+                        <input type="date" name="DP_NgayNhan" class="form-control" required />
                     </div>
 
                     <div class="mb-3">
                         <label>Ngày trả phòng</label>
-                        <input type="date" class="form-control" />
+                        <input type="date" name="DP_NgayTra" class="form-control" required />
                     </div>
 
                     <div class="mb-3">
-                        <label>Người lớn</label>
-                        <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
+                        <label>Số người</label>
+                        <input type="number" name="DP_SoNguoi" value="1" class="form-control" min="1" />
                     </div>
+                    <p class="mt-3">Tổng tiền: <b id="tongTien">0</b> đ</p>
+                    <p>Tiền cọc (30%): <b id="tienCoc">0</b> đ</p>
 
-                    <div class="mb-3">
-                        <label>Trẻ em</label>
-                        <select class="form-control">
-                            <option>0</option>
-                            <option>1</option>
-                        </select>
-                    </div>
-
-                    <button class="btn btn-primary w-100">
+                    <button type="submit" class="btn btn-primary w-100">
                         Đặt phòng ngay
                     </button>
                 </form>
@@ -133,3 +145,28 @@
 
     </div>
 </div>
+<script>
+    function tinhTien() {
+        let ngayNhan = document.querySelector('[name="DP_NgayNhan"]').value;
+        let ngayTra = document.querySelector('[name="DP_NgayTra"]').value;
+        let gia = @Model.P_GiaPhong;
+
+        if (ngayNhan && ngayTra) {
+            let d1 = new Date(ngayNhan);
+            let d2 = new Date(ngayTra);
+
+            let soNgay = (d2 - d1) / (1000 * 60 * 60 * 24);
+
+            if (soNgay > 0) {
+                let tong = soNgay * gia;
+                let coc = tong * 0.3;
+
+                document.getElementById("tongTien").innerText = tong.toLocaleString();
+                document.getElementById("tienCoc").innerText = coc.toLocaleString();
+            }
+        }
+    }
+
+    document.querySelector('[name="DP_NgayNhan"]').addEventListener('change', tinhTien);
+    document.querySelector('[name="DP_NgayTra"]').addEventListener('change', tinhTien);
+</script>

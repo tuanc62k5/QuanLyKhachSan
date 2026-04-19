@@ -1,0 +1,32 @@
+@model List<DoAn.Models.tblDichVu>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Dịch vụ khách sạn</h2>
+
+    <div class="row">
+        @foreach (var dv in Model)
+        {
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow-sm">
+
+                    <img src="~/img/@dv.DV_HinhAnh" class="card-img-top" style="height:200px; object-fit:cover;" />
+
+                    <div class="card-body">
+                        <h5>@dv.DV_TenDichVu</h5>
+
+                        <p class="text-muted">@dv.DV_MoTa</p>
+
+                        <h6 class="text-primary">
+                            @dv.DV_GiaTien đ
+                        </h6>
+
+                        <button class="btn btn-primary w-100">
+                            Sử dụng dịch vụ
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
