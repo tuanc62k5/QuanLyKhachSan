@@ -41,21 +41,11 @@
 
 
 <!-- Booking Start -->
-<form action="/Phongs" method="get">
+<form action="/Phong/DanhSach" method="get">
     <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="bg-white shadow" style="padding: 35px;">
                 <div class="row g-2">
-
-                    <!-- Ngày nhận -->
-                    <div class="col-md-3">
-                        <input type="date" name="checkin" class="form-control" placeholder="Ngày nhận phòng" />
-                    </div>
-
-                    <!-- Ngày trả -->
-                    <div class="col-md-3">
-                        <input type="date" name="checkout" class="form-control" placeholder="Ngày trả phòng" />
-                    </div>
 
                     <!-- Người lớn -->
                     <div class="col-md-2">
@@ -74,6 +64,16 @@
                             <option value="1">1 trẻ em</option>
                             <option value="2">2 trẻ em</option>
                         </select>
+                    </div>
+
+                    <!-- giá min -->
+                    <div class="col-md-3">
+                        <input type="number" name="GiaMin" class="form-control" placeholder="VD: 100000" />
+                    </div>
+
+                    <!-- giá max -->
+                    <div class="col-md-3">
+                        <input type="number" name="GiaMax" class="form-control" placeholder="VD: 500000" />
                     </div>
 
                     <!-- Button -->

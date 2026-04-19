@@ -1,11 +1,85 @@
 @model List<DoAn.Models.tblPhong>
 
-<h2>Danh sách phòng</h2>
+<div class="container mt-5">
+    <div class="row">
 
-@foreach (var p in Model)
-{
-    <div>
-        <h4>@p.P_TenPhong</h4>
-        <p>Giá: @p.P_GiaPhong</p>
+        <!-- LEFT: FILTER -->
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+
+                <h5>Tìm kiếm phòng</h5>
+
+                <form method="get" action="/Phongs">
+
+                    <label>Người lớn</label>
+                    <input type="number" name="NguoiLon" class="form-control mb-2"
+                           value="@ViewBag.NguoiLon" />
+
+                    <label>Trẻ em</label>
+                    <input type="number" name="TreEm" class="form-control mb-2"
+                           value="@ViewBag.TreEm" />
+
+                    <label>Giá từ</label>
+                    <input type="number" name="giaMin" class="form-control mb-2"
+                           value="@ViewBag.GiaMin" />
+
+                    <label>Đến</label>
+                    <input type="number" name="giaMax" class="form-control mb-3"
+                           value="@ViewBag.GiaMax" />
+
+                    <button class="btn btn-primary w-100">Tìm phòng</button>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT: LIST -->
+        <div class="col-md-9">
+
+            <h4 class="mb-4">Danh sách phòng (@Model.Count)</h4>
+
+            @foreach (var p in Model)
+            {
+                <div class="card mb-3 shadow-sm">
+                    <div class="row g-0">
+
+                        <!-- IMAGE -->
+                        <div class="col-md-4">
+                            <img src="~/img/@p.P_HinhAnh" class="img-fluid rounded-start" />
+                        </div>
+
+                        <!-- INFO -->
+                        <div class="col-md-8">
+                            <div class="card-body">
+
+                                <h5>@p.P_TenPhong</h5>
+
+                                <p>@p.P_MoTa</p>
+
+                                <p>
+                                    👤 Sức chứa: @p.P_SucChua người
+                                </p>
+
+                                <h5 class="text-primary">
+                                    @p.P_GiaPhong.ToString("N0") đ / đêm
+                                </h5>
+
+                                <a href="/Phong-@(p.P_ID).html" class="btn btn-outline-primary">
+                                    Chi tiết
+                                </a>
+
+                                <a href="#" class="btn btn-primary">
+                                    Đặt ngay
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+
     </div>
-}
+</div>
