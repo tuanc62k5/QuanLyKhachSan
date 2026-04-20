@@ -1,4 +1,5 @@
 using DoAn.Models;
+using DoAn.Areas.Admin.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
@@ -14,4 +15,5 @@ public class AppDbContext : DbContext
     public DbSet<tblDatPhong> DatPhongs { get; set; }
     public DbSet<tblDichVu> DichVus { get; set; }
     public DbSet<tblKhachHang> KhachHangs { get; set; }
+    public DbSet<AdminMenu> AdminMenus { get; set; }
 }
