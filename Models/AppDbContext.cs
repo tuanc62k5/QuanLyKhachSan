@@ -13,4 +13,5 @@ public class AppDbContext : DbContext
     public DbSet<tblGioiThieu> GioiThieus { get; set; }
     public DbSet<tblDatPhong> DatPhongs { get; set; }
     public DbSet<tblDichVu> DichVus { get; set; }
+    public DbSet<tblKhachHang> KhachHangs { get; set; }
 }

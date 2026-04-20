@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0 rounded">
+
+            <div class="card-body p-4">
+
+                <h3 class="text-center mb-4 text-dark">
+                    🔐 Đăng nhập hệ thống
+                </h3>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.Error
+                    </div>
+                }
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                <form asp-controller="TaiKhoan" asp-action="DangNhap" method="post">
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Nhập email..." required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Mật khẩu</label>
+                        <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required />
+                    </div>
+
+                    <button type="submit" class="btn w-100" style="background:#0d6efd; color:white;">
+                        Đăng nhập
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-3">
+                    <small>
+                        Chưa có tài khoản?
+                        <a href="/TaiKhoan/DangKy" class="text-danger">Đăng ký ngay</a>
+                    </small>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

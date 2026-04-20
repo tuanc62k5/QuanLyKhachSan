@@ -494,3 +494,10 @@
     border-radius: 6px;
     background: white; /* cho nổi logo */
 }
+.link-login {
+    color: #0d6efd !important;
+}
+
+.link-login:hover {
+    color: #0b5ed7 !important;
+}
