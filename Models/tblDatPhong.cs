@@ -20,7 +20,6 @@ namespace DoAn.Models
 
         public int DP_SoNguoi { get; set; }
 
-        public decimal DP_TienCoc { get; set; }
         public decimal DP_TongTien { get; set; }
 
         public DateTime DP_NgayTao { get; set; }

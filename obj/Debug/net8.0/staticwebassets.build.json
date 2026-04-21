@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qfOoouWSIfN6KyqDXUUQHegHbwyguddP50c/3uOMtLY=",
+  "Hash": "S/by2JjDeTQcTJeC9tnUWX9srpV50NmZblrtJxRnNPY=",
   "Source": "aznews",
   "BasePath": "_content/aznews",
   "Mode": "Default",
@@ -16034,12 +16034,12 @@
       "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
-      "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-1.jpg",
+      "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-1.png",
       "SourceId": "aznews",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\",
       "BasePath": "_content/aznews",
-      "RelativePath": "img/about-1.jpg",
+      "RelativePath": "img/about-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -16050,7 +16050,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\about-1.jpg"
+      "OriginalItemSpec": "wwwroot\\img\\about-1.png"
     },
     {
       "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-2.jpg",
@@ -16108,6 +16108,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\about-4.jpg"
+    },
+    {
+      "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-5.png",
+      "SourceId": "aznews",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\",
+      "BasePath": "_content/aznews",
+      "RelativePath": "img/about-5.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\about-5.png"
     },
     {
       "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\airport.jpg",
@@ -16205,6 +16224,25 @@
       "OriginalItemSpec": "wwwroot\\img\\dinner.jpg"
     },
     {
+      "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\donxe.jpg",
+      "SourceId": "aznews",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\",
+      "BasePath": "_content/aznews",
+      "RelativePath": "img/donxe.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\donxe.jpg"
+    },
+    {
       "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\giatui.jpg",
       "SourceId": "aznews",
       "SourceType": "Discovered",
@@ -16222,6 +16260,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\giatui.jpg"
+    },
+    {
+      "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\gym.png",
+      "SourceId": "aznews",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\",
+      "BasePath": "_content/aznews",
+      "RelativePath": "img/gym.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\gym.png"
     },
     {
       "Identity": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\hoboi.jpg",

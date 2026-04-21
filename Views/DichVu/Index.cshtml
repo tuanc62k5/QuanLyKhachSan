@@ -1,32 +1,138 @@
 @model List<DoAn.Models.tblDichVu>
 
-<div class="container mt-5">
-    <h2 class="mb-4">Dịch vụ khách sạn</h2>
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">Dịch vụ khách sạn</h2>
 
-    <div class="row">
+    <div class="row g-4">
         @foreach (var dv in Model)
         {
-            <div class="col-lg-4 mb-4">
-                <div class="card shadow-sm">
+            <div class="col-lg-4 col-md-6">
+                <div class="card service-card border-0">
 
-                    <img src="~/img/@dv.DV_HinhAnh" class="card-img-top" style="height:200px; object-fit:cover;" />
+                    <img src="~/img/@dv.DV_HinhAnh" class="card-img-top">
 
-                    <div class="card-body">
-                        <h5>@dv.DV_TenDichVu</h5>
+                        <div class="card-body">
 
-                        <p class="text-muted">@dv.DV_MoTa</p>
+                            <h5 class="fw-bold">@dv.DV_TenDichVu</h5>
 
-                        <h6 class="text-primary">
-                            @dv.DV_GiaTien đ
-                        </h6>
+                            <p class="text-muted small">@dv.DV_MoTa</p>
 
-                        <button class="btn btn-primary w-100">
-                            Sử dụng dịch vụ
-                        </button>
+                            <div class="price">
+                                @dv.DV_GiaTien.ToString("N0") đ
+                            </div>
+
+                            <button class="btn btn-service w-100 mt-3" onclick="showDichVu(
+                                '@dv.DV_TenDichVu',
+                                '@dv.DV_HinhAnh',
+                                '@dv.DV_MoTaChiTiet',
+                                '@dv.DV_GiaTien',
+                                '@dv.DV_ThoiGian',
+                                '@dv.DV_SucChua',
+                                '@dv.DV_DiemNoiBat'
+                                )">
+                                XEM DỊCH VỤ
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDichVu" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tenDichVu"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <img id="hinhDichVu" class="img-fluid rounded mb-3"
+                         style="width:100%; height:250px; object-fit:cover;" />
+
+                    <div class="row text-center mb-3">
+
+                        <div class="col-md-4">
+                            ⏱ <b>Thời gian</b><br />
+                            <span id="thoiGian"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            👥 <b>Sức chứa</b><br />
+                            <span id="sucChua"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            ⭐ <b>Giá</b><br />
+                            <span id="giaTien" class="text-warning fw-bold"></span>
+                        </div>
+
                     </div>
 
+                    <h5>Mô tả chi tiết</h5>
+                    <p id="motachitiet"></p>
+                    <h5 class="fw-bold mt-4">Điểm nổi bật</h5>
+
+                    <div id="diemNoiBat" class="row"></div>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <button class="btn btn-service w-100" onclick="datDichVu()">ĐẶT DỊCH VỤ</button>
+                        <button class="btn btn-secondary w-100" data-bs-dismiss="modal">ĐÓNG</button>
+                    </div>
                 </div>
+
             </div>
-        }
+        </div>
     </div>
-</div>
+
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+        <div id="toastSuccess" class="toast align-items-center text-bg-success border-0">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Đặt dịch vụ thành công!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDichVu(ten, hinh, motachitiet, gia, thoigian, succhua, diemnoibat) {
+
+            document.getElementById("tenDichVu").innerText = ten;
+            document.getElementById("hinhDichVu").src = "/img/" + hinh;
+            document.getElementById("motachitiet").innerText = motachitiet;
+            document.getElementById("giaTien").innerText = gia + " đ";
+
+            document.getElementById("thoiGian").innerText = thoigian;
+            document.getElementById("sucChua").innerText = succhua;
+
+            // 👉 render điểm nổi bật
+            let list = diemnoibat.split(',');
+            let html = "";
+
+            list.forEach(item => {
+                html += `
+                                <div class="col-md-6 mb-2">
+                                    <i class="fa fa-check text-success me-2"></i> ${item}
+                                </div>
+                            `;
+            });
+
+            document.getElementById("diemNoiBat").innerHTML = html;
+
+            var modal = new bootstrap.Modal(document.getElementById('modalDichVu'));
+            modal.show();
+        }
+        function datDichVu() {
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalDichVu'));
+            modal.hide();
+
+            var toast = new bootstrap.Toast(document.getElementById('toastSuccess'));
+            toast.show();
+        }
+    </script>

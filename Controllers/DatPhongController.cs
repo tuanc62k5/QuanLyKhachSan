@@ -27,22 +27,29 @@ public class DatPhongController : Controller
     {
         var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == model.P_ID);
 
-        if (phong != null)
+        if (phong == null)
+            return NotFound();
+
+        var soGio = (model.DP_NgayTra - model.DP_NgayNhan).TotalHours;
+
+        if (soGio <= 0)
         {
-            int soNgay = (model.DP_NgayTra - model.DP_NgayNhan).Days;
-            if (soNgay <= 0) soNgay = 1;
-
-            model.DP_TongTien = soNgay * phong.P_GiaPhong;
-            model.DP_TienCoc = model.DP_TongTien * 0.3m;
-            model.DP_NgayTao = DateTime.Now;
-
-            _context.DatPhongs.Add(model);
-            _context.SaveChanges();
-
-            return RedirectToAction("ThanhCong");
+            ModelState.AddModelError("", "Giờ trả phải lớn hơn giờ nhận");
+            ViewBag.Phong = phong;
+            return View(model);
         }
 
-        return View(model);
+        soGio = Math.Ceiling(soGio);
+
+        decimal tongTien = (decimal)soGio * phong.P_GiaPhong;
+
+        model.DP_TongTien = tongTien;
+        model.DP_NgayTao = DateTime.Now;
+
+        _context.DatPhongs.Add(model);
+        _context.SaveChanges();
+
+        return RedirectToAction("ThanhCong");
     }
 
     public IActionResult ThanhCong()

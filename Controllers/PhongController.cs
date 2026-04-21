@@ -53,16 +53,17 @@ public class PhongController : Controller
         if (phong == null)
             return NotFound();
 
-        int SoNgay = (DP_NgayTra - DP_NgayNhan).Days;
+        var soGio = (DP_NgayTra - DP_NgayNhan).TotalHours;
 
-        if (SoNgay <= 0)
+        if (soGio <= 0)
         {
-            TempData["Error"] = "Ngày trả phải lớn hơn ngày nhận";
+            TempData["Error"] = "Giờ trả phải lớn hơn giờ nhận";
             return RedirectToAction("Details", new { id = P_ID });
         }
 
-        decimal tongTien = SoNgay * phong.P_GiaPhong;
-        decimal tienCoc = tongTien * 0.3m;
+        soGio = Math.Ceiling(soGio);
+
+        decimal tongTien = (decimal)soGio * phong.P_GiaPhong;
 
         var datPhong = new tblDatPhong
         {
@@ -73,8 +74,7 @@ public class PhongController : Controller
             DP_NgayNhan = DP_NgayNhan,
             DP_NgayTra = DP_NgayTra,
             DP_SoNguoi = DP_SoNguoi,
-            DP_TongTien = tongTien,
-            DP_TienCoc = tienCoc
+            DP_TongTien = tongTien
         };
 
         _context.DatPhongs.Add(datPhong);

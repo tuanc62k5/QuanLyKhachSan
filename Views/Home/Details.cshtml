@@ -86,7 +86,7 @@
 
                 <!-- GIÁ -->
                 <h4 class="text-primary">
-                    @Model.P_GiaPhong đ / đêm
+                    @Model.P_GiaPhong đ / Giờ
                 </h4>
 
                 <!-- FORM -->
@@ -114,12 +114,12 @@
                     <!-- THÔNG TIN ĐẶT -->
                     <div class="mb-3">
                         <label>Ngày nhận phòng</label>
-                        <input type="date" name="DP_NgayNhan" class="form-control" required />
+                        <input type="datetime-local" name="DP_NgayNhan" class="form-control" required />
                     </div>
 
                     <div class="mb-3">
                         <label>Ngày trả phòng</label>
-                        <input type="date" name="DP_NgayTra" class="form-control" required />
+                        <input type="datetime-local" name="DP_NgayTra" class="form-control" required />
                     </div>
 
                     <div class="mb-3">
@@ -127,7 +127,6 @@
                         <input type="number" name="DP_SoNguoi" value="1" class="form-control" min="1" />
                     </div>
                     <p class="mt-3">Tổng tiền: <b id="tongTien">0</b> đ</p>
-                    <p>Tiền cọc (30%): <b id="tienCoc">0</b> đ</p>
 
                     <button type="submit" class="btn btn-primary w-100">
                         Đặt phòng ngay
@@ -155,14 +154,14 @@
             let d1 = new Date(ngayNhan);
             let d2 = new Date(ngayTra);
 
-            let soNgay = (d2 - d1) / (1000 * 60 * 60 * 24);
+            let soGio = (d2 - d1) / (1000 * 60 * 60);
 
-            if (soNgay > 0) {
-                let tong = soNgay * gia;
-                let coc = tong * 0.3;
+            if (soGio > 0) {
+            soGio = Math.ceil(soGio);
+
+            let tong = soGio * gia;
 
                 document.getElementById("tongTien").innerText = tong.toLocaleString();
-                document.getElementById("tienCoc").innerText = coc.toLocaleString();
             }
         }
     }

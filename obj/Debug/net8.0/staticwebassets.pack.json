@@ -3369,8 +3369,8 @@
       "PackagePath": "staticwebassets\\css\\style.css"
     },
     {
-      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-1.jpg",
-      "PackagePath": "staticwebassets\\img\\about-1.jpg"
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-1.png",
+      "PackagePath": "staticwebassets\\img\\about-1.png"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-2.jpg",
@@ -3383,6 +3383,10 @@
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-4.jpg",
       "PackagePath": "staticwebassets\\img\\about-4.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\about-5.png",
+      "PackagePath": "staticwebassets\\img\\about-5.png"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\airport.jpg",
@@ -3405,8 +3409,16 @@
       "PackagePath": "staticwebassets\\img\\dinner.jpg"
     },
     {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\donxe.jpg",
+      "PackagePath": "staticwebassets\\img\\donxe.jpg"
+    },
+    {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\giatui.jpg",
       "PackagePath": "staticwebassets\\img\\giatui.jpg"
+    },
+    {
+      "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\gym.png",
+      "PackagePath": "staticwebassets\\img\\gym.png"
     },
     {
       "Id": "D:\\Bài tập\\Đồ án chuyên ngành\\KhachSan\\DoAn\\wwwroot\\img\\hoboi.jpg",

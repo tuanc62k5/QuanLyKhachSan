@@ -422,7 +422,6 @@
 
 .footer {
     position: relative;
-    margin-top: 50px !important;
     padding-top: 50px;
 }
 
@@ -500,4 +499,53 @@
 
 .link-login:hover {
     color: #0b5ed7 !important;
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.service-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.service-card img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.service-card .card-body {
+    padding: 20px;
+}
+
+.service-card .price {
+    color: #ff8c00;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* BUTTON CAM */
+.btn-service {
+    background: #ff8c00;
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.btn-service:hover {
+    background: #e67e00;
+    color: #fff;
+}
+
+/* HOVER CARD */
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.h2 {
+    font-size: 34px;
+    line-height: 1.25;
 }

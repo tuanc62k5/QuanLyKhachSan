@@ -14,5 +14,9 @@ namespace DoAn.Models
         public string DV_MoTa { get; set; } = "";
         public string DV_HinhAnh { get; set; } = "";
         public bool DV_TrangThai { get; set; }
+        public string? DV_ThoiGian { get; set; }
+        public string? DV_SucChua { get; set; }
+        public string? DV_DiemNoiBat { get; set; }
+        public string? DV_MoTaChiTiet { get; set; }
     }
 }
