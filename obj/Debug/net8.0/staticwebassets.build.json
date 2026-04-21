@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "S/by2JjDeTQcTJeC9tnUWX9srpV50NmZblrtJxRnNPY=",
+=======
+  "Hash": "OtKN2rGcpzYGlXA9EDlzw/lkDuqzePfbTzusz0cYfc8=",
+>>>>>>> 52ce418 (sửa lại giới thiệu và dịch vụ, xóa đi tiền cọ và thanh toán nha)
   "Source": "aznews",
   "BasePath": "_content/aznews",
   "Mode": "Default",
