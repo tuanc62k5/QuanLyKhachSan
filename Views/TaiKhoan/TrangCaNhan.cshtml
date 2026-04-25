@@ -1,0 +1,86 @@
+@model DoAn.Models.tblKhachHang
+
+<div class="container mt-5">
+    <div class="row">
+
+        <!-- LEFT: PROFILE -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center">
+                <div class="mb-3">
+                    <i class="fa fa-user-circle fa-5x text-primary"></i>
+                </div>
+                <h5>@Model.KH_TenKhach</h5>
+                <p class="text-muted">@Model.KH_Email</p>
+
+                <hr />
+
+                <p><i class="fa fa-phone"></i> @Model.KH_DienThoai</p>
+
+                <button class="btn btn-outline-primary w-100 mt-3" onclick="togglePassword()">
+                    🔒 Đổi mật khẩu
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT: EDIT INFO -->
+        <div class="col-md-8">
+            <div class="card shadow-sm p-4">
+                <h5 class="mb-4">Cập nhật thông tin</h5>
+
+                <form asp-action="TrangCaNhan" method="post">
+                    <input type="hidden" asp-for="KH_ID" />
+
+                    <div class="mb-3">
+                        <label>Tên</label>
+                        <input asp-for="KH_TenKhach" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input asp-for="KH_Email" class="form-control" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>SĐT</label>
+                        <input asp-for="KH_DienThoai" class="form-control" />
+                    </div>
+
+                    <button class="btn btn-primary w-100">
+                        💾 Lưu thay đổi
+                    </button>
+                </form>
+            </div>
+
+            <!-- CHANGE PASSWORD -->
+            <div id="formPass" class="card shadow-sm p-4 mt-3" style="display:none;">
+                <h5 class="mb-3">Đổi mật khẩu</h5>
+
+                <form asp-action="DoiMatKhau" method="post">
+                    <input type="hidden" asp-for="KH_ID" />
+
+                    <div class="mb-3">
+                        <label>Mật khẩu cũ</label>
+                        <input type="password" name="MatKhauCu" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Mật khẩu mới</label>
+                        <input type="password" name="MatKhauMoi" class="form-control" />
+                    </div>
+
+                    <button class="btn btn-success w-100">
+                        🔄 Đổi mật khẩu
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword() {
+    var x = document.getElementById("formPass");
+    x.style.display = (x.style.display === "none") ? "block" : "none";
+}
+</script>

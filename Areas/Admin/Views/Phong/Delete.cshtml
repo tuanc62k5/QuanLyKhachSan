@@ -1,0 +1,73 @@
+@model DoAn.Models.tblPhong
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2 class="text-danger">
+            <i class="bi bi-exclamation-triangle"></i> Xóa phòng
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <div class="row">
+                    <div class="col-md-4 text-center border-end">
+                        @if (!string.IsNullOrEmpty(Model.P_HinhAnh))
+                        {
+                            <img src="~/img/@Model.P_HinhAnh" class="img-fluid rounded shadow-sm mb-3"
+                                 style="max-height:220px;" />
+                        }
+                        <h5 class="fw-bold">@Model.P_TenPhong</h5>
+                        <span class="badge bg-secondary">@Model.P_LoaiPhong</span>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Mã phòng</label>
+                                <input class="form-control" value="@Model.P_ID" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Giá</label>
+                                <input class="form-control" value="@Model.P_GiaPhong.ToString("N0") đ" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sức chứa</label>
+                                <input class="form-control" value="@Model.P_SucChua người" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Trạng thái</label>
+                                <input class="form-control" value="@(Model.P_TrangThai ? "Còn trống" : "Đã đặt")"
+                                       disabled />
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Mô tả</label>
+                                <input class="form-control" value="@Model.P_MoTa" disabled />
+                            </div>
+                        </div>
+
+                        <!-- BUTTON -->
+                        <form asp-action="Delete" method="post" class="mt-4 text-end">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@Model.P_ID" />
+
+                            <a asp-action="Index" class="btn btn-secondary me-2">
+                                <i class="bi bi-arrow-left"></i> Quay lại
+                            </a>
+
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Xóa phòng
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

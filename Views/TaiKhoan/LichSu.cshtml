@@ -1,0 +1,12 @@
+@model List<DoAn.Models.tblDatPhong>
+<h2>Đơn đã đặt</h2>
+
+@foreach (var item in Model)
+{
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px">
+        <p>Phòng ID: @item.P_ID</p>
+        <p>Ngày nhận: @item.DP_NgayNhan</p>
+        <p>Ngày trả: @item.DP_NgayTra</p>
+        <p>Tổng tiền: @item.DP_TongTien</p>
+    </div>
+}

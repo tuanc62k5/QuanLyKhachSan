@@ -9,6 +9,7 @@ namespace DoAn.Models
         [Key]
         public int P_ID { get; set; }
         public string P_TenPhong { get; set; } = "";
+        public string P_LoaiPhong { get; set; } = "";
         public decimal P_GiaPhong { get; set; }
         public string? P_HinhAnh { get; set; }
         public string? P_MoTa { get; set; }

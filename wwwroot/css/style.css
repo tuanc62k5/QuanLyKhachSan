@@ -540,7 +540,6 @@
     color: #fff;
 }
 
-/* HOVER CARD */
 .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
@@ -548,4 +547,63 @@
 .h2 {
     font-size: 34px;
     line-height: 1.25;
+}
+.user-dropdown .dropdown-menu {
+    min-width: 200px;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.user-dropdown .dropdown-item {
+    padding: 12px 18px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.user-dropdown .dropdown-item:hover {
+    background-color: #f5f5f5;
+    padding-left: 22px;
+}
+
+.user-dropdown .dropdown-item.text-danger {
+    color: #dc3545;
+}
+.user-dropdown .dropdown-menu {
+    margin-top: 5px;
+}
+.user-btn {
+    background: #dc3545;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    transition: 0.3s;
+}
+
+.user-btn:hover {
+    background: #bb2d3b;
+}
+
+.user-btn:focus {
+    box-shadow: none;
+}
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 10px;
 }

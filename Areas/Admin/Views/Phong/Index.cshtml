@@ -1,0 +1,118 @@
+@using DoAn.Models;
+@model IList<tblPhong>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Danh sách phòng</h2>
+    </div>
+
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="Admin" asp-controller="Phong" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Thêm mới phòng
+        </a>
+    </div>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-3">
+
+        <div class="d-flex gap-3">
+            <select name="loaiPhong" class="form-select" style="width: 200px;">
+                <option value="">-- Tất cả loại phòng --</option>
+                <option value="Phòng thường">Phòng thường</option>
+                <option value="Phòng gia đình">Phòng gia đình</option>
+                <option value="Phòng VIP">Phòng VIP</option>
+            </select>
+
+            <select name="sucChua" class="form-select" style="width: 150px;">
+                <option value="">-- Sức chứa --</option>
+                <option value="2">2 người</option>
+                <option value="4">4 người</option>
+                <option value="6">6 người</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+
+        </div>
+        <div>
+            <input type="text" name="keyword" value="@Context.Request.Query["keyword"]" class="form-control"
+                   placeholder="🔍 Search..." style="width: 220px;">
+        </div>
+
+    </form>
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Ảnh</th>
+                            <th>Tên phòng</th>
+                            <th>Loại phòng</th>
+                            <th>Giá</th>
+                            <th>Sức chứa</th>
+                            <th>Mô tả</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.P_ID</td>
+                                <td>
+                                    <img src="~/img/@item.P_HinhAnh" width="80" class="rounded" />
+                                </td>
+                                <td class="text-primary fw-bold">
+                                    <a asp-area="Admin" asp-controller="Phong" asp-action="Details"
+                                           asp-route-id="@item.P_ID">
+                                        @item.P_TenPhong
+                                    </a>
+                                </td>
+                                <td>@item.P_LoaiPhong</td>
+                                <td>
+                                    @item.P_GiaPhong.ToString("N0") đ
+                                </td>
+
+                                <td>@item.P_SucChua người</td>
+                                <td style="max-width:200px">
+                                    @item.P_MoTa
+                                </td>
+                                <td>
+                                    @if (item.P_TrangThai)
+                                    {
+                                        <span class="badge bg-success">Còn trống</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Đã đặt</span>
+                                    }
+                                </td>
+                                <td class="text-center" scope="row">
+                                    <a asp-area="Admin" asp-controller="Phong" asp-action="Details"
+                                       asp-route-id="@item.P_ID" class="btn btn-success btn-sm"
+                                       title="Xem chi tiết phòng"><i class="ri-eye-line"></i></a>
+                                    <a asp-area="Admin" asp-controller="Phong" asp-action="Edit" asp-route-id="@item.P_ID"
+                                       class="btn btn-primary btn-sm" title="Sửa phòng"><i class="bi bi-pencil"></i></a>
+                                    <a asp-area="Admin" asp-controller="Phong" asp-action="Delete" asp-route-id="@item.P_ID"
+                                       class="btn btn-danger btn-sm" title="Xóa phòng"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
+
+</main>

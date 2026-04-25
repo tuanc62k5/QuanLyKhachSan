@@ -67,12 +67,30 @@
                         </div>
                         @if (Context.Session.GetString("UserName") != null)
                         {
-                            <span class="text-white me-3">
-                                Xin chào @Context.Session.GetString("UserName")
-                            </span>
-                            <a href="/TaiKhoan/DangXuat" class="btn btn-danger rounded-0 py-4 px-md-5 d-none d-lg-block">
-                                Đăng xuất
-                            </a>
+                            <div class="dropdown user-dropdown">
+                                <a class="btn user-btn dropdown-toggle d-none d-lg-block" href="#"
+                                       role="button" data-bs-toggle="dropdown">
+                                    Xin chào  @Context.Session.GetString("UserName")
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="/TaiKhoan/TrangCaNhan">
+                                            <i class="fa fa-user"></i> Trang cá nhân
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/TaiKhoan/LichSu">
+                                            <i class="fa fa-box"></i> Đơn đã đặt
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="/TaiKhoan/DangXuat">
+                                            <i class="fa fa-sign-out-alt"></i> Đăng xuất
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         }
                         else
                         {

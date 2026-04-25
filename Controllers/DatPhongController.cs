@@ -25,6 +25,12 @@ public class DatPhongController : Controller
     [HttpPost]
     public IActionResult Index(tblDatPhong model)
     {
+        var userId = HttpContext.Session.GetInt32("UserID");
+
+        if (userId == null)
+        {
+            return RedirectToAction("DangNhap", "TaiKhoan");
+        }
         var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == model.P_ID);
 
         if (phong == null)
@@ -45,6 +51,7 @@ public class DatPhongController : Controller
 
         model.DP_TongTien = tongTien;
         model.DP_NgayTao = DateTime.Now;
+        model.KH_ID = HttpContext.Session.GetInt32("UserID");
 
         _context.DatPhongs.Add(model);
         _context.SaveChanges();
