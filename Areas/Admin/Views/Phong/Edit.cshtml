@@ -2,73 +2,92 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 <main id="main" class="main">
 
     <div class="pagetitle">
         <h2>Sửa phòng</h2>
     </div>
+
     <div class="container shadow p-5">
-        <form method="post" asp-action="Edit">
-            < class="form-row">
+        <form method="post" asp-action="Edit" enctype="multipart/form-data">
+            <div class="form-row">
 
-                <input type="text" class="form-control" asp-for="P_ID" type="hidden">
-                
-                    <div class="col-md-4 text-center">
-                        <label class="form-label d-block">Hình ảnh</label>
+                <!-- ID -->
+                <input asp-for="P_ID" type="hidden" />
 
-                        <img id="previewImg" src="https://via.placeholder.com/200x140?text=Preview"
-                             class="img-fluid rounded shadow-sm mb-2" style="max-height:180px;" />
+                <!-- Hình ảnh -->
+                <div class="col-md-4 text-center">
+                    <label class="form-label d-block">Hình ảnh</label>
 
-                        <input type="file" name="ImageFile" class="form-control" accept="image/*"
-                               onchange="previewImage(event)" />
+                    <img id="previewImg"
+                         src="~/img/@Model.P_HinhAnh"
+                         class="img-fluid rounded shadow-sm mb-2"
+                         style="max-height:180px;" />
 
-                        <input type="hidden" asp-for="P_HinhAnh" />
-                        <span asp-validation-for="P_HinhAnh" class="text-danger"></span>
-                    </div>
+                    <input type="file" name="ImageFile"
+                           class="form-control"
+                           accept="image/*"
+                           onchange="previewImage(event)" />
 
-                    <div class="form-group col-md-6">
-                        <label>Tên phòng</label>
-                        <input type="text" class="form-control" asp-for="P_TenPhong" placeholder="Sửa Tên phòng">
-                        <span asp-validation-for="P_TenPhong" class="text-danger"></span>
-                    </div>
+                    <input type="hidden" asp-for="P_HinhAnh" />
+                    <span asp-validation-for="P_HinhAnh" class="text-danger"></span>
+                </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Loại phòng</label>
-                        <input type="text" class="form-control" asp-for="P_LoaiPhong" placeholder="Sửa loại phòng">
-                        <span asp-validation-for="P_LoaiPhong" class="text-danger"></span>
-                    </div>
+                <!-- Tên phòng -->
+                <div class="form-group col-md-6">
+                    <label>Tên phòng</label>
+                    <input class="form-control" asp-for="P_TenPhong" />
+                    <span asp-validation-for="P_TenPhong" class="text-danger"></span>
+                </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Giá phòng</label>
-                        <input type="text" class="form-control" asp-for="P_GiaPhong" placeholder="Sửa giá phòng">
-                        <span asp-validation-for="P_GiaPhong" class="text-danger"></span>
-                    </div>
+                <!-- Loại phòng -->
+                <div class="form-group col-md-6">
+                    <label>Loại phòng</label>
+                    <input class="form-control" asp-for="P_LoaiPhong" />
+                    <span asp-validation-for="P_LoaiPhong" class="text-danger"></span>
+                </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Sức chứa</label>
-                        <input type="text" class="form-control" asp-for="P_SucChua" placeholder="Sửa sức chứa">
-                        <span asp-validation-for="P_SucChua" class="text-danger"></span>
-                    </div>
+                <!-- Giá -->
+                <div class="form-group col-md-6">
+                    <label>Giá phòng</label>
+                    <input type="number" class="form-control" asp-for="P_GiaPhong" />
+                    <span asp-validation-for="P_GiaPhong" class="text-danger"></span>
+                </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Mô tả</label>
-                        <input type="text" class="form-control" asp-for="P_MoTa" placeholder="Sửa mô tả">
-                        <span asp-validation-for="P_MoTa" class="text-danger"></span>
-                    </div>
+                <!-- Sức chứa -->
+                <div class="form-group col-md-6">
+                    <label>Sức chứa</label>
+                    <input type="number" class="form-control" asp-for="P_SucChua" />
+                    <span asp-validation-for="P_SucChua" class="text-danger"></span>
+                </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Trạng thái</label>
-                        <input type="text" class="form-control" asp-for="P_TrangThai" placeholder="Sửa trạng thái">
-                        <span asp-validation-for="P_TrangThai" class="text-danger"></span>
-                    </div>
+                <!-- Mô tả -->
+                <div class="form-group col-md-6">
+                    <label>Mô tả</label>
+                    <input class="form-control" asp-for="P_MoTa" />
+                    <span asp-validation-for="P_MoTa" class="text-danger"></span>
+                </div>
 
-                    <a asp-controller="Phong" asp-action="Index" class="btn btn-lg btn-warning p-2">
-                        <i class="bi bi-arrow-left-circle"></i>
-                        Quay lại
-                    </a>
-                    <button type="submit" class="btn btn-lg btn-primary p-2">
-                        <i class="bi bi-file-plus-fill"></i> LƯU
-                    </button>
+                <!-- Trạng thái -->
+                <div class="form-group col-md-6">
+                    <label>Trạng thái</label>
+                    <input class="form-control" asp-for="P_TrangThai" />
+                    <span asp-validation-for="P_TrangThai" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <!-- Button -->
+            <div class="mt-3">
+                <a asp-controller="Phong" asp-action="Index" class="btn btn-warning">
+                    <i class="bi bi-arrow-left-circle"></i> Quay lại
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+            </div>
         </form>
     </div>
 </main>

@@ -3,7 +3,21 @@ using DoAn.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+            _ => "Vui lòng nhập dữ liệu!"
+        );
+
+        options.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor(
+            (value, fieldName) => $"Giá trị '{value}' không hợp lệ!"
+        );
+
+        options.ModelBindingMessageProvider.SetValueIsInvalidAccessor(
+            value => $"Giá trị '{value}' không hợp lệ!"
+        );
+    });
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(

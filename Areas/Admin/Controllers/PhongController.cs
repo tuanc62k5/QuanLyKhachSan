@@ -57,28 +57,29 @@ namespace DoAn.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(tblPhong p, IFormFile ImageFile)
         {
-            bool isExist = _context.Phongs.Any(x => x.P_TenPhong.Trim().ToLower() == p.P_TenPhong.Trim().ToLower());
+            if (!ModelState.IsValid)
+            {
+                return View(p);
+            }
+            bool isExist = _context.Phongs.Any(x => x.P_TenPhong == p.P_TenPhong);
             if (isExist)
             {
                 ModelState.AddModelError("P_TenPhong", "Tên phòng đã tồn tại!");
+                return View(p);
             }
-            if (ModelState.IsValid)
+            if (ImageFile != null && ImageFile.Length > 0)
             {
-                if (ImageFile != null && ImageFile.Length > 0)
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        ImageFile.CopyTo(stream);
-                    }
-                    p.P_HinhAnh = fileName;
+                    ImageFile.CopyTo(stream);
                 }
-                _context.Phongs.Add(p);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                p.P_HinhAnh = fileName;
             }
-            return View(p);
+            _context.Phongs.Add(p);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
         public IActionResult Edit(int? id)
         {
@@ -87,7 +88,7 @@ namespace DoAn.Areas.Admin.Controllers
             var p = _context.Phongs.Find(id);
             if (p == null)
                 return NotFound();
-            
+
             var phongList = (from ph in _context.Phongs
                              select new SelectListItem()
                              {
