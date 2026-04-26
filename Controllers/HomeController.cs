@@ -1,9 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DoAn.Models;
+using DoAn.Data;
 using System.Linq;
 
-namespace DoAn.Controllers; // ✔ sửa lại namespace
+namespace DoAn.Controllers;
 
 public class HomeController : Controller
 {

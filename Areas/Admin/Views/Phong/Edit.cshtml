@@ -20,14 +20,10 @@
                 <div class="col-md-4 text-center">
                     <label class="form-label d-block">Hình ảnh</label>
 
-                    <img id="previewImg"
-                         src="~/img/@Model.P_HinhAnh"
-                         class="img-fluid rounded shadow-sm mb-2"
+                    <img id="previewImg" src="~/img/@Model.P_HinhAnh" class="img-fluid rounded shadow-sm mb-2"
                          style="max-height:180px;" />
 
-                    <input type="file" name="ImageFile"
-                           class="form-control"
-                           accept="image/*"
+                    <input type="file" name="ImageFile" class="form-control" accept="image/*"
                            onchange="previewImage(event)" />
 
                     <input type="hidden" asp-for="P_HinhAnh" />
@@ -37,7 +33,7 @@
                 <!-- Tên phòng -->
                 <div class="form-group col-md-6">
                     <label>Tên phòng</label>
-                    <input class="form-control" asp-for="P_TenPhong" />
+                    <input asp-for="P_TenPhong" class="form-control" readonly />
                     <span asp-validation-for="P_TenPhong" class="text-danger"></span>
                 </div>
 
@@ -65,15 +61,16 @@
                 <!-- Mô tả -->
                 <div class="form-group col-md-6">
                     <label>Mô tả</label>
-                    <input class="form-control" asp-for="P_MoTa" />
+                    <input class="form-control mb-3" asp-for="P_MoTa" />
                     <span asp-validation-for="P_MoTa" class="text-danger"></span>
                 </div>
-
-                <!-- Trạng thái -->
+                
                 <div class="form-group col-md-6">
                     <label>Trạng thái</label>
-                    <input class="form-control" asp-for="P_TrangThai" />
-                    <span asp-validation-for="P_TrangThai" class="text-danger"></span>
+                    <select asp-for="P_TrangThai" class="form-control">
+                        <option value="true">Còn trống</option>
+                        <option value="false">Đã đặt</option>
+                    </select>
                 </div>
 
             </div>

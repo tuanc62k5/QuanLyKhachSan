@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using DoAn.Models;
+using DoAn.Data;
 using System.Linq;
 
 public class TaiKhoanController : Controller

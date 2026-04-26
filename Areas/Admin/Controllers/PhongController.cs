@@ -1,4 +1,5 @@
 using DoAn.Models;
+using DoAn.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,10 @@ namespace DoAn.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var phongList = _context.Phongs.OrderBy(p => p.P_ID).ToList();
+            var tbList = _context.ThongBaos.OrderByDescending(x => x.TB_ThoiGian).Take(5).ToList();
+            ViewBag.ThongBao = tbList;
             return View(phongList);
+
         }
         public IActionResult Delete(int? id)
         {
@@ -78,6 +82,12 @@ namespace DoAn.Areas.Admin.Controllers
                 p.P_HinhAnh = fileName;
             }
             _context.Phongs.Add(p);
+            _context.ThongBaos.Add(new ThongBao
+            {
+                TB_NoiDung = "Đã thêm phòng mới: " + p.P_TenPhong,
+                TB_ThoiGian = DateTime.Now,
+                TB_TrangThai = false
+            });
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

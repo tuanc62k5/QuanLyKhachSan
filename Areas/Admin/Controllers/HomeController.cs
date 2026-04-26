@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using DoAn.Models;
+using DoAn.Data;
 
 namespace DoAn.Areas.Admin.Controllers;
 

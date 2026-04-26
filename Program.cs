@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using DoAn.Components;
+using DoAn.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
