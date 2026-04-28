@@ -13,10 +13,8 @@
         <form method="post" asp-action="Edit" enctype="multipart/form-data">
             <div class="form-row">
 
-                <!-- ID -->
                 <input asp-for="P_ID" type="hidden" />
 
-                <!-- Hình ảnh -->
                 <div class="mb-3">
                     <label>Hình ảnh</label>
                     <select asp-for="P_HinhAnh" class="form-control">
@@ -37,35 +35,30 @@
                     }
                 </div>
 
-                <!-- Tên phòng -->
                 <div class="form-group col-md-6">
                     <label>Tên phòng</label>
                     <input asp-for="P_TenPhong" class="form-control" readonly />
                     <span asp-validation-for="P_TenPhong" class="text-danger"></span>
                 </div>
 
-                <!-- Loại phòng -->
                 <div class="form-group col-md-6">
                     <label>Loại phòng</label>
                     <input class="form-control" asp-for="P_LoaiPhong" />
                     <span asp-validation-for="P_LoaiPhong" class="text-danger"></span>
                 </div>
 
-                <!-- Giá -->
                 <div class="form-group col-md-6">
                     <label>Giá phòng</label>
                     <input type="number" class="form-control" asp-for="P_GiaPhong" />
                     <span asp-validation-for="P_GiaPhong" class="text-danger"></span>
                 </div>
 
-                <!-- Sức chứa -->
                 <div class="form-group col-md-6">
                     <label>Sức chứa</label>
                     <input type="number" class="form-control" asp-for="P_SucChua" />
                     <span asp-validation-for="P_SucChua" class="text-danger"></span>
                 </div>
 
-                <!-- Mô tả -->
                 <div class="form-group col-md-6">
                     <label>Mô tả</label>
                     <input class="form-control mb-3" asp-for="P_MoTa" />
@@ -82,7 +75,6 @@
 
             </div>
 
-            <!-- Button -->
             <div class="mt-3">
                 <a asp-controller="Phong" asp-action="Index" class="btn btn-warning">
                     <i class="bi bi-arrow-left-circle"></i> Quay lại

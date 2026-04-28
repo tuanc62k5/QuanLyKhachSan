@@ -1,0 +1,113 @@
+@model DoAn.Models.tblKhachHang
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2 class="text-primary">
+            <i class="bi bi-pencil-square"></i> Cập nhật khách hàng
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="KH_ID" />
+
+                    <div class="row">
+
+                        <!-- BÊN TRÁI -->
+                        <div
+                            class="col-md-4 text-center border-end d-flex flex-column justify-content-center align-items-center">
+
+                            <img id="previewImg" src="~/img/@Model?.KH_HinhAnh" class="img-fluid rounded shadow-sm mb-2"
+                                 style="max-height:180px;" />
+                            <label class="form-label d-block">Ảnh đại diện</label>
+                            <select class="form-control" asp-for="KH_HinhAnh" onchange="previewImage()">
+                                <option value="">-- Chọn ảnh --</option>
+                                @foreach (var img in ViewBag.Images)
+                                {
+                                    <option value="@img">@img</option>
+                                }
+                            </select>
+                            <span asp-validation-for="KH_HinhAnh" class="text-danger"></span>
+
+                        </div>
+
+                        <!-- BÊN PHẢI -->
+                        <div class="col-md-8">
+                            <div class="row g-3">
+
+                                <!-- Hàng 1 -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Tên khách</label>
+                                    <input asp-for="KH_TenKhach" class="form-control" required />
+                                    <span asp-validation-for="KH_TenKhach" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input asp-for="KH_Email" type="email" class="form-control" required />
+                                    <span asp-validation-for="KH_Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Điện thoại</label>
+                                    <input asp-for="KH_DienThoai" class="form-control" required />
+                                    <span asp-validation-for="KH_DienThoai" class="text-danger"></span>
+                                </div>
+
+                                <!-- Hàng 3 -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Vai trò</label>
+                                    <select asp-for="KH_VaiTro" class="form-control">
+                                        <option value="user">User</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Trạng thái</label>
+                                    <select asp-for="KH_TrangThai" class="form-control">
+                                        <option value="true">Hoạt động</option>
+                                        <option value="false">Bị khóa</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <!-- BUTTON -->
+                            <div class="mt-4 text-end">
+                                <a asp-action="Index" class="btn btn-secondary me-2">
+                                    <i class="bi bi-arrow-left"></i> Quay lại
+                                </a>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save"></i> Lưu thay đổi
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    function previewImage() {
+        var select = document.querySelector("select[name='KH_HinhAnh']");
+        var img = document.getElementById("previewImg");
+
+        if (select.value) {
+            img.src = "/img/" + select.value;
+        }
+    }
+</script>

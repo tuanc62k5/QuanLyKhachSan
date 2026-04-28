@@ -114,5 +114,53 @@ namespace DoAn.Areas.Admin.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var kh = _context.KhachHangs.Find(id);
+            if (kh == null)
+                return NotFound();
+
+            var images = Directory.GetFiles("wwwroot/img")
+                .Select(Path.GetFileName)
+                .ToList();
+
+            ViewBag.Images = images;
+
+            return View(kh);
+        }
+        [HttpPost]
+        public IActionResult Edit(tblKhachHang kh)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingKhachHang = _context.KhachHangs
+                    .AsNoTracking()
+                    .FirstOrDefault(x => x.KH_ID == kh.KH_ID);
+
+                if (existingKhachHang == null)
+                    return NotFound();
+
+                if (string.IsNullOrEmpty(kh.KH_HinhAnh))
+                {
+                    kh.KH_HinhAnh = existingKhachHang.KH_HinhAnh;
+                }
+
+                _context.KhachHangs.Update(kh);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            var images = Directory.GetFiles("wwwroot/img")
+                .Select(Path.GetFileName)
+                .ToList();
+
+            ViewBag.Images = images;
+
+            return View(kh);
+        }
     }
 }
