@@ -69,8 +69,7 @@
                         {
                             <div class="dropdown user-dropdown">
                                 <a class="btn user-btn dropdown-toggle d-none d-lg-block" href="#"
-                                       role="button" data-bs-toggle="dropdown">
-                                    Xin chào  @Context.Session.GetString("UserName")
+                                       role="button" data-bs-toggle="dropdown">@Context.Session.GetString("UserName")
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -81,7 +80,12 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="/TaiKhoan/LichSu">
-                                            <i class="fa fa-box"></i> Đơn đã đặt
+                                            <i class="fa fa-box"></i> Phòng đã đặt
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/TaiKhoan/DichVuDaDat">
+                                            <i class="fa fa-concierge-bell"></i> Dịch vụ đã đặt
                                         </a>
                                     </li>
                                     <li>

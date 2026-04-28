@@ -9,8 +9,7 @@
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Tuan Anh Hotel
                         </h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">Khám Phá Khách Sạn Đẳng Cấp</h1>
-                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Xem Phòng</a>
-                        <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
+                        <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
                     </div>
                 </div>
             </div>
@@ -21,8 +20,7 @@
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Tuan Anh Hotel
                         </h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">Khám Phá Khách Sạn Đẳng Cấp</h1>
-                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Xem Phòng</a>
-                        <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
+                        <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
                     </div>
                 </div>
             </div>
@@ -124,12 +122,12 @@
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Xem thêm</a>
+                    <a class="btn btn-primary py-3 px-5 mt-2" asp-controller="Home" asp-action="About">Xem thêm</a>
                 </div>
                 <div class="col-lg-6">
                     <div class="row g-3">
                         <div class="col-6 text-end">
-                            <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg"
+                            <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.png"
                                  style="margin-top: 25%;">
                         </div>
                         <div class="col-6 text-start">
@@ -162,8 +160,7 @@
                     <p class="text-white mb-4">Tận hưởng không gian sang trọng, tiện nghi hiện đại cùng dịch vụ chuyên
                         nghiệp tại Tuan Anh Hotel. Chúng tôi mang đến cho bạn trải nghiệm nghỉ dưỡng thoải mái và đáng nhớ.
                     </p>
-                    <a href="" class="btn btn-primary py-md-3 px-md-5 me-3">Xem phòng</a>
-                    <a href="" class="btn btn-light py-md-3 px-md-5">Đặt phòng</a>
+                    <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-primary py-md-3 px-md-5 me-3">Xem phòng</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -206,7 +203,7 @@
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="service-item rounded" href="">
+                    <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
                         <div class="service-icon bg-transparent border rounded p-1">
                             <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
                                 <i class="fa fa-hotel fa-2x text-primary"></i>
@@ -218,7 +215,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <a class="service-item rounded" href="">
+                        <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
                             <div class="service-icon bg-transparent border rounded p-1">
                                 <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
                                     <i class="fa fa-utensils fa-2x text-primary"></i>
@@ -230,7 +227,7 @@
                             </a>
                         </div>
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <a class="service-item rounded" href="">
+                            <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
                                 <div class="service-icon bg-transparent border rounded p-1">
                                     <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
                                         <i class="fa fa-spa fa-2x text-primary"></i>
@@ -242,7 +239,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                                <a class="service-item rounded" href="">
+                                <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
                                     <div class="service-icon bg-transparent border rounded p-1">
                                         <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
                                             <i class="fa fa-swimmer fa-2x text-primary"></i>
@@ -254,7 +251,7 @@
                                     </a>
                                 </div>
                                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                    <a class="service-item rounded" href="">
+                                    <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
                                         <div class="service-icon bg-transparent border rounded p-1">
                                             <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
                                                 <i class="fa fa-glass-cheers fa-2x text-primary"></i>
@@ -266,7 +263,7 @@
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                                        <a class="service-item rounded" href="">
+                                        <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
                                             <div class="service-icon bg-transparent border rounded p-1">
                                                 <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
                                                     <i class="fa fa-dumbbell fa-2x text-primary"></i>

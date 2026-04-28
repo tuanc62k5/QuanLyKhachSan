@@ -16,14 +16,16 @@
                     <div class="row g-3">
                         <div class="col-md-4 text-center">
                             <label class="form-label d-block">Hình ảnh</label>
-
-                            <img id="previewImg" src="https://via.placeholder.com/200x140?text=Preview"
-                                 class="img-fluid rounded shadow-sm mb-2" style="max-height:180px;" />
-
-                            <input type="file" name="ImageFile" class="form-control" accept="image/*"
-                                   onchange="previewImage(event)" />
-
-                            <input type="hidden" asp-for="P_HinhAnh" />
+                            <img id="previewImg" src="~/img/@Model?.P_HinhAnh" class="img-fluid rounded shadow-sm mb-2"
+                                 style="max-height:180px;" />
+                            <select class="form-control" asp-for="P_HinhAnh" onchange="previewImage()">
+                                <option value="">-- Chọn ảnh --</option>
+                                @foreach (var img in ViewBag.Images)
+                                {
+                                    <option value="@img">@img</option>
+                                }
+                            </select>
+                            <span asp-validation-for="P_HinhAnh" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-8">
@@ -96,12 +98,12 @@
 </main>
 
 <script>
-    function previewImage(event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('previewImg');
+    function previewImage() {
+        var select = document.querySelector("select[name='P_HinhAnh']");
+        var img = document.getElementById("previewImg");
 
-        if (file) {
-            preview.src = URL.createObjectURL(file);
+        if (select.value) {
+            img.src = "/img/" + select.value;
         }
     }
 </script>

@@ -13,7 +13,6 @@ public class DatPhongController : Controller
         _context = context;
     }
 
-    // GET
     public IActionResult Index(int P_ID)
     {
         var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == P_ID);
@@ -22,46 +21,57 @@ public class DatPhongController : Controller
         return View();
     }
 
-    // POST
     [HttpPost]
     public IActionResult Index(tblDatPhong model)
     {
         var userId = HttpContext.Session.GetInt32("UserID");
 
         if (userId == null)
-        {
             return RedirectToAction("DangNhap", "TaiKhoan");
-        }
-        var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == model.P_ID);
 
+        var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == model.P_ID);
         if (phong == null)
             return NotFound();
 
-        var soGio = (model.DP_NgayTra - model.DP_NgayNhan).TotalHours;
+        var user = _context.KhachHangs.FirstOrDefault(x => x.KH_ID == userId.Value);
+        if (user == null)
+            return RedirectToAction("DangNhap", "TaiKhoan");
+
+        var soGio = Math.Ceiling((model.DP_NgayTra - model.DP_NgayNhan).TotalHours);
 
         if (soGio <= 0)
         {
-            ModelState.AddModelError("", "Giờ trả phải lớn hơn giờ nhận");
+            ModelState.AddModelError("", "Ngày không hợp lệ");
             ViewBag.Phong = phong;
             return View(model);
         }
 
-        soGio = Math.Ceiling(soGio);
+        model.KH_ID = userId.Value;
+        model.KH_TenKhach = user.KH_TenKhach ?? "";
+        model.KH_Email = user.KH_Email ?? "";
+        model.KH_DienThoai = user.KH_DienThoai ?? "";
 
-        decimal tongTien = (decimal)soGio * phong.P_GiaPhong;
-
-        model.DP_TongTien = tongTien;
+        model.DP_TongTien = (decimal)soGio * phong.P_GiaPhong;
         model.DP_NgayTao = DateTime.Now;
-        model.KH_ID = HttpContext.Session.GetInt32("UserID");
 
         _context.DatPhongs.Add(model);
         _context.SaveChanges();
 
-        return RedirectToAction("ThanhCong");
+        TempData["DatPhongSuccess"] = "🎉 Đặt phòng thành công!";
+        return RedirectToAction("DanhSach", "Phong");
     }
-
-    public IActionResult ThanhCong()
+    [HttpPost]
+    public IActionResult XoaDatPhong(int id)
     {
-        return View();
+        var dp = _context.DatPhongs.FirstOrDefault(x => x.DP_ID == id);
+
+        if (dp != null)
+        {
+            _context.DatPhongs.Remove(dp);
+            _context.SaveChanges();
+        }
+
+        TempData["Success"] = "Đã hủy đặt phòng!";
+        return RedirectToAction("LichSu");
     }
 }

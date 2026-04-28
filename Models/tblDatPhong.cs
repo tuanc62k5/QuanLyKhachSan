@@ -27,5 +27,8 @@ namespace DoAn.Models
         public decimal DP_TongTien { get; set; }
 
         public DateTime DP_NgayTao { get; set; }
+
+        [ForeignKey("P_ID")]
+        public tblPhong? Phong { get; set; }
     }
 }

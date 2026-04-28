@@ -3,12 +3,11 @@
 <div class="container mt-5">
     <div class="row">
 
-        <!-- LEFT: PROFILE -->
+        <!-- LEFT -->
         <div class="col-md-4">
             <div class="card shadow-sm p-4 text-center">
-                <div class="mb-3">
-                    <i class="fa fa-user-circle fa-5x text-primary"></i>
-                </div>
+                <i class="fa fa-user-circle fa-5x text-primary mb-3"></i>
+
                 <h5>@Model.KH_TenKhach</h5>
                 <p class="text-muted">@Model.KH_Email</p>
 
@@ -22,12 +21,25 @@
             </div>
         </div>
 
-        <!-- RIGHT: EDIT INFO -->
+        <!-- RIGHT -->
         <div class="col-md-8">
+
+            <!-- ALERT -->
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <!-- UPDATE INFO -->
             <div class="card shadow-sm p-4">
                 <h5 class="mb-4">Cập nhật thông tin</h5>
 
-                <form asp-action="TrangCaNhan" method="post">
+                <form asp-action="SuaThongTin" method="post">
                     <input type="hidden" asp-for="KH_ID" />
 
                     <div class="mb-3">
@@ -60,12 +72,12 @@
 
                     <div class="mb-3">
                         <label>Mật khẩu cũ</label>
-                        <input type="password" name="MatKhauCu" class="form-control" />
+                        <input type="password" name="oldPass" class="form-control" />
                     </div>
 
                     <div class="mb-3">
                         <label>Mật khẩu mới</label>
-                        <input type="password" name="MatKhauMoi" class="form-control" />
+                        <input type="password" name="newPass" class="form-control" />
                     </div>
 
                     <button class="btn btn-success w-100">

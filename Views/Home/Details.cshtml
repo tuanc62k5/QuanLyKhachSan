@@ -90,26 +90,10 @@
                 </h4>
 
                 <!-- FORM -->
-                <form asp-controller="Phong" asp-action="DatPhong" method="post">
+                <form asp-controller="DatPhong" asp-action="Index" method="post">
 
                     <!-- ID PHÒNG -->
                     <input type="hidden" name="P_ID" value="@Model.P_ID" />
-
-                    <!-- THÔNG TIN KHÁCH -->
-                    <div class="mb-3">
-                        <label>Họ tên khách</label>
-                        <input type="text" name="KH_TenKhach" class="form-control" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Email</label>
-                        <input type="email" name="KH_Email" class="form-control" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Số điện thoại</label>
-                        <input type="text" name="KH_DienThoai" class="form-control" required />
-                    </div>
 
                     <!-- THÔNG TIN ĐẶT -->
                     <div class="mb-3">

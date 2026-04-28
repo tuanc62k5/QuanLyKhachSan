@@ -15,13 +15,44 @@ namespace DoAn.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(string keyword, string loaiPhong, int? sucChua, bool? trangThai)
         {
-            var phongList = _context.Phongs.OrderBy(p => p.P_ID).ToList();
-            var tbList = _context.ThongBaos.OrderByDescending(x => x.TB_ThoiGian).Take(5).ToList();
-            ViewBag.ThongBao = tbList;
-            return View(phongList);
+            var query = _context.Phongs.AsQueryable();
 
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(p =>
+                    p.P_TenPhong.Contains(keyword) || p.P_LoaiPhong.Contains(keyword)
+                );
+            }
+
+            if (!string.IsNullOrEmpty(loaiPhong))
+            {
+                query = query.Where(p => p.P_LoaiPhong == loaiPhong);
+            }
+            if (sucChua.HasValue)
+            {
+                query = query.Where(p => p.P_SucChua == sucChua.Value);
+            }
+            if (trangThai.HasValue)
+            {
+                query = query.Where(p => p.P_TrangThai == trangThai.Value);
+            }
+            var phongList = query.OrderBy(p => p.P_ID).ToList();
+
+            var tbList = _context.ThongBaos
+                .OrderByDescending(x => x.TB_ThoiGian)
+                .Take(5)
+                .ToList();
+
+            ViewBag.ThongBao = tbList;
+
+            ViewBag.Keyword = keyword;
+            ViewBag.LoaiPhong = loaiPhong;
+            ViewBag.SucChua = sucChua;
+            ViewBag.TrangThai = trangThai;
+
+            return View(phongList);
         }
         public IActionResult Delete(int? id)
         {
@@ -56,30 +87,30 @@ namespace DoAn.Areas.Admin.Controllers
                 Value = "0"
             });
             ViewBag.PhongList = phongList;
+            var images = Directory.GetFiles("wwwroot/img").Select(Path.GetFileName).ToList();
+
+            ViewBag.Images = images;
             return View();
         }
         [HttpPost]
-        public IActionResult Create(tblPhong p, IFormFile ImageFile)
+        public IActionResult Create(tblPhong p)
         {
             if (!ModelState.IsValid)
             {
+                var images = Directory.GetFiles("wwwroot/img")
+                    .Select(Path.GetFileName)
+                    .ToList();
+
+                ViewBag.Images = images;
                 return View(p);
             }
             bool isExist = _context.Phongs.Any(x => x.P_TenPhong == p.P_TenPhong);
             if (isExist)
             {
                 ModelState.AddModelError("P_TenPhong", "Tên phòng đã tồn tại!");
+                var images = Directory.GetFiles("wwwroot/img").Select(Path.GetFileName).ToList();
+                ViewBag.Images = images;
                 return View(p);
-            }
-            if (ImageFile != null && ImageFile.Length > 0)
-            {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    ImageFile.CopyTo(stream);
-                }
-                p.P_HinhAnh = fileName;
             }
             _context.Phongs.Add(p);
             _context.ThongBaos.Add(new ThongBao
@@ -95,51 +126,48 @@ namespace DoAn.Areas.Admin.Controllers
         {
             if (id == null || id == 0)
                 return NotFound();
+
             var p = _context.Phongs.Find(id);
             if (p == null)
                 return NotFound();
 
-            var phongList = (from ph in _context.Phongs
-                             select new SelectListItem()
-                             {
-                                 Text = ph.P_ID.ToString(),
-                                 Value = ph.P_ID.ToString()
-                             }).ToList();
-            phongList.Insert(0, new SelectListItem()
-            {
-                Text = "--- select ---",
-                Value = "0"
-            });
-            ViewBag.PhongList = phongList;
+            var images = Directory.GetFiles("wwwroot/img")
+                .Select(Path.GetFileName)
+                .ToList();
+
+            ViewBag.Images = images;
+
             return View(p);
         }
         [HttpPost]
-        public IActionResult Edit(tblPhong p, IFormFile ImageFile)
+        public IActionResult Edit(tblPhong p)
         {
             if (ModelState.IsValid)
             {
-                var existingPhong = _context.Phongs.AsNoTracking().FirstOrDefault(x => x.P_ID == p.P_ID);
+                var existingPhong = _context.Phongs
+                    .AsNoTracking()
+                    .FirstOrDefault(x => x.P_ID == p.P_ID);
+
                 if (existingPhong == null)
                     return NotFound();
 
-                if (ImageFile != null && ImageFile.Length > 0)
-                {
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        ImageFile.CopyTo(stream);
-                    }
-                    p.P_HinhAnh = fileName;
-                }
-                else
+                if (string.IsNullOrEmpty(p.P_HinhAnh))
                 {
                     p.P_HinhAnh = existingPhong.P_HinhAnh;
                 }
+
                 _context.Phongs.Update(p);
                 _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
+            var images = Directory.GetFiles("wwwroot/img")
+                .Select(Path.GetFileName)
+                .ToList();
+
+            ViewBag.Images = images;
+
             return View(p);
         }
     }

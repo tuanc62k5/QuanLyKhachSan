@@ -17,17 +17,24 @@
                 <input asp-for="P_ID" type="hidden" />
 
                 <!-- Hình ảnh -->
-                <div class="col-md-4 text-center">
-                    <label class="form-label d-block">Hình ảnh</label>
+                <div class="mb-3">
+                    <label>Hình ảnh</label>
+                    <select asp-for="P_HinhAnh" class="form-control">
 
-                    <img id="previewImg" src="~/img/@Model.P_HinhAnh" class="img-fluid rounded shadow-sm mb-2"
-                         style="max-height:180px;" />
+                        <option value="">-- Chọn ảnh --</option>
 
-                    <input type="file" name="ImageFile" class="form-control" accept="image/*"
-                           onchange="previewImage(event)" />
+                        @foreach (var img in ViewBag.Images)
+                        {
+                            <option value="@img">@img</option>
+                        }
 
-                    <input type="hidden" asp-for="P_HinhAnh" />
-                    <span asp-validation-for="P_HinhAnh" class="text-danger"></span>
+                    </select>
+                    @if (!string.IsNullOrEmpty(Model.P_HinhAnh))
+                    {
+                        <div class="mt-2">
+                            <img src="@Url.Content("~/img/" + Model.P_HinhAnh)" style="width:150px; border-radius:8px;" />
+                        </div>
+                    }
                 </div>
 
                 <!-- Tên phòng -->
