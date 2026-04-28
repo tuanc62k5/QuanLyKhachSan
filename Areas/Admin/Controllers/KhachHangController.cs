@@ -15,9 +15,35 @@ namespace DoAn.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(string keyword, string vaiTro, bool? trangThai)
         {
-            var khachHangList = _context.KhachHangs.OrderBy(k => k.KH_ID).ToList();
+            var query = _context.KhachHangs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(k =>
+                    k.KH_TenKhach.Contains(keyword) || k.KH_Email.Contains(keyword)
+                );
+            }
+
+            if (!string.IsNullOrEmpty(vaiTro))
+            {
+                query = query.Where(k => k.KH_VaiTro == vaiTro);
+            }
+            if (trangThai.HasValue)
+            {
+                query = query.Where(k => k.KH_TrangThai == trangThai.Value);
+            }
+            var khachHangList = query.OrderBy(k => k.KH_ID).ToList();
+
+            var tbList = _context.ThongBaos.OrderByDescending(x => x.TB_ThoiGian).Take(5).ToList();
+
+            ViewBag.ThongBao = tbList;
+
+            ViewBag.Keyword = keyword;
+            ViewBag.VaiTro = vaiTro;
+            ViewBag.TrangThai = trangThai;
+
             return View(khachHangList);
         }
         public IActionResult Delete(int? id)
@@ -36,6 +62,55 @@ namespace DoAn.Areas.Admin.Controllers
             if (delKhachHang == null)
                 return NotFound();
             _context.KhachHangs.Remove(delKhachHang);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Create()
+        {
+            var khachhangList = (from kh in _context.KhachHangs
+                             select new SelectListItem()
+                             {
+                                 Text = kh.KH_TenKhach,
+                                 Value = kh.KH_ID.ToString()
+                             }).ToList();
+            khachhangList.Insert(0, new SelectListItem()
+            {
+                Text = "--- select ---",
+                Value = "0"
+            });
+            ViewBag.KhachHangList = khachhangList;
+            var images = Directory.GetFiles("wwwroot/img").Select(Path.GetFileName).ToList();
+
+            ViewBag.Images = images;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(tblKhachHang kh)
+        {
+            if (!ModelState.IsValid)
+            {
+                var images = Directory.GetFiles("wwwroot/img")
+                    .Select(Path.GetFileName)
+                    .ToList();
+
+                ViewBag.Images = images;
+                return View(kh);
+            }
+            bool isExist = _context.KhachHangs.Any(x => x.KH_Email == kh.KH_Email);
+            if (isExist)
+            {
+                ModelState.AddModelError("KH_Email", "Email đã tồn tại!");
+                var images = Directory.GetFiles("wwwroot/img").Select(Path.GetFileName).ToList();
+                ViewBag.Images = images;
+                return View(kh);
+            }
+            _context.KhachHangs.Add(kh);
+            _context.ThongBaos.Add(new ThongBao
+            {
+                TB_NoiDung = "Đã thêm khách hàng mới: " + kh.KH_TenKhach,
+                TB_ThoiGian = DateTime.Now,
+                TB_TrangThai = false
+            });
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

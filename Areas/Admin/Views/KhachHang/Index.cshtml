@@ -11,4 +11,101 @@
         <h2>Danh sách khách hàng</h2>
     </div>
 
-</main>
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="Admin" asp-controller="KhachHang" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Thêm mới khách hàng
+        </a>
+    </div>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-3">
+
+        <div class="d-flex gap-3">
+
+            <select name="vaiTro" class="form-select" style="width: 150px;">
+                <option value="">-- Vai trò --</option>
+                <option value="Admin">Admin</option>
+                <option value="User">Người dùng</option>
+            </select>
+            <select name="trangThai" class="form-select" style="width: 150px;">
+                <option value="">-- Trạng thái --</option>
+                <option value="true">Hoạt động</option>
+                <option value="false">Bị khóa</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+
+        </div>
+        <div>
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control" placeholder="Tìm kiếm..."
+                   style="width: 220px;">
+        </div>
+
+    </form>
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Ảnh</th>
+                            <th>Tên khách</th>
+                            <th>Email</th>
+                            <th>Điện thoại</th>
+                            <th>Vai trò</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.KH_ID</td>
+                                <td>
+                                    <img src="~/img/@item.KH_HinhAnh" width="80" class="rounded" />
+                                </td>
+                                <td class="text-primary fw-bold">
+                                    <a asp-area="Admin" asp-controller="KhachHang" asp-action="Details"
+                                           asp-route-id="@item.KH_ID">
+                                        @item.KH_TenKhach
+                                    </a>
+                                </td>
+                                <td>@item.KH_Email</td>
+                                <td>
+                                    @item.KH_DienThoai
+                                </td>
+
+                                <td>@item.KH_VaiTro</td>
+                                <td>
+                                    @if (item.KH_TrangThai)
+                                    {
+                                        <span class="badge bg-success">Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Bị khóa</span>
+                                    }
+                                </td>
+                                <td class="text-center" scope="row">
+                                    <a asp-area="Admin" asp-controller="KhachHang" asp-action="Edit"
+                                           asp-route-id="@item.KH_ID" class="btn btn-primary btn-sm" title="Sửa khách hàng"><i
+                                        class="bi bi-pencil"></i></a>
+                                        <a asp-area="Admin" asp-controller="KhachHang" asp-action="Delete"
+                                               asp-route-id="@item.KH_ID" class="btn btn-danger btn-sm" title="Xóa khách hàng"><i
+                                            class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>

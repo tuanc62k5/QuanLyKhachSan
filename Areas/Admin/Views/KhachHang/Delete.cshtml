@@ -1,0 +1,77 @@
+@model DoAn.Models.tblKhachHang
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2 class="text-danger">
+            <i class="bi bi-exclamation-triangle"></i> Xóa khách hàng
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column justify-content-center align-items-center text-center border-end">
+                        @if (!string.IsNullOrEmpty(Model.KH_HinhAnh))
+                        {
+                            <img src="~/img/@Model.KH_HinhAnh" class="img-fluid rounded shadow-sm mb-3"
+                                 style="max-height:220px;" />
+                        }
+                        <h5 class="fw-bold">@Model.KH_TenKhach</h5>
+                        <span class="badge bg-secondary">@Model.KH_VaiTro</span>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">KH_ID</label>
+                                <input class="form-control" value="@Model.KH_ID" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Tên khách</label>
+                                <input class="form-control" value="@Model.KH_TenKhach" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" value="@Model.KH_Email" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Điện thoại</label>
+                                <input class="form-control" value="@Model.KH_DienThoai" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Vai trò</label>
+                                <input class="form-control" value="@Model.KH_VaiTro" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Trạng thái</label>
+                                <input class="form-control" value="@(Model.KH_TrangThai ? "Hoạt động" : "Bị khóa")"
+                                       disabled />
+                            </div>
+                        </div>
+
+                        <!-- BUTTON -->
+                        <form asp-action="Delete" method="post" class="mt-4 text-end">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@Model.KH_ID" />
+
+                            <a asp-action="Index" class="btn btn-secondary me-2">
+                                <i class="bi bi-arrow-left"></i> Quay lại
+                            </a>
+
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Xóa khách hàng
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
