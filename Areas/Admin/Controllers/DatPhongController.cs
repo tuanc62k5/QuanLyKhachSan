@@ -36,14 +36,18 @@ namespace DoAn.Areas.Admin.Controllers
             {
                 query = query.Where(dp =>
                     dp.Phong != null &&
-                    dp.Phong.P_LoaiPhong == loaiPhong
+                    dp.Phong.P_LoaiPhong != null &&
+                    dp.Phong.P_LoaiPhong.Trim().ToLower() == loaiPhong.Trim().ToLower()
                 );
             }
 
-            if (!string.IsNullOrEmpty(trangThai))
+            if (!string.IsNullOrWhiteSpace(trangThai))
             {
+                trangThai = trangThai.Trim();
+
                 query = query.Where(dp =>
-                    dp.DP_TrangThai == trangThai
+                    dp.DP_TrangThai != null &&
+                    dp.DP_TrangThai.Trim().ToLower() == trangThai.ToLower()
                 );
             }
 
@@ -167,6 +171,70 @@ namespace DoAn.Areas.Admin.Controllers
                 Value = k.KH_ID.ToString(),
                 Text = k.KH_TenKhach
             }).ToList();
+
+            return View(dp);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var dp = _context.DatPhongs.Include(x => x.Phong).FirstOrDefault(x => x.DP_ID == id);
+
+            if (dp == null)
+                return NotFound();
+
+            var loaiPhong = dp.Phong != null ? dp.Phong.P_LoaiPhong : "";
+
+            ViewBag.KhachHangList = new SelectList(_context.KhachHangs, "KH_ID", "KH_TenKhach", dp.KH_ID);
+
+            ViewBag.LoaiPhongList = _context.Phongs.Where(p => p.P_TrangThai == true).Select(p => p.P_LoaiPhong).Distinct().ToList();
+
+            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => p.P_TrangThai == true && p.P_LoaiPhong == loaiPhong)
+            .ToList(), "P_ID", "P_TenPhong", dp.P_ID);
+
+            return View(dp);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(tblDatPhong dp)
+        {
+            var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == dp.P_ID);
+            var khach = _context.KhachHangs.FirstOrDefault(k => k.KH_ID == dp.KH_ID);
+
+            if (phong == null)
+                ModelState.AddModelError("P_ID", "Vui lòng chọn phòng!");
+
+            if (khach == null)
+                ModelState.AddModelError("KH_ID", "Vui lòng chọn khách hàng!");
+
+            if (dp.DP_NgayTra <= dp.DP_NgayNhan)
+                ModelState.AddModelError("", "Ngày trả phải lớn hơn ngày nhận!");
+
+            if (ModelState.IsValid && phong != null && khach != null)
+            {
+                var soGio = Math.Ceiling((dp.DP_NgayTra - dp.DP_NgayNhan).TotalHours);
+
+                if (soGio <= 0)
+                    soGio = 1;
+
+                dp.DP_TongTien = (decimal)soGio * phong.P_GiaPhong;
+
+                _context.DatPhongs.Update(dp);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.KhachHangList = new SelectList(_context.KhachHangs, "KH_ID", "KH_TenKhach", dp.KH_ID);
+
+            ViewBag.LoaiPhongList = _context.Phongs.Where(p => p.P_TrangThai == true).Select(p => p.P_LoaiPhong).Distinct().ToList();
+
+            ViewBag.SelectedLoaiPhong = phong?.P_LoaiPhong;
+
+            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => p.P_TrangThai == true && p.P_LoaiPhong == phong!.P_LoaiPhong)
+            .ToList(), "P_ID", "P_TenPhong", dp.P_ID);
 
             return View(dp);
         }
