@@ -1,0 +1,133 @@
+@using DoAn.Models;
+@model IList<tblDatPhong>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Danh sách đặt phòng</h2>
+    </div>
+
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="Admin" asp-controller="DatPhong" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Thêm mới đặt phòng
+        </a>
+    </div>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-3">
+
+        <div class="d-flex gap-3">
+
+            <select name="loaiPhong" class="form-select" style="width: 170px;">
+                <option value="">-- Loại phòng --</option>
+                @foreach (var loai in ViewBag.LoaiPhongList)
+                {
+                    <option value="@loai" selected="@(ViewBag.LoaiPhong == loai)">
+                        @loai
+                    </option>
+                }
+            </select>
+
+            <select name="trangThai" class="form-select" style="width: 150px;">
+                <option value="">-- Trạng thái --</option>
+                <option value="Chờ duyệt" selected="@(ViewBag.TrangThai == "Chờ duyệt")">Chờ duyệt</option>
+                <option value="Đã duyệt" selected="@(ViewBag.TrangThai == "Đã duyệt")">Đã duyệt</option>
+                <option value="Đang ở" selected="@(ViewBag.TrangThai == "Đang ở")">Đang ở</option>
+                <option value="Đã trả phòng" selected="@(ViewBag.TrangThai == "Đã trả phòng")">Đã trả phòng</option>
+                <option value="Đã hủy" selected="@(ViewBag.TrangThai == "Đã hủy")">Đã hủy</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+
+        </div>
+        <div>
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control" placeholder="Tìm kiếm..."
+                   style="width: 220px;">
+        </div>
+
+    </form>
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng</th>
+                            <th>Phòng</th>
+                            <th>Loại phòng</th>
+                            <th>Số giờ</th>
+                            <th>Số người</th>
+                            <th>Tiền phòng</th>
+                            <th>Ngày đặt</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var soGio = Math.Ceiling((item.DP_NgayTra - item.DP_NgayNhan).TotalHours);
+                            if (soGio <= 0)
+                            {
+                                soGio = 1;
+                            }
+                            var tienPhong = (decimal)soGio * (item.Phong?.P_GiaPhong ?? 0);
+
+                            <tr>
+                                <td>@item.DP_ID</td>
+                                <td>@item.KhachHang?.KH_TenKhach</td>
+                                <td>@item.Phong?.P_TenPhong</td>
+                                <td>@item.Phong?.P_LoaiPhong</td>
+                                <td>@soGio giờ</td>
+                                <td>@item.DP_SoNguoi</td>
+                                <td class="text-danger">@tienPhong.ToString("N0") đ</td>
+                                <td>@item.DP_NgayTao.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (item.DP_TrangThai == "Chờ duyệt")
+                                    {
+                                        <span class="badge bg-secondary">Chờ duyệt</span>
+                                    }
+                                    else if (item.DP_TrangThai == "Đã duyệt")
+                                    {
+                                        <span class="badge bg-primary">Đã duyệt</span>
+                                    }
+                                    else if (item.DP_TrangThai == "Đang ở")
+                                    {
+                                        <span class="badge bg-warning text-dark">Đang ở</span>
+                                    }
+                                    else if (item.DP_TrangThai == "Đã trả phòng")
+                                    {
+                                        <span class="badge bg-success">Đã trả phòng</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Đã hủy</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.DP_ID" class="btn btn-sm btn-primary mb-1">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <a asp-action="Delete" asp-route-id="@item.DP_ID" class="btn btn-sm btn-danger mb-1">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
+
+</main>

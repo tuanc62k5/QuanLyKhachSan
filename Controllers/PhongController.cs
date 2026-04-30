@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DoAn.Models;
 using DoAn.Data;
+using System;
 using System.Linq;
 
 public class PhongController : Controller
@@ -16,21 +17,17 @@ public class PhongController : Controller
     {
         var query = _context.Phongs.AsQueryable();
 
-        // chỉ lấy phòng đang hoạt động
         query = query.Where(p => p.P_TrangThai);
 
-        // lọc số người
         if (SoNguoi.HasValue && SoNguoi > 0)
             query = query.Where(p => p.P_SucChua >= SoNguoi.Value);
 
-        // lọc giá
         if (GiaMin.HasValue)
             query = query.Where(p => p.P_GiaPhong >= GiaMin.Value);
 
         if (GiaMax.HasValue)
             query = query.Where(p => p.P_GiaPhong <= GiaMax.Value);
 
-        // sắp xếp
         if (SapXep == "GiaTang")
             query = query.OrderBy(p => p.P_GiaPhong);
         else if (SapXep == "GiaGiam")
@@ -38,7 +35,6 @@ public class PhongController : Controller
 
         var phongs = query.ToList();
 
-        // giữ lại giá trị filter
         ViewBag.SoNguoi = SoNguoi;
         ViewBag.GiaMin = GiaMin;
         ViewBag.GiaMax = GiaMax;
@@ -46,13 +42,27 @@ public class PhongController : Controller
 
         return View(phongs);
     }
+
     [HttpPost]
-    public IActionResult DatPhong(int P_ID, string KH_TenKhach, string KH_Email, string KH_DienThoai, DateTime DP_NgayNhan, DateTime DP_NgayTra, int DP_SoNguoi)
+    [ValidateAntiForgeryToken]
+    public IActionResult DatPhong(int P_ID, DateTime DP_NgayNhan, DateTime DP_NgayTra, int DP_SoNguoi)
     {
-        var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == P_ID);
+        var userId = HttpContext.Session.GetInt32("UserID");
+
+        if (userId == null)
+            return RedirectToAction("DangNhap", "TaiKhoan");
+
+        var phong = _context.Phongs
+            .FirstOrDefault(p => p.P_ID == P_ID);
 
         if (phong == null)
             return NotFound();
+
+        var khachHang = _context.KhachHangs
+            .FirstOrDefault(k => k.KH_ID == userId.Value);
+
+        if (khachHang == null)
+            return RedirectToAction("DangNhap", "TaiKhoan");
 
         var soGio = (DP_NgayTra - DP_NgayNhan).TotalHours;
 
@@ -68,20 +78,29 @@ public class PhongController : Controller
 
         var datPhong = new tblDatPhong
         {
+            KH_ID = userId.Value,
             P_ID = P_ID,
-            KH_TenKhach = KH_TenKhach,
-            KH_Email = KH_Email,
-            KH_DienThoai = KH_DienThoai,
             DP_NgayNhan = DP_NgayNhan,
             DP_NgayTra = DP_NgayTra,
             DP_SoNguoi = DP_SoNguoi,
-            DP_TongTien = tongTien
+            DP_TongTien = tongTien,
+            DP_NgayTao = DateTime.Now,
+            DP_TrangThai = "Chờ duyệt"
         };
 
         _context.DatPhongs.Add(datPhong);
+
+        _context.ThongBaos.Add(new ThongBao
+        {
+            TB_NoiDung = "Khách hàng " + khachHang.KH_TenKhach + " vừa đặt phòng " + phong.P_TenPhong,
+            TB_ThoiGian = DateTime.Now,
+            TB_TrangThai = false
+        });
+
         _context.SaveChanges();
 
         TempData["DatPhongSuccess"] = "Đặt phòng thành công!";
+
         return RedirectToAction("DanhSach");
     }
 }

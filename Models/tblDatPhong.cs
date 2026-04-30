@@ -9,15 +9,9 @@ namespace DoAn.Models
         [Key]
         public int DP_ID { get; set; }
 
-        public int? KH_ID { get; set; }
-
-        [ForeignKey("KH_ID")]
-        public tblKhachHang? KhachHang { get; set; }
-        public string KH_TenKhach { get; set; } = "";
-        public string KH_Email { get; set; } = "";
-        public string KH_DienThoai { get; set; } = "";
-
         public int P_ID { get; set; }
+
+        public int? KH_ID { get; set; }
 
         public DateTime DP_NgayNhan { get; set; }
         public DateTime DP_NgayTra { get; set; }
@@ -28,7 +22,12 @@ namespace DoAn.Models
 
         public DateTime DP_NgayTao { get; set; }
 
+        public string DP_TrangThai { get; set; } = "";
+
         [ForeignKey("P_ID")]
         public tblPhong? Phong { get; set; }
+
+        [ForeignKey("KH_ID")]
+        public tblKhachHang? KhachHang { get; set; }
     }
 }
