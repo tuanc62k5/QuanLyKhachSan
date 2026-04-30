@@ -1,0 +1,90 @@
+@model DoAn.Models.tblDatPhong
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    var soGio = Math.Ceiling((Model.DP_NgayTra - Model.DP_NgayNhan).TotalHours);
+    if (soGio <= 0)
+    {
+        soGio = 1;
+    }
+
+    var tienPhong = (decimal)soGio * (Model.Phong?.P_GiaPhong ?? 0);
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2 class="text-danger">
+            <i class="bi bi-trash3"></i> Xóa đặt phòng
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Mã đặt phòng</label>
+                        <input class="form-control" value="@Model.DP_ID" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Khách hàng</label>
+                        <input class="form-control" value="@Model.KhachHang?.KH_TenKhach" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Phòng</label>
+                        <input class="form-control" value="@Model.Phong?.P_TenPhong" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Loại phòng</label>
+                        <input class="form-control" value="@Model.Phong?.P_LoaiPhong" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Số giờ</label>
+                        <input class="form-control" value="@soGio giờ" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Số người</label>
+                        <input class="form-control" value="@Model.DP_SoNguoi" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Tiền phòng</label>
+                        <input class="form-control text-danger fw-bold" value="@tienPhong.ToString("N0") đ" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Ngày đặt</label>
+                        <input class="form-control" value="@Model.DP_NgayTao.ToString("dd/MM/yyyy HH:mm")" readonly />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Trạng thái</label>
+                        <input class="form-control" value="@Model.DP_TrangThai" readonly />
+                    </div>
+
+
+                    <form asp-action="Delete" method="post" class="mt-4 text-end">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.DP_ID" />
+
+                        <a asp-action="Index" class="btn btn-secondary me-2">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Xóa phòng
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

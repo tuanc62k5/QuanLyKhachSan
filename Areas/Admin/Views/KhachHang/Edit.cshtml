@@ -18,8 +18,6 @@
                     <input type="hidden" asp-for="KH_ID" />
 
                     <div class="row">
-
-                        <!-- BÊN TRÁI -->
                         <div
                             class="col-md-4 text-center border-end d-flex flex-column justify-content-center align-items-center">
 
@@ -37,11 +35,8 @@
 
                         </div>
 
-                        <!-- BÊN PHẢI -->
                         <div class="col-md-8">
                             <div class="row g-3">
-
-                                <!-- Hàng 1 -->
                                 <div class="col-md-6">
                                     <label class="form-label">Tên khách</label>
                                     <input asp-for="KH_TenKhach" class="form-control" required />
@@ -60,7 +55,6 @@
                                     <span asp-validation-for="KH_DienThoai" class="text-danger"></span>
                                 </div>
 
-                                <!-- Hàng 3 -->
                                 <div class="col-md-6">
                                     <label class="form-label">Vai trò</label>
                                     <select asp-for="KH_VaiTro" class="form-control">
@@ -79,7 +73,6 @@
 
                             </div>
 
-                            <!-- BUTTON -->
                             <div class="mt-4 text-end">
                                 <a asp-action="Index" class="btn btn-secondary me-2">
                                     <i class="bi bi-arrow-left"></i> Quay lại

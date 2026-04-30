@@ -9,22 +9,14 @@
             <i class="bi bi-calendar-plus"></i> Tạo đặt phòng
         </h2>
     </div>
-
     <section class="section">
         <div class="card shadow-sm">
             <div class="card-body p-4">
-
                 <form asp-action="Create" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
                     <div class="row">
-
-                        <!-- BÊN TRÁI -->
                         <div class="col-md-4 border-end">
 
-                            
-
-                            <!-- LOẠI PHÒNG -->
                             <div class="mb-3">
                                 <label class="form-label">Loại phòng</label>
                                 <select id="LoaiPhong" class="form-control" onchange="locPhong()" required>
@@ -36,7 +28,6 @@
                                 </select>
                             </div>
 
-                            <!-- TÊN PHÒNG -->
                             <div class="mb-3">
                                 <label class="form-label">Tên phòng</label>
                                 <select asp-for="P_ID" id="P_ID" class="form-control" required>
@@ -51,7 +42,6 @@
                                 <span asp-validation-for="P_ID" class="text-danger"></span>
                             </div>
 
-                            <!-- KHÁCH HÀNG -->
                             <div class="mb-3">
                                 <label class="form-label">Khách hàng</label>
                                 <select asp-for="KH_ID" class="form-control" required>
@@ -66,32 +56,27 @@
 
                         </div>
 
-                        <!-- BÊN PHẢI -->
                         <div class="col-md-8">
                             <div class="row g-3">
 
-                                <!-- NGÀY NHẬN -->
                                 <div class="col-md-6">
                                     <label class="form-label">Ngày nhận phòng</label>
                                     <input asp-for="DP_NgayNhan" type="datetime-local" class="form-control" required />
                                     <span asp-validation-for="DP_NgayNhan" class="text-danger"></span>
                                 </div>
 
-                                <!-- NGÀY TRẢ -->
                                 <div class="col-md-6">
                                     <label class="form-label">Ngày trả phòng</label>
                                     <input asp-for="DP_NgayTra" type="datetime-local" class="form-control" required />
                                     <span asp-validation-for="DP_NgayTra" class="text-danger"></span>
                                 </div>
 
-                                <!-- SỐ NGƯỜI -->
                                 <div class="col-md-6">
                                     <label class="form-label">Số người</label>
                                     <input asp-for="DP_SoNguoi" type="number" min="1" class="form-control" required />
                                     <span asp-validation-for="DP_SoNguoi" class="text-danger"></span>
                                 </div>
 
-                                <!-- TRẠNG THÁI -->
                                 <div class="col-md-6">
                                     <label class="form-label">Trạng thái</label>
                                     <select asp-for="DP_TrangThai" class="form-control">
@@ -104,12 +89,10 @@
 
                             </div>
 
-                            <!-- BUTTON -->
                             <div class="mt-4 text-end">
                                 <a asp-action="Index" class="btn btn-secondary me-2">
                                     <i class="bi bi-arrow-left"></i> Quay lại
                                 </a>
-
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-plus-circle"></i> Tạo đặt phòng
                                 </button>
