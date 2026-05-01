@@ -23,18 +23,15 @@
                     <div class="row">
 
                         <!-- BÊN TRÁI -->
-                        <div class="col-md-4 text-center border-end d-flex flex-column justify-content-center align-items-center">
+                        <div
+                            class="col-md-4 text-center border-end d-flex flex-column justify-content-center align-items-center">
 
-                            <img id="previewImg"
-                                 src="~/img/@Model.P_HinhAnh"
-                                 class="img-fluid rounded shadow-sm mb-3"
+                            <img id="previewImg" src="~/img/@Model.P_HinhAnh" class="img-fluid rounded shadow-sm mb-3"
                                  style="max-height:180px;" />
 
-                            <label class="form-label">Ảnh phòng</label>
+                            <label class="form-label fw-bold">Ảnh phòng</label>
 
-                            <select asp-for="P_HinhAnh"
-                                    class="form-control"
-                                    onchange="previewImage()">
+                            <select asp-for="P_HinhAnh" class="form-control" onchange="previewImage()">
                                 <option value="">-- Chọn ảnh --</option>
                                 @foreach (var img in ViewBag.Images)
                                 {
@@ -58,13 +55,13 @@
                             <div class="row g-3">
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Tên phòng</label>
+                                    <label class="form-label fw-bold">Tên phòng</label>
                                     <input asp-for="P_TenPhong" class="form-control" required />
                                     <span asp-validation-for="P_TenPhong" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Loại phòng</label>
+                                    <label class="form-label fw-bold">Loại phòng</label>
                                     <select asp-for="P_LoaiPhong" class="form-control">
                                         <option value="Phòng thường">Phòng thường</option>
                                         <option value="Phòng gia đình">Phòng gia đình</option>
@@ -73,27 +70,19 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Giá / giờ</label>
-                                    <input asp-for="P_GiaPhong"
-                                           type="number"
-                                           min="0"
-                                           class="form-control"
-                                           required />
+                                    <label class="form-label fw-bold">Giá / giờ</label>
+                                    <input asp-for="P_GiaPhong" type="number" min="0" class="form-control" required />
                                     <span asp-validation-for="P_GiaPhong" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Sức chứa</label>
-                                    <input asp-for="P_SucChua"
-                                           type="number"
-                                           min="1"
-                                           class="form-control"
-                                           required />
+                                    <label class="form-label fw-bold">Sức chứa</label>
+                                    <input asp-for="P_SucChua" type="number" min="1" class="form-control" required />
                                     <span asp-validation-for="P_SucChua" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Trạng thái</label>
+                                    <label class="form-label fw-bold">Trạng thái</label>
                                     <select asp-for="P_TrangThai" class="form-control">
                                         <option value="true">Hoạt động</option>
                                         <option value="false">Bảo trì / Ẩn</option>
@@ -101,7 +90,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Mô tả</label>
+                                    <label class="form-label fw-bold">Mô tả</label>
                                     <input asp-for="P_MoTa" class="form-control" />
                                 </div>
 

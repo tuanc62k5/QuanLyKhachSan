@@ -16,9 +16,9 @@
                 <form method="post" asp-action="Create" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-md-4 text-center">
-                            <label class="form-label d-block">Hình ảnh</label>
                             <img id="previewImg" src="~/img/@Model?.P_HinhAnh" class="img-fluid rounded shadow-sm mb-2"
                                  style="max-height:180px;" />
+                            <label class="form-label d-block fw-bold">Ảnh phòng</label>
                             <select class="form-control" asp-for="P_HinhAnh" onchange="previewImage()">
                                 <option value="">-- Chọn ảnh --</option>
                                 @foreach (var img in ViewBag.Images)
@@ -33,13 +33,13 @@
                             <div class="row g-3">
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Tên phòng</label>
+                                    <label class="form-label fw-bold">Tên phòng</label>
                                     <input class="form-control" asp-for="P_TenPhong" placeholder="Nhập tên phòng..." />
                                     <span asp-validation-for="P_TenPhong" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Loại phòng</label>
+                                    <label class="form-label fw-bold">Loại phòng</label>
                                     <select asp-for="P_LoaiPhong" class="form-select">
                                         <option>Phòng thường</option>
                                         <option>Phòng gia đình</option>
@@ -48,21 +48,21 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Giá phòng</label>
+                                    <label class="form-label fw-bold">Giá phòng</label>
                                     <input type="number" class="form-control" asp-for="P_GiaPhong"
                                            placeholder="Nhập giá..." />
                                     <span asp-validation-for="P_GiaPhong" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Sức chứa</label>
+                                    <label class="form-label fw-bold">Sức chứa</label>
                                     <input type="number" class="form-control" asp-for="P_SucChua"
                                            placeholder="Số người..." />
                                     <span asp-validation-for="P_SucChua" class="text-danger"></span>
                                 </div>
                                 
                                 <div class="col-md-6">
-                                    <label class="form-label">Trạng thái</label>
+                                    <label class="form-label fw-bold">Trạng thái</label>
                                     <select asp-for="P_TrangThai" class="form-select">
                                         <option value="true">Còn trống</option>
                                         <option value="false">Đã đặt</option>
@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label">Mô tả</label>
+                                    <label class="form-label fw-bold">Mô tả</label>
                                     <textarea class="form-control" asp-for="P_MoTa" rows="2"
                                               placeholder="Nhập mô tả..."></textarea>
                                 </div>

@@ -9,29 +9,23 @@
             <i class="bi bi-pencil-square"></i> Chỉnh sửa đặt phòng
         </h2>
     </div>
-
     <section class="section">
         <div class="card shadow-sm">
             <div class="card-body p-4">
-
                 <form asp-action="Edit" method="post">
                     <input type="hidden" asp-for="DP_ID" />
-
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
-
                     <div class="row g-3">
 
-                        <!-- 1 -->
                         <div class="col-md-6">
-                            <label class="form-label">Khách hàng</label>
+                            <label class="form-label fw-bold">Khách hàng</label>
                             <select asp-for="KH_ID" asp-items="ViewBag.KhachHangList" class="form-control" required>
                                 <option value="">-- Chọn khách hàng --</option>
                             </select>
                         </div>
 
-                        <!-- 2 -->
                         <div class="col-md-6">
-                            <label class="form-label">Loại phòng</label>
+                            <label class="form-label fw-bold">Loại phòng</label>
                             <select id="loaiPhongSelect" class="form-control" required>
                                 <option value="">-- Chọn loại phòng --</option>
                                 @foreach (var loai in ViewBag.LoaiPhongList)
@@ -48,51 +42,45 @@
                             </select>
                         </div>
 
-                        <!-- 3 -->
                         <div class="col-md-6">
-                            <label class="form-label">Phòng</label>
+                            <label class="form-label fw-bold">Phòng</label>
                             <select asp-for="P_ID" asp-items="ViewBag.PhongList" class="form-control" required>
                                 <option value="">-- Chọn phòng --</option>
                             </select>
                         </div>
 
-                        <!-- 4 -->
                         <div class="col-md-6">
-                            <label class="form-label">Số người</label>
+                            <label class="form-label fw-bold">Số người</label>
                             <input asp-for="DP_SoNguoi" type="number" min="1" class="form-control" required />
                         </div>
 
-                        <!-- 5 -->
                         <div class="col-md-6">
-                            <label class="form-label">Ngày nhận phòng</label>
+                            <label class="form-label fw-bold">Ngày nhận phòng</label>
                             <input asp-for="DP_NgayNhan" type="datetime-local"
                                    value="@Model.DP_NgayNhan.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required />
                         </div>
 
-                        <!-- 6 -->
                         <div class="col-md-6">
-                            <label class="form-label">Ngày trả phòng</label>
+                            <label class="form-label fw-bold">Ngày trả phòng</label>
                             <input asp-for="DP_NgayTra" type="datetime-local"
                                    value="@Model.DP_NgayTra.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required />
                         </div>
 
-                        <!-- 7 -->
                         <div class="col-md-6">
-                            <label class="form-label">Trạng thái</label>
-                        <select asp-for="DP_TrangThai" class="form-control">
-                            <option value="Chờ duyệt">Chờ duyệt</option>
-                            <option value="Đã duyệt">Đã duyệt</option>
-                            <option value="Đang ở">Đang ở</option>
-                            <option value="Đã trả phòng">Đã trả phòng</option>
-                            <option value="Đã hủy">Đã hủy</option>
-                        </select>
+                            <label class="form-label fw-bold">Trạng thái</label>
+                            <select asp-for="DP_TrangThai" class="form-control">
+                                <option value="Chờ duyệt">Chờ duyệt</option>
+                                <option value="Đã duyệt">Đã duyệt</option>
+                                <option value="Đang ở">Đang ở</option>
+                                <option value="Đã trả phòng">Đã trả phòng</option>
+                                <option value="Đã hủy">Đã hủy</option>
+                            </select>
                         </div>
 
-                        <!-- 8 -->
                         <div class="col-md-6">
-                            <label class="form-label">Tổng tiền</label>
+                            <label class="form-label fw-bold">Tổng tiền</label>
                             <input value="@String.Format("{0:N0}", Model.DP_TongTien) đ"
-                                   class="form-control text-danger fw-bold" readonly />
+                                   class="form-control text-danger" readonly />
                         </div>
 
                     </div>
@@ -101,14 +89,11 @@
                         <a asp-action="Index" class="btn btn-secondary me-2">
                             <i class="bi bi-arrow-left"></i> Quay lại
                         </a>
-
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save"></i> Cập nhật
                         </button>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </section>

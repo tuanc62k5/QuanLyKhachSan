@@ -1,0 +1,103 @@
+@using DoAn.Models;
+@model IList<tblDichVu>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Danh sách dịch vụ</h2>
+    </div>
+
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="Admin" asp-controller="DichVu" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Thêm mới dịch vụ
+        </a>
+    </div>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-3">
+
+        <div class="d-flex gap-3">
+
+            <select name="trangThai" class="form-select" style="width: 150px;">
+                <option value="">-- Trạng thái --</option>
+                <option value="true">Hoạt động</option>
+                <option value="false">Tạm ngừng</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+
+        </div>
+        <div>
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control" placeholder="Tìm kiếm..."
+                   style="width: 220px;">
+        </div>
+
+    </form>
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Hình ảnh</th>
+                            <th>Tên dịch vụ</th>
+                            <th>Giá tiền</th>
+                            <th>Thời gian</th>
+                            <th>Sức chứa</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.DV_ID</td>
+                                <td><img src="~/img/@item.DV_HinhAnh" width="80" class="rounded" /></td>
+                                <td class="text-primary fw-bold">
+                                    <a asp-area="Admin" asp-controller="DichVu" asp-action="Details"
+                                           asp-route-id="@item.DV_ID">
+                                        @item.DV_TenDichVu
+                                    </a>
+                                </td>
+                                <td> @String.Format("{0:N0}", item.DV_GiaTien) đ</td>
+                                <td>@item.DV_ThoiGian</td>
+                                <td>@item.DV_SucChua</td>
+                                <td>
+                                    @if (item.DV_TrangThai)
+                                    {
+                                        <span class="badge bg-success">Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Đã ngừng</span>
+                                    }
+                                </td>
+                                <td class="text-center" scope="row">
+                                    <a asp-area="Admin" asp-controller="DichVu" asp-action="Details"
+                                       class="btn btn-success btn-sm" title="Xem chi tiết dịch vụ"
+                                       asp-route-id="@item.DV_ID"><i class="ri-eye-line"></i></a>
+                                    <a asp-area="Admin" asp-controller="DichVu" asp-action="Edit" asp-route-id="@item.DV_ID"
+                                       class="btn btn-primary btn-sm" title="Sửa dịch vụ"><i class="bi bi-pencil"></i></a>
+                                    <a asp-area="Admin" asp-controller="DichVu" asp-action="Delete"
+                                           asp-route-id="@item.DV_ID" class="btn btn-danger btn-sm" title="Xóa dịch vụ"><i
+                                        class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+    </main>

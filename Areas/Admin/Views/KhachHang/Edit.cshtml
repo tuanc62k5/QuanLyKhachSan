@@ -23,7 +23,7 @@
 
                             <img id="previewImg" src="~/img/@Model?.KH_HinhAnh" class="img-fluid rounded shadow-sm mb-2"
                                  style="max-height:180px;" />
-                            <label class="form-label d-block">Ảnh đại diện</label>
+                            <label class="form-label d-block fw-bold">Ảnh đại diện</label>
                             <select class="form-control" asp-for="KH_HinhAnh" onchange="previewImage()">
                                 <option value="">-- Chọn ảnh --</option>
                                 @foreach (var img in ViewBag.Images)
@@ -38,25 +38,25 @@
                         <div class="col-md-8">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">Tên khách</label>
+                                    <label class="form-label fw-bold">Tên khách</label>
                                     <input asp-for="KH_TenKhach" class="form-control" required />
                                     <span asp-validation-for="KH_TenKhach" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Email</label>
+                                    <label class="form-label fw-bold">Email</label>
                                     <input asp-for="KH_Email" type="email" class="form-control" required />
                                     <span asp-validation-for="KH_Email" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Điện thoại</label>
+                                    <label class="form-label fw-bold">Điện thoại</label>
                                     <input asp-for="KH_DienThoai" class="form-control" required />
                                     <span asp-validation-for="KH_DienThoai" class="text-danger"></span>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Vai trò</label>
+                                    <label class="form-label fw-bold">Vai trò</label>
                                     <select asp-for="KH_VaiTro" class="form-control">
                                         <option value="user">User</option>
                                         <option value="admin">Admin</option>
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Trạng thái</label>
+                                    <label class="form-label fw-bold">Trạng thái</label>
                                     <select asp-for="KH_TrangThai" class="form-control">
                                         <option value="true">Hoạt động</option>
                                         <option value="false">Bị khóa</option>
