@@ -9,10 +9,8 @@ namespace DoAn.Models
         [Key]
         public int SDDV_ID { get; set; }
 
-        [Required]
         public int DP_ID { get; set; }
 
-        [Required]
         public int DV_ID { get; set; }
 
         public int SDDV_SoLuong { get; set; } = 1;
@@ -21,6 +19,8 @@ namespace DoAn.Models
         public decimal SDDV_ThanhTien { get; set; }
 
         public DateTime SDDV_NgaySuDung { get; set; } = DateTime.Now;
+
+        public string? SDDV_TrangThai { get; set; }
 
         [ForeignKey("DP_ID")]
         public virtual tblDatPhong? DatPhong { get; set; }

@@ -1,0 +1,138 @@
+@model DoAn.Models.tblSuDungDichVu
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle mb-3">
+        <h2 class="text-success">
+            <i class="bi bi-plus-circle"></i> Thêm sử dụng dịch vụ
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+                <form method="post" asp-action="Create">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <div class="row g-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Phòng</label>
+                            <select id="phongSelect" class="form-select" onchange="filterKhachHang()">
+                                <option value="">-- Chọn phòng --</option>
+                                @foreach (var phong in ViewBag.PhongList)
+                                {
+                                    <option value="@phong.Value">@phong.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Khách hàng</label>
+                            <select asp-for="DP_ID" id="datPhongSelect" class="form-select">
+                                <option value="">-- Chọn khách hàng --</option>
+                                @foreach (var dp in ViewBag.DatPhongList)
+                                {
+                                    <option value="@dp.Value" data-phong="@dp.PhongId">
+                                        @dp.Text
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="DP_ID" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Dịch vụ</label>
+                            <select asp-for="DV_ID" id="dichVuSelect" class="form-select" onchange="calculateTotal()">
+                                <option value="">-- Chọn dịch vụ --</option>
+                                @foreach (var dv in ViewBag.DichVuList)
+                                {
+                                    <option value="@dv.Value" data-gia="@dv.GiaTien">
+                                        @dv.Text
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="DV_ID" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Số người</label>
+                            <input asp-for="SDDV_SoLuong" id="soLuong" type="number" min="1" value="1"
+                                   class="form-control" placeholder="Nhập số lượng..." oninput="calculateTotal()" />
+                            <span asp-validation-for="SDDV_SoLuong" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-6">
+                            <label class="form-label fw-bold">Thành tiền</label>
+                            <input asp-for="SDDV_ThanhTien" id="thanhTien" class="form-control" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Ngày sử dụng</label>
+                            <input asp-for="SDDV_NgaySuDung" type="datetime-local" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Trạng thái</label>
+                            <select asp-for="SDDV_TrangThai" class="form-select">
+                                <option value="Chờ sử dụng">Chờ sử dụng</option>
+                                <option value="Đã sử dụng">Đã sử dụng</option>
+                                <option value="Đã hủy">Đã hủy</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="mt-4 text-end">
+                        <a asp-action="Index" class="btn btn-secondary me-2">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-save"></i> Thêm mới
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    function filterKhachHang() {
+        var phongId = document.getElementById("phongSelect").value;
+        var datPhongSelect = document.getElementById("datPhongSelect");
+        var options = datPhongSelect.options;
+
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+
+            if (option.value === "") {
+                option.style.display = "block";
+                continue;
+            }
+            if (phongId === "" || option.getAttribute("data-phong") === phongId) {
+                option.style.display = "block";
+            } else {
+                option.style.display = "none";
+            }
+        }
+        datPhongSelect.value = "";
+    }
+
+    function calculateTotal() {
+        var dichVu = document.getElementById("dichVuSelect");
+        var soLuong = parseInt(document.getElementById("soLuong").value) || 0;
+
+        if (dichVu.selectedIndex > 0) {
+            var gia = parseFloat(dichVu.options[dichVu.selectedIndex].getAttribute("data-gia")) || 0;
+            document.getElementById("thanhTien").value = gia * soLuong;
+        } else {
+            document.getElementById("thanhTien").value = 0;
+        }
+    }
+    window.onload = function () {
+        calculateTotal();
+    };
+</script>

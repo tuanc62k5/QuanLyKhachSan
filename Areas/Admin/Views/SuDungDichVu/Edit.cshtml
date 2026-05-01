@@ -1,0 +1,106 @@
+@model DoAn.Models.tblSuDungDichVu
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2 class="text-primary">
+            <i class="bi bi-pencil-square"></i> Chỉnh sửa sử dụng dịch vụ
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="SDDV_ID" />
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Đặt phòng</label>
+                            <select asp-for="DP_ID" asp-items="ViewBag.DatPhongList" class="form-select" required>
+                                <option value="">-- Chọn khách hàng / phòng --</option>
+                            </select>
+                            <span asp-validation-for="DP_ID" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Dịch vụ</label>
+                            <select asp-for="DV_ID" asp-items="ViewBag.DichVuList" class="form-select" required>
+                                <option value="">-- Chọn dịch vụ --</option>
+                            </select>
+                            <span asp-validation-for="DV_ID" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Số lượng</label>
+                            <input asp-for="SDDV_SoLuong" type="number" min="1" class="form-control"
+                                   placeholder="Nhập số lượng..." />
+                            <span asp-validation-for="SDDV_SoLuong" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Thành tiền</label>
+                            <input asp-for="SDDV_ThanhTien" type="number" class="form-control" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Ngày sử dụng</label>
+                            <input asp-for="SDDV_NgaySuDung" type="datetime-local"
+                                   value="@Model.SDDV_NgaySuDung.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
+                            <span asp-validation-for="SDDV_NgaySuDung" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Trạng thái</label>
+                            <select asp-for="SDDV_TrangThai" class="form-select">
+                                <option value="Chờ sử dụng">Chờ sử dụng</option>
+                                <option value="Đã sử dụng">Đã sử dụng</option>
+                                <option value="Đã hủy">Đã hủy</option>
+                            </select>
+                            <span asp-validation-for="SDDV_TrangThai" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <a asp-action="Index" class="btn btn-secondary me-2">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Cập nhật
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    const dichVuPrices = {
+    @foreach (var dv in ViewBag.DichVuData)
+        {
+            @:@dv.DV_ID: @dv.DV_GiaTien,
+    }
+    };
+
+    function updateThanhTien() {
+        const dvId = document.getElementById("DV_ID").value;
+        const soLuong = parseInt(document.getElementById("SDDV_SoLuong").value) || 0;
+
+        if (dvId && dichVuPrices[dvId]) {
+            document.getElementById("SDDV_ThanhTien").value = dichVuPrices[dvId] * soLuong;
+        } else {
+            document.getElementById("SDDV_ThanhTien").value = 0;
+        }
+    }
+
+    document.getElementById("DV_ID").addEventListener("change", updateThanhTien);
+    document.getElementById("SDDV_SoLuong").addEventListener("input", updateThanhTien);
+
+    window.onload = updateThanhTien;
+</script>

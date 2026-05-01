@@ -1,0 +1,138 @@
+@using DoAn.Models;
+@model IList<tblSuDungDichVu>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Sử dụng dịch vụ</h2>
+    </div>
+
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="Admin" asp-controller="SuDungDichVu" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Thêm sử dụng dịch vụ mới
+        </a>
+    </div>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex gap-3">
+
+            <select name="phongId" class="form-select" style="width: 170px;" onchange="this.form.submit()">
+                <option value="">-- Phòng --</option>
+                @foreach (var phong in ViewBag.PhongList)
+                {
+                    <option value="@phong.Value" selected="@(ViewBag.PhongId?.ToString() == phong.Value)">
+                        @phong.Text
+                    </option>
+                }
+            </select>
+
+            <select name="khachHangId" class="form-select" style="width: 180px;" onchange="this.form.submit()">
+                <option value="">-- Khách hàng --</option>
+                @foreach (var kh in ViewBag.KhachHangList)
+                {
+                    <option value="@kh.Value" selected="@(ViewBag.KhachHangId?.ToString() == kh.Value)">
+                        @kh.Text
+                    </option>
+                }
+            </select>
+
+            <select name="dichVuId" class="form-select" style="width: 170px;">
+                <option value="">-- Dịch vụ --</option>
+                @foreach (var dv in ViewBag.DichVuList)
+                {
+                    <option value="@dv.Value" selected="@(ViewBag.DichVuId?.ToString() == dv.Value)">
+                        @dv.Text
+                    </option>
+                }
+            </select>
+
+            <select name="trangThai" class="form-select" style="width: 170px;">
+                <option value="">-- Trạng thái --</option>
+                <option value="Chờ sử dụng" selected="@(ViewBag.TrangThai == "Chờ sử dụng")">Chờ sử dụng</option>
+                <option value="Đã sử dụng" selected="@(ViewBag.TrangThai == "Đã sử dụng")">Đã sử dụng</option>
+                <option value="Đã hủy" selected="@(ViewBag.TrangThai == "Đã hủy")">Đã hủy</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+
+        </div>
+        <div>
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control" placeholder="Tìm kiếm..."
+                   style="width: 220px;">
+        </div>
+
+    </form>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng</th>
+                            <th>Phòng</th>
+                            <th>Dịch vụ</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                            <th>Ngày sử dụng</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var donGia = item.DichVu?.DV_GiaTien ?? 0;
+                            <tr>
+                                <td>@item.SDDV_ID</td>
+                                <td>@item.DatPhong?.KhachHang?.KH_TenKhach</td>
+                                <td>@item.DatPhong?.Phong?.P_TenPhong</td>
+                                <td class="text-primary">
+                                    <a asp-area="Admin" asp-controller="SuDungDichVu" asp-action="Details"
+                                           asp-route-id="@item.SDDV_ID">@item.DichVu?.DV_TenDichVu
+                                    </a>
+                                </td>
+                                <td>@item.SDDV_SoLuong</td>
+                                <td>@String.Format("{0:N0}", donGia) đ</td>
+                                <td class="text-danger">@String.Format("{0:N0}", item.SDDV_ThanhTien) đ</td>
+                                <td>@item.SDDV_NgaySuDung.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (item.SDDV_TrangThai == "Chờ sử dụng")
+                                    {
+                                        <span class="badge bg-secondary">Chờ sử dụng</span>
+                                    }
+                                    else if (item.SDDV_TrangThai == "Đã sử dụng")
+                                    {
+                                        <span class="badge bg-success">Đã sử dụng</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Đã hủy</span>
+                                    }
+                                </td>
+                                <td class="text-center" scope="row">
+                                    <a asp-area="Admin" asp-controller="SuDungDichVu" asp-action="Edit"
+                                           asp-route-id="@item.SDDV_ID" class="btn btn-primary btn-sm" title="Sửa">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="SuDungDichVu" asp-action="Delete"
+                                           asp-route-id="@item.SDDV_ID" class="btn btn-danger btn-sm" title="Xóa">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
