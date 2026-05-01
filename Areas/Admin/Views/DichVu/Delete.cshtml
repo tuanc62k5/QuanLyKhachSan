@@ -1,0 +1,90 @@
+@model DoAn.Models.tblDichVu
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle mb-3">
+        <h2 class="text-danger">
+            <i class="bi bi-trash"></i> Xóa dịch vụ
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="DV_ID" />
+                    <div class="row g-4">
+
+                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center text-center">
+                            <img src="~/img/@Model.DV_HinhAnh" class="img-fluid rounded shadow-sm mb-3"
+                                 style="width:100%; max-width:320px; height:220px; object-fit:cover;" />
+                            <label class="fw-bold">Ảnh dịch vụ</label>
+                            <input class="form-control mt-2" value="@Model.DV_HinhAnh" readonly />
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Tên dịch vụ</label>
+                                    <input class="form-control" value="@Model.DV_TenDichVu" readonly />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Giá tiền</label>
+                                    <input class="form-control text-danger"
+                                           value="@String.Format("{0:N0}", Model.DV_GiaTien) đ" readonly />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Thời gian</label>
+                                    <input class="form-control" value="@Model.DV_ThoiGian" readonly />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Sức chứa</label>
+                                    <input class="form-control" value="@Model.DV_SucChua" readonly />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Trạng thái</label>
+                                    <input class="form-control"
+                                           value="@(Model.DV_TrangThai ? "Hoạt động" : "Tạm ngừng")" readonly />
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Điểm nổi bật</label>
+                                    <textarea class="form-control" rows="2" readonly>@Model.DV_DiemNoiBat</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Mô tả ngắn</label>
+                                    <textarea class="form-control" rows="2" readonly>@Model.DV_MoTa</textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Mô tả chi tiết</label>
+                                    <textarea class="form-control" rows="4" readonly>@Model.DV_MoTaChiTiet</textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-end">
+                        <a asp-action="Index" class="btn btn-secondary me-2">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Xóa dịch vụ
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>

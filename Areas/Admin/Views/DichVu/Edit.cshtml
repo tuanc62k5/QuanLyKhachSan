@@ -1,0 +1,126 @@
+@model DoAn.Models.tblDichVu
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle mb-3">
+        <h2 class="text-primary">
+            <i class="bi bi-pencil-square"></i> Chỉnh sửa dịch vụ
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <form method="post" asp-action="Edit">
+                    <input type="hidden" asp-for="DV_ID" />
+                    <div class="row g-3">
+
+                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center text-center">
+                            <img id="previewImg" src="~/img/@Model?.DV_HinhAnh" class="img-fluid rounded shadow-sm mb-3"
+                                 style="width:100%; max-width:320px; height:220px; object-fit:cover;" />
+                            <label class="form-label d-block fw-bold">Ảnh dịch vụ</label>
+                            <select class="form-control" asp-for="DV_HinhAnh" onchange="previewImage()">
+                                <option value="">-- Chọn ảnh --</option>
+                                @foreach (var img in ViewBag.Images)
+                                {
+                                    if (Model?.DV_HinhAnh == img)
+                                    {
+                                        <option value="@img" selected>@img</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@img">@img</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="DV_HinhAnh" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Tên dịch vụ</label>
+                                    <input class="form-control" asp-for="DV_TenDichVu"
+                                           placeholder="Nhập tên dịch vụ..." />
+                                    <span asp-validation-for="DV_TenDichVu" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Giá tiền</label>
+                                    <input type="number" class="form-control" asp-for="DV_GiaTien"
+                                           placeholder="Nhập giá..." />
+                                    <span asp-validation-for="DV_GiaTien" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Thời gian</label>
+                                    <input class="form-control" asp-for="DV_ThoiGian"
+                                           placeholder="VD: 6:00 - 22:00 / 24h..." />
+                                    <span asp-validation-for="DV_ThoiGian" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Sức chứa</label>
+                                    <input class="form-control" asp-for="DV_SucChua" placeholder="VD: 1-2 người..." />
+                                    <span asp-validation-for="DV_SucChua" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Trạng thái</label>
+                                    <select asp-for="DV_TrangThai" class="form-select">
+                                        <option value="true">Hoạt động</option>
+                                        <option value="false">Tạm ngừng</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Điểm nổi bật</label>
+                                    <textarea class="form-control" asp-for="DV_DiemNoiBat" rows="2"
+                                              placeholder="Nhập điểm nổi bật..."></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Mô tả ngắn</label>
+                                    <textarea class="form-control" asp-for="DV_MoTa" rows="2"
+                                              placeholder="Nhập mô tả ngắn..."></textarea>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Mô tả chi tiết</label>
+                                    <textarea class="form-control" asp-for="DV_MoTaChiTiet" rows="4"
+                                              placeholder="Nhập mô tả chi tiết..."></textarea>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-end">
+                        <a asp-action="Index" class="btn btn-secondary me-2">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Cập nhật
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    function previewImage() {
+        var select = document.querySelector("select[name='DV_HinhAnh']");
+        var img = document.getElementById("previewImg");
+
+        if (select.value) {
+            img.src = "/img/" + select.value;
+        }
+    }
+</script>
