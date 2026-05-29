@@ -1,0 +1,102 @@
+@model DoAn.Models.tblHoaDon
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Cập nhật hóa đơn</h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+
+                <form asp-action="Edit" method="post">
+
+                    <input type="hidden" asp-for="HD_ID" />
+                    <input type="hidden" asp-for="DP_ID" />
+                    <input type="hidden" asp-for="HD_TienPhong" />
+                    <input type="hidden" asp-for="HD_TienDichVu" />
+                    <input type="hidden" asp-for="HD_TongTien" />
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Đặt phòng</label>
+
+                            <input type="hidden" asp-for="DP_ID" />
+
+                            <input type="text" class="form-control bg-light"
+                                   value="#@Model.DP_ID - @Model.DatPhong?.KhachHang?.KH_TenKhach - @Model.DatPhong?.Phong?.P_TenPhong"
+                                   readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Khách hàng</label>
+                            <input type="text" class="form-control bg-light"
+                                   value="@Model.DatPhong?.KhachHang?.KH_TenKhach" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Phòng</label>
+                            <input type="text" class="form-control bg-light" value="@Model.DatPhong?.Phong?.P_TenPhong"
+                                   readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tiền phòng</label>
+                            <input type="text" class="form-control bg-light text-primary fw-bold"
+                                   value="@String.Format("{0:N0}", Model.HD_TienPhong) đ" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tiền dịch vụ</label>
+                            <input type="text" class="form-control bg-light text-danger fw-bold"
+                                   value="@String.Format("{0:N0}", Model.HD_TienDichVu) đ" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Tổng tiền</label>
+                            <input type="text" class="form-control bg-light fw-bold text-danger"
+                                   value="@String.Format("{0:N0}", Model.HD_TongTien) đ" readonly />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Trạng thái hóa đơn</label>
+                            <select asp-for="HD_TrangThai" class="form-select">
+                                <option value="Đã thanh toán">Đã thanh toán</option>
+                                <option value="Chưa thanh toán">Chưa thanh toán</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Phương thức thanh toán</label>
+                            <select asp-for="HD_PhuongThuc" class="form-select">
+                                <option value="Tiền mặt">Tiền mặt</option>
+                                <option value="Chuyển khoản">Chuyển khoản</option>
+                                <option value="Ví điện tử">Ví điện tử</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <a asp-action="Index" class="btn btn-secondary px-4">
+                            <i class="bi bi-arrow-left"></i>Quay lại
+                        </a>
+
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save"></i>Cập nhật hóa đơn
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+</main>

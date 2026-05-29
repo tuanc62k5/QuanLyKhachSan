@@ -1,0 +1,72 @@
+@model DoAn.Models.tblHoaDon
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Thêm hóa đơn</h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <form asp-action="Create" method="post">
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Đặt phòng</label>
+
+                            <select asp-for="DP_ID" class="form-select" asp-items="ViewBag.DatPhongList">
+                                <option value="">-- Chọn đặt phòng --</option>
+                            </select>
+
+                            <span asp-validation-for="DP_ID" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                Trạng thái hóa đơn
+                            </label>
+
+                            <select asp-for="HD_TrangThai" class="form-select">
+                                <option value="Đã thanh toán">Đã thanh toán</option>
+                                <option value="Chưa thanh toán">Chưa thanh toán</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                Phương thức thanh toán
+                            </label>
+
+                            <select asp-for="HD_PhuongThuc" class="form-select">
+                                <option value="Tiền mặt">Tiền mặt</option>
+                                <option value="Chuyển khoản">Chuyển khoản</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="text-end mt-4">
+
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Quay lại
+                        </a>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i>Tạo hóa đơn
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+</main>

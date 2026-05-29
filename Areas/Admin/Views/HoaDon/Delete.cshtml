@@ -1,0 +1,77 @@
+@model DoAn.Models.tblHoaDon
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Xóa hóa đơn</h2>
+    </div>
+
+    <section class="section">
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill"></i>Bạn có chắc chắn muốn xóa hóa đơn này?
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Mã hóa đơn</label>
+                        <input type="text" class="form-control bg-light" value="#@Model.HD_ID" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Khách hàng</label>
+                        <input type="text" class="form-control bg-light" value="@Model.DatPhong?.KhachHang?.KH_TenKhach"
+                               readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Phòng</label>
+                        <input type="text" class="form-control bg-light" value="@Model.DatPhong?.Phong?.P_TenPhong"
+                               readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-danger">Tổng tiền</label>
+                        <input type="text" class="form-control bg-light text-danger fw-bold"
+                               value="@String.Format("{0:N0}", Model.HD_TongTien) đ" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Trạng thái</label>
+                        <input type="text" class="form-control bg-light" value="@Model.HD_TrangThai" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Phương thức thanh toán</label>
+                        <input type="text" class="form-control bg-light" value="@Model.HD_PhuongThuc" readonly />
+                    </div>
+
+                </div>
+
+                <form asp-action="Delete" method="post" class="mt-4"><input type="hidden" asp-for="HD_ID" />
+                    <div class="text-end">
+                        <a asp-action="Index" class="btn btn-secondary px-4">
+                            <i class="bi bi-arrow-left"></i>Quay lại
+                        </a>
+
+                        <button type="submit" class="btn btn-danger px-4">
+                            <i class="bi bi-trash"></i>Xóa hóa đơn
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </section>
+
+</main>

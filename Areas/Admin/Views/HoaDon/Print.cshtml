@@ -1,0 +1,276 @@
+@model DoAn.Models.tblHoaDon
+@using DoAn.Models
+
+@{
+    Layout = null;
+    var dichVuList = ViewBag.DichVuList as List<tblSuDungDichVu>;
+    decimal tongDichVu = dichVuList?.Sum(x => x.SDDV_ThanhTien) ?? 0;
+    decimal tongThanhToan = Model.HD_TienPhong + tongDichVu;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Biên lai hóa đơn #@Model.HD_ID</title>
+
+    <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 30px;
+                background: #f5f5f5;
+                color: #222;
+            }
+
+            .invoice-container {
+                max-width: 900px;
+                margin: auto;
+                background: white;
+                padding: 35px;
+                border-radius: 12px;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+                border: 1px solid #ddd;
+            }
+
+            .header {
+                text-align: center;
+                border-bottom: 3px solid #000;
+                padding-bottom: 15px;
+                margin-bottom: 25px;
+            }
+
+            .header h1 {
+                margin: 0;
+                font-size: 30px;
+                letter-spacing: 2px;
+            }
+
+            .header h3 {
+                margin: 8px 0;
+                font-size: 22px;
+            }
+
+            .header p {
+                margin: 3px 0;
+                color: #555;
+            }
+
+            .info-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px 40px;
+                margin-bottom: 25px;
+                line-height: 1.8;
+            }
+
+            .info-item {
+                padding: 6px 0;
+                border-bottom: 1px dashed #ccc;
+            }
+
+            .section-title {
+                margin: 25px 0 10px;
+                font-size: 18px;
+                font-weight: bold;
+                border-left: 3px solid #000;
+                padding-left: 10px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 25px;
+            }
+
+            th {
+                background: #4a4a4a;
+                color: white;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: center;
+            }
+
+            tr:nth-child(even) {
+                background: #f9f9f9;
+            }
+
+            .summary {
+                width: 350px;
+                margin-left: auto;
+                border-top: 2px solid #000;
+                padding-top: 15px;
+            }
+
+            .summary p {
+                display: flex;
+                justify-content: space-between;
+                margin: 8px 0;
+                font-size: 16px;
+            }
+
+            .grand-total {
+                font-size: 22px;
+                font-weight: bold;
+                color: #d00000;
+                border-top: 2px dashed #000;
+                padding-top: 10px;
+                margin-top: 10px;
+            }
+
+            .footer {
+                margin-top: 45px;
+                text-align: center;
+                font-style: italic;
+                color: #555;
+                border-top: 1px solid #ccc;
+                padding-top: 20px;
+            }
+
+            .print-btn {
+                text-align: right;
+                margin-top: 25px;
+            }
+
+            .print-btn button {
+                padding: 12px 24px;
+                font-size: 16px;
+                border: none;
+                background: #111;
+                color: white;
+                cursor: pointer;
+                border-radius: 6px;
+            }
+
+            .print-btn button:hover {
+                opacity: 0.9;
+            }
+
+            @@media print {
+                body {
+                    background: white;
+                    margin: 0;
+                }
+
+                .invoice-container {
+                    box-shadow: none;
+                    border: none;
+                    max-width: 100%;
+                }
+
+                .print-btn {
+                    display: none;
+                }
+            }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+
+        <div class="header">
+            <h1>TUANANH HOTEL</h1>
+            <h3>BIÊN LAI THANH TOÁN</h3>
+            <p>123 Đường ABC, TP.Vinh</p>
+            <p>Hotline: 0374.218.594</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item"><strong>Mã hóa đơn:</strong> @Model.HD_ID</div>
+            <div class="info-item"><strong>Mã đặt phòng:</strong> @Model.DP_ID</div>
+            <div class="info-item"><strong>Khách hàng:</strong> @Model.DatPhong?.KhachHang?.KH_TenKhach</div>
+            <div class="info-item"><strong>Phòng:</strong> @Model.DatPhong?.Phong?.P_TenPhong</div>
+            <div class="info-item"><strong>Ngày lập:</strong> @Model.HD_NgayLap.ToString("dd/MM/yyyy HH:mm")</div>
+            <div class="info-item"><strong>Phương thức:</strong> @Model.HD_PhuongThuc</div>
+            <div class="info-item"><strong>Trạng thái:</strong> @Model.HD_TrangThai</div>
+        </div>
+
+        <div class="section-title">Chi phí phòng</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tiền phòng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@String.Format("{0:N0}", Model.HD_TienPhong) đ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">Chi phí dịch vụ</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dịch vụ</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int stt = 1;
+                }
+
+                @if (dichVuList != null && dichVuList.Any())
+                {
+                    @foreach (var dv in dichVuList)
+                    {
+                        <tr>
+                            <td>@stt</td>
+                            <td>@dv.DichVu?.DV_TenDichVu</td>
+                            <td>@dv.SDDV_SoLuong</td>
+                            <td>@String.Format("{0:N0}", dv.DichVu?.DV_GiaTien) đ</td>
+                            <td>@String.Format("{0:N0}", dv.SDDV_ThanhTien) đ</td>
+                        </tr>
+
+                        stt++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">Không có dịch vụ sử dụng</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <p>
+                <span>Tiền phòng:</span>
+                <span>@String.Format("{0:N0}", Model.HD_TienPhong) đ</span>
+            </p>
+
+            <p>
+                <span>Tiền dịch vụ:</span>
+                <span>@String.Format("{0:N0}", tongDichVu) đ</span>
+            </p>
+
+            <p class="grand-total">
+                <span>TỔNG THANH TOÁN:</span>
+                <span>@String.Format("{0:N0}", tongThanhToan) đ</span>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>Cảm ơn quý khách đã sử dụng dịch vụ tại TUANANH HOTEL!</p>
+            <p>Hẹn gặp lại quý khách.</p>
+        </div>
+
+        <div class="print-btn">
+            <button onclick="window.print()">🖨 In biên lai</button>
+        </div>
+
+    </div>
+</body>
+
+</html>

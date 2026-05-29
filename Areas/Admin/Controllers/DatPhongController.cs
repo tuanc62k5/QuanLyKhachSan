@@ -145,6 +145,7 @@ namespace DoAn.Areas.Admin.Controllers
 
                 dp.DP_TongTien = phong.P_GiaPhong * (decimal)soGio;
                 dp.DP_NgayTao = DateTime.Now;
+                dp.DP_TrangThai = "Chờ duyệt";
 
                 _context.DatPhongs.Add(dp);
 
@@ -191,9 +192,10 @@ namespace DoAn.Areas.Admin.Controllers
 
             ViewBag.LoaiPhongList = _context.Phongs.Where(p => p.P_TrangThai == true).Select(p => p.P_LoaiPhong).Distinct().ToList();
 
-            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => p.P_TrangThai == true && p.P_LoaiPhong == loaiPhong)
-            .ToList(), "P_ID", "P_TenPhong", dp.P_ID);
+            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => p.P_TrangThai == true && p.P_LoaiPhong == loaiPhong).ToList(), "P_ID", "P_TenPhong", dp.P_ID);
 
+            ViewBag.TrangThaiList = _context.DatPhongs.Select(dp => dp.DP_TrangThai).Distinct().ToList();
+            ;
             return View(dp);
         }
 
@@ -214,12 +216,18 @@ namespace DoAn.Areas.Admin.Controllers
 
             if (ModelState.IsValid && phong != null && khach != null)
             {
+                var datphong = _context.DatPhongs.AsNoTracking().FirstOrDefault(x => x.DP_ID == dp.DP_ID);
+
+                if (datphong == null)
+                    return NotFound();
+
                 var soGio = Math.Ceiling((dp.DP_NgayTra - dp.DP_NgayNhan).TotalHours);
 
                 if (soGio <= 0)
                     soGio = 1;
 
                 dp.DP_TongTien = (decimal)soGio * phong.P_GiaPhong;
+                dp.DP_NgayTao = datphong.DP_NgayTao;
 
                 _context.DatPhongs.Update(dp);
                 _context.SaveChanges();

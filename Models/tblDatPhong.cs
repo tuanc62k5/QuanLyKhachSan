@@ -20,9 +20,9 @@ namespace DoAn.Models
 
         public decimal DP_TongTien { get; set; }
 
-        public DateTime DP_NgayTao { get; set; }
+        public DateTime DP_NgayTao { get; set; } = DateTime.Now;
 
-        public string DP_TrangThai { get; set; } = "";
+        public string DP_TrangThai { get; set; } = "Chờ duyệt";
 
         [ForeignKey("P_ID")]
         public tblPhong? Phong { get; set; }

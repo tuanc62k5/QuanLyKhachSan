@@ -1,0 +1,70 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng nhập Admin</title>
+
+    <link href="~/admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f6f9ff;
+        }
+
+        .login-box{
+            width:400px;
+            margin:120px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 20px rgba(0,0,0,.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+
+        <h3 class="text-center mb-4">
+            Đăng nhập Admin
+        </h3>
+
+        @if(ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangNhap" method="post">
+
+            <div class="mb-3">
+                <label>Email</label>
+
+                <input type="email"
+                       name="email"
+                       class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Mật khẩu</label>
+
+                <input type="password"
+                       name="password"
+                       class="form-control" />
+            </div>
+
+            <button class="btn btn-primary w-100">
+                Đăng nhập
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

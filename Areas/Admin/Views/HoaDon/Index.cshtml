@@ -1,0 +1,118 @@
+@using DoAn.Models;
+@model IList<tblHoaDon>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h2>Danh sách hóa đơn</h2>
+    </div>
+
+    <div class="mb-3">
+        <a class="btn btn-success" asp-area="Admin" asp-controller="HoaDon" asp-action="Create">
+            <i class="bi bi-plus-circle"></i> Thêm mới hóa đơn
+        </a>
+    </div>
+
+    <form method="get" class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex gap-3">
+
+            <select name="trangThai" class="form-select" style="width: 180px;">
+                <option value="">-- Trạng thái --</option>
+                <option value="Chưa thanh toán" selected="@(ViewBag.TrangThai == "Chưa thanh toán")">Chưa thanh toán
+                </option>
+                <option value="Đã thanh toán" selected="@(ViewBag.TrangThai == "Đã thanh toán")">Đã thanh toán</option>
+                <option value="Đã hủy" selected="@(ViewBag.TrangThai == "Đã hủy")">Đã hủy</option>
+            </select>
+
+            <select name="phuongThuc" class="form-select" style="width: 180px;">
+                <option value="">-- Phương thức --</option>
+                <option value="Tiền mặt" selected="@(ViewBag.PhuongThuc == "Tiền mặt")">Tiền mặt</option>
+                <option value="Chuyển khoản" selected="@(ViewBag.PhuongThuc == "Chuyển khoản")">Chuyển khoản</option>
+                <option value="Thẻ" selected="@(ViewBag.PhuongThuc == "Thẻ")">Thẻ</option>
+            </select>
+
+            <button class="btn btn-primary">
+                <i class="bi bi-funnel"></i> Lọc
+            </button>
+
+        </div>
+        <div>
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control" placeholder="Tìm kiếm..."
+                   style="width: 250px;">
+        </div>
+    </form>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body pt-4">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng</th>
+                            <th>Phòng</th>
+                            <th>Tiền phòng</th>
+                            <th>Tiền dịch vụ</th>
+                            <th>Tổng tiền</th>
+                            <th>Ngày lập</th>
+                            <th>Trạng thái</th>
+                            <th>Phương thức</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int stt = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@stt</td>
+                                <td>@item.DatPhong?.KhachHang?.KH_TenKhach</td>
+                                <td>@item.DatPhong?.Phong?.P_TenPhong</td>
+                                <td>@String.Format("{0:N0}", item.HD_TienPhong) đ</td>
+                                <td>@String.Format("{0:N0}", item.HD_TienDichVu) đ</td>
+                                <td class="text-danger">@String.Format("{0:N0}", item.HD_TongTien) đ</td>
+                                <td>@item.HD_NgayLap.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    @if (item.HD_TrangThai == "Chưa thanh toán")
+                                    {
+                                        <span class="badge bg-warning text-dark">Chưa thanh toán</span>
+                                    }
+                                    else if (item.HD_TrangThai == "Đã thanh toán")
+                                    {
+                                        <span class="badge bg-success">Đã thanh toán</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Đã hủy</span>
+                                    }
+                                </td>
+                                <td>@item.HD_PhuongThuc</td>
+                                <td class="text-center">
+                                    <a asp-action="Print" asp-route-id="@item.HD_ID" class="btn btn-dark btn-sm"
+                                           target="_blank" title="In biên lai">
+                                        <i class="bi bi-printer"></i>
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="HoaDon" asp-action="Edit" asp-route-id="@item.HD_ID"
+                                           class="btn btn-primary btn-sm" title="Sửa hóa đơn">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="HoaDon" asp-action="Delete"
+                                           asp-route-id="@item.HD_ID" class="btn btn-danger btn-sm" title="Xóa hóa đơn">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
