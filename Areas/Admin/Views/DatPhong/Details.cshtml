@@ -1,0 +1,86 @@
+@model DoAn.Models.tblDatPhong
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h2 class="text-success">
+            <i class="bi bi-eye"> Chi tiết đặt phòng</i>
+        </h2>
+    </div>
+
+    <section class="section">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Khách hàng</label>
+                        <input value="@Model.KhachHang?.KH_TenKhach" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Phòng</label>
+                        <input value="@Model.Phong?.P_TenPhong" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Loại phòng</label>
+                        <input value="@Model.Phong?.P_LoaiPhong" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Số người</label>
+                        <input value="@Model.DP_SoNguoi" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Tiền phòng</label>
+                        <input value="@String.Format("{0:N0}", Model.DP_TongTien) đ"
+                               class="form-control text-danger fw-bold" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Điện thoại</label>
+                        <input value="@Model.KhachHang?.KH_DienThoai" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Ngày nhận phòng</label>
+                        <input value="@Model.DP_NgayNhan.ToString("dd/MM/yyyy HH:mm")" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Ngày trả phòng</label>
+                        <input value="@Model.DP_NgayTra.ToString("dd/MM/yyyy HH:mm")" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Ngày tạo</label>
+                        <input value="@Model.DP_NgayTao.ToString("dd/MM/yyyy HH:mm")" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Trạng thái</label>
+                        <input value="@Model.DP_TrangThai" class="form-control" readonly />
+                    </div>
+
+                </div>
+
+                <div class="mt-4 text-end">
+                    <a asp-action="Index" class="btn btn-secondary me-2">
+                        <i class="bi bi-arrow-left"></i> Quay lại
+                    </a>
+
+                    <a asp-action="Edit" asp-route-id="@Model.DP_ID" class="btn btn-primary">
+                        <i class="bi bi-pencil-square"></i> Chỉnh sửa
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

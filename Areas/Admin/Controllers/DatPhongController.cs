@@ -71,10 +71,7 @@ namespace DoAn.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var datPhong = _context.DatPhongs
-                .Include(dp => dp.KhachHang)
-                .Include(dp => dp.Phong)
-                .FirstOrDefault(dp => dp.DP_ID == id);
+            var datPhong = _context.DatPhongs.Include(dp => dp.KhachHang).Include(dp => dp.Phong).FirstOrDefault(dp => dp.DP_ID == id);
 
             if (datPhong == null)
             {
@@ -88,10 +85,36 @@ namespace DoAn.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             var delDatPhong = _context.DatPhongs.Find(id);
+
             if (delDatPhong == null)
                 return NotFound();
+
+            var phong = _context.Phongs.FirstOrDefault(x => x.P_ID == delDatPhong.P_ID);
+
+            if (phong != null)
+            {
+                bool conDatPhong = _context.DatPhongs.Any(x => x.P_ID == delDatPhong.P_ID && x.DP_ID != delDatPhong.DP_ID);
+
+                phong.P_TrangThai = !conDatPhong;
+            }
+
+            var dsDichVu = _context.SuDungDichVus.Where(x => x.DP_ID == id).ToList();
+
+            if (dsDichVu.Any())
+            {
+                _context.SuDungDichVus.RemoveRange(dsDichVu);
+            }
+
+            var dsHoaDon = _context.HoaDons.Where(x => x.DP_ID == id).ToList();
+
+            if (dsHoaDon.Any())
+            {
+                _context.HoaDons.RemoveRange(dsHoaDon);
+            }
+
             _context.DatPhongs.Remove(delDatPhong);
             _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -134,6 +157,11 @@ namespace DoAn.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Ngày trả phải lớn hơn ngày nhận!");
             }
 
+            if (dp.DP_NgayNhan < DateTime.Now)
+            {
+                ModelState.AddModelError("DP_NgayNhan", "Ngày nhận phòng phải lớn hơn thời gian hiện tại!");
+            }
+
             if (ModelState.IsValid && phong != null && khach != null)
             {
                 double soGio = Math.Ceiling((dp.DP_NgayTra - dp.DP_NgayNhan).TotalHours);
@@ -145,7 +173,17 @@ namespace DoAn.Areas.Admin.Controllers
 
                 dp.DP_TongTien = phong.P_GiaPhong * (decimal)soGio;
                 dp.DP_NgayTao = DateTime.Now;
-                dp.DP_TrangThai = "Chờ duyệt";
+
+                if (dp.DP_TrangThai == "Đã trả phòng"
+                    || dp.DP_TrangThai == "Đã hủy")
+                {
+                    phong.P_TrangThai = true;
+                }
+
+                else
+                {
+                    phong.P_TrangThai = false;
+                }
 
                 _context.DatPhongs.Add(dp);
 
@@ -192,10 +230,10 @@ namespace DoAn.Areas.Admin.Controllers
 
             ViewBag.LoaiPhongList = _context.Phongs.Where(p => p.P_TrangThai == true).Select(p => p.P_LoaiPhong).Distinct().ToList();
 
-            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => p.P_TrangThai == true && p.P_LoaiPhong == loaiPhong).ToList(), "P_ID", "P_TenPhong", dp.P_ID);
+            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => (p.P_TrangThai == true || p.P_ID == dp.P_ID) && p.P_LoaiPhong == loaiPhong)
+            .ToList(), "P_ID", "P_TenPhong", dp.P_ID);
 
             ViewBag.TrangThaiList = _context.DatPhongs.Select(dp => dp.DP_TrangThai).Distinct().ToList();
-            ;
             return View(dp);
         }
 
@@ -214,6 +252,9 @@ namespace DoAn.Areas.Admin.Controllers
             if (dp.DP_NgayTra <= dp.DP_NgayNhan)
                 ModelState.AddModelError("", "Ngày trả phải lớn hơn ngày nhận!");
 
+            if (dp.DP_NgayNhan < DateTime.Now)
+                ModelState.AddModelError("DP_NgayNhan", "Ngày nhận phòng phải lớn hơn thời gian hiện tại!");
+
             if (ModelState.IsValid && phong != null && khach != null)
             {
                 var datphong = _context.DatPhongs.AsNoTracking().FirstOrDefault(x => x.DP_ID == dp.DP_ID);
@@ -229,6 +270,15 @@ namespace DoAn.Areas.Admin.Controllers
                 dp.DP_TongTien = (decimal)soGio * phong.P_GiaPhong;
                 dp.DP_NgayTao = datphong.DP_NgayTao;
 
+                if (dp.DP_TrangThai == "Đã trả phòng" || dp.DP_TrangThai == "Đã hủy")
+                {
+                    phong.P_TrangThai = true;
+                }
+                else
+                {
+                    phong.P_TrangThai = false;
+                }
+
                 _context.DatPhongs.Update(dp);
                 _context.SaveChanges();
 
@@ -241,10 +291,23 @@ namespace DoAn.Areas.Admin.Controllers
 
             ViewBag.SelectedLoaiPhong = phong?.P_LoaiPhong;
 
-            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => p.P_TrangThai == true && p.P_LoaiPhong == phong!.P_LoaiPhong)
+            ViewBag.PhongList = new SelectList(_context.Phongs.Where(p => (p.P_TrangThai == true || p.P_ID == dp.P_ID) && p.P_LoaiPhong == phong!.P_LoaiPhong)
             .ToList(), "P_ID", "P_TenPhong", dp.P_ID);
 
             return View(dp);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var datPhong = _context.DatPhongs.Include(x => x.Phong).Include(x => x.KhachHang).FirstOrDefault(x => x.DP_ID == id);
+
+            if (datPhong == null)
+                return NotFound();
+
+            return View(datPhong);
         }
     }
 }

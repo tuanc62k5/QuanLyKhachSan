@@ -23,47 +23,52 @@
             <div class="card-body p-4">
                 <div class="row g-3">
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Mã đặt phòng</label>
                         <input class="form-control" value="@Model.DP_ID" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Khách hàng</label>
                         <input class="form-control" value="@Model.KhachHang?.KH_TenKhach" readonly />
                     </div>
-
-                    <div class="col-md-4">
+    
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Phòng</label>
                         <input class="form-control" value="@Model.Phong?.P_TenPhong" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Loại phòng</label>
                         <input class="form-control" value="@Model.Phong?.P_LoaiPhong" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Số giờ</label>
                         <input class="form-control" value="@soGio giờ" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Số người</label>
                         <input class="form-control" value="@Model.DP_SoNguoi" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Tiền phòng</label>
                         <input class="form-control text-danger" value="@tienPhong.ToString("N0") đ" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Điện thoại</label>
+                        <input value="@Model.KhachHang?.KH_DienThoai" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Ngày đặt</label>
                         <input class="form-control" value="@Model.DP_NgayTao.ToString("dd/MM/yyyy HH:mm")" readonly />
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Trạng thái</label>
                         <input class="form-control" value="@Model.DP_TrangThai" readonly />
                     </div>

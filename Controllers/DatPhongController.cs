@@ -53,6 +53,13 @@ public class DatPhongController : Controller
             return View(model);
         }
 
+        if (model.DP_NgayNhan < DateTime.Now)
+        {
+            ModelState.AddModelError("DP_NgayNhan", "Ngày nhận phòng phải lớn hơn thời gian hiện tại!");
+            ViewBag.Phong = phong;
+            return View(model);
+        }
+
         model.KH_ID = userId.Value;
 
         model.DP_TongTien = (decimal)soGio * phong.P_GiaPhong;
