@@ -13,7 +13,7 @@ public class PhongController : Controller
         _context = context;
     }
 
-    public IActionResult DanhSach(int? SoNguoi, decimal? GiaMin, decimal? GiaMax, string SapXep)
+    public IActionResult DanhSach(int? SoNguoi, decimal? GiaMin, decimal? GiaMax, string SapXep, string? LoaiPhong, int page = 1)
     {
         var query = _context.Phongs.AsQueryable();
 
@@ -21,6 +21,9 @@ public class PhongController : Controller
 
         if (SoNguoi.HasValue && SoNguoi > 0)
             query = query.Where(p => p.P_SucChua >= SoNguoi.Value);
+
+        if (!string.IsNullOrEmpty(LoaiPhong))
+            query = query.Where(p => p.P_LoaiPhong == LoaiPhong);
 
         if (GiaMin.HasValue)
             query = query.Where(p => p.P_GiaPhong >= GiaMin.Value);
@@ -33,18 +36,25 @@ public class PhongController : Controller
         else if (SapXep == "GiaGiam")
             query = query.OrderByDescending(p => p.P_GiaPhong);
 
-        var phongs = query.ToList();
 
+        int pageSize = 6;
+
+        int totalRooms = query.Count();
+
+        var phongs = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = (int)Math.Ceiling((double)totalRooms / pageSize);
         ViewBag.SoNguoi = SoNguoi;
         ViewBag.GiaMin = GiaMin;
         ViewBag.GiaMax = GiaMax;
         ViewBag.SapXep = SapXep;
+        ViewBag.LoaiPhong = LoaiPhong;
 
         return View(phongs);
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public IActionResult DatPhong(int P_ID, DateTime DP_NgayNhan, DateTime DP_NgayTra, int DP_SoNguoi)
     {
         var userId = HttpContext.Session.GetInt32("UserID");
@@ -52,14 +62,12 @@ public class PhongController : Controller
         if (userId == null)
             return RedirectToAction("DangNhap", "TaiKhoan");
 
-        var phong = _context.Phongs
-            .FirstOrDefault(p => p.P_ID == P_ID);
+        var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == P_ID);
 
         if (phong == null)
             return NotFound();
 
-        var khachHang = _context.KhachHangs
-            .FirstOrDefault(k => k.KH_ID == userId.Value);
+        var khachHang = _context.KhachHangs.FirstOrDefault(k => k.KH_ID == userId.Value);
 
         if (khachHang == null)
             return RedirectToAction("DangNhap", "TaiKhoan");
@@ -90,7 +98,7 @@ public class PhongController : Controller
 
         _context.DatPhongs.Add(datPhong);
 
-        _context.ThongBaos.Add(new ThongBao
+        _context.ThongBaos.Add(new tblThongBao
         {
             TB_NoiDung = "Khách hàng " + khachHang.KH_TenKhach + " vừa đặt phòng " + phong.P_TenPhong,
             TB_ThoiGian = DateTime.Now,

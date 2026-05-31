@@ -113,7 +113,7 @@ namespace DoAn.Areas.Admin.Controllers
                 return View(p);
             }
             _context.Phongs.Add(p);
-            _context.ThongBaos.Add(new ThongBao
+            _context.ThongBaos.Add(new tblThongBao
             {
                 TB_NoiDung = "Đã thêm phòng mới: " + p.P_TenPhong,
                 TB_ThoiGian = DateTime.Now,

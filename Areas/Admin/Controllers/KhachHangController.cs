@@ -105,7 +105,7 @@ namespace DoAn.Areas.Admin.Controllers
                 return View(kh);
             }
             _context.KhachHangs.Add(kh);
-            _context.ThongBaos.Add(new ThongBao
+            _context.ThongBaos.Add(new tblThongBao
             {
                 TB_NoiDung = "Đã thêm khách hàng mới: " + kh.KH_TenKhach,
                 TB_ThoiGian = DateTime.Now,

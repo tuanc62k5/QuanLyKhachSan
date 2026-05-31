@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using DoAn.Models;
 using DoAn.Data;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 public class TaiKhoanController : Controller
 {
@@ -93,10 +95,12 @@ public class TaiKhoanController : Controller
 
         return View(user);
     }
+
     [HttpPost]
-    public IActionResult SuaThongTin(tblKhachHang model)
+    public IActionResult SuaThongTin(tblKhachHang model, IFormFile? avatarFile)
     {
-        var user = _context.KhachHangs.FirstOrDefault(x => x.KH_ID == model.KH_ID);
+        var user = _context.KhachHangs
+            .FirstOrDefault(x => x.KH_ID == model.KH_ID);
 
         if (user == null)
             return RedirectToAction("DangNhap");
@@ -105,11 +109,32 @@ public class TaiKhoanController : Controller
         user.KH_Email = model.KH_Email;
         user.KH_DienThoai = model.KH_DienThoai;
 
+        if (avatarFile != null && avatarFile.Length > 0)
+        {
+            TempData["Success"] = avatarFile.FileName;
+
+            string fileName = Guid.NewGuid().ToString()
+                              + Path.GetExtension(avatarFile.FileName);
+
+            string path = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot/img",
+                fileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                avatarFile.CopyTo(stream);
+            }
+
+            user.KH_HinhAnh = fileName;
+        }
+
         _context.SaveChanges();
 
         TempData["Success"] = "Cập nhật thành công!";
         return RedirectToAction("TrangCaNhan");
     }
+
     [HttpPost]
     public IActionResult DoiMatKhau(string oldPass, string newPass)
     {
@@ -132,5 +157,5 @@ public class TaiKhoanController : Controller
         TempData["Success"] = "Đổi mật khẩu thành công!";
         return RedirectToAction("TrangCaNhan");
     }
-    
+
 }

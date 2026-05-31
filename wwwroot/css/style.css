@@ -1,4 +1,3 @@
-/********** Template CSS **********/
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;
@@ -21,8 +20,6 @@
     z-index: 99;
 }
 
-
-/*** Spinner ***/
 #spinner {
     opacity: 0;
     visibility: hidden;
@@ -36,8 +33,6 @@
     opacity: 1;
 }
 
-
-/*** Button ***/
 .btn {
     font-weight: 500;
     text-transform: uppercase;
@@ -75,8 +70,6 @@
     border-radius: 2px;
 }
 
-
-/*** Navbar ***/
 .navbar-dark .navbar-nav .nav-link {
     margin-right: 30px;
     padding: 25px 0;
@@ -98,8 +91,6 @@
     }
 }
 
-
-/*** Header ***/
 .carousel-caption {
     top: 0;
     left: 0;
@@ -154,8 +145,6 @@
     z-index: 1;
 }
 
-
-/*** Section Title ***/
 .section-title {
     position: relative;
     display: inline-block;
@@ -188,8 +177,6 @@
     display: none;
 }
 
-
-/*** Service ***/
 .service-item {
     height: 320px;
     padding: 30px;
@@ -225,8 +212,6 @@
     color: #FFFFFF !important;
 }
 
-
-/*** Youtube Video ***/
 .video {
     position: relative;
     height: 100%;
@@ -343,8 +328,6 @@
     opacity: 1;
 }
 
-
-/*** Testimonial ***/
 .testimonial {
     background: linear-gradient(rgba(15, 23, 43, .7), rgba(15, 23, 43, .7)), url(../img/carousel-2.jpg);
     background-position: center center;
@@ -393,8 +376,6 @@
     background: #FFFFFF;
 }
 
-
-/*** Team ***/
 .team-item,
 .team-item .bg-primary,
 .team-item .bg-primary i {
@@ -414,7 +395,6 @@
 }
 
 
-/*** Footer ***/
 .newsletter {
     position: relative;
     z-index: 1;
@@ -491,7 +471,7 @@
 .logo-full-left {
     height: 100px;
     border-radius: 6px;
-    background: white; /* cho nổi logo */
+    background: white;
 }
 .link-login {
     color: #0d6efd !important;
@@ -526,7 +506,6 @@
     margin-top: 5px;
 }
 
-/* BUTTON CAM */
 .btn-service {
     background: #ff8c00;
     color: #fff;
@@ -548,6 +527,11 @@
     font-size: 34px;
     line-height: 1.25;
 }
+
+.user-dropdown{
+    margin-right: 10px;
+}
+
 .user-dropdown .dropdown-menu {
     min-width: 200px;
     border-radius: 10px;
@@ -606,4 +590,60 @@
 .btn {
     border-radius: 8px;
     padding: 10px;
+}
+
+.form-control,
+.form-select{
+    height: 48px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.search-card{
+    border-radius:20px;
+    padding:30px;
+}
+
+.room-card{
+    transition:.3s;
+}
+
+.room-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15)!important;
+}
+
+.anhphong{
+    height:450px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.ttp{
+    background:#f8fbff;
+    border-radius:15px;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 32px;
+    color: #ddd;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+    color: #ffc107;
 }

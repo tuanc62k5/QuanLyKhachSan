@@ -17,7 +17,7 @@ public class LienHeController : Controller
     [HttpPost]
     public IActionResult Index(string Ten, string Email, string NoiDung)
     {
-        _context.LienHes.Add(new LienHe
+        _context.LienHes.Add(new tblLienHe
         {
             LH_TenKhach = Ten,
             LH_Email = Email,

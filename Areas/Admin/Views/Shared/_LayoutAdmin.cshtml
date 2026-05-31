@@ -1,6 +1,6 @@
 @{
-  var dsThongBao = ViewBag.ThongBao as List<ThongBao>;
-  var dsTinNhan = ViewBag.TinNhan as List<LienHe>;
+  var dsThongBao = ViewBag.ThongBao as List<tblThongBao>;
+  var dsTinNhan = ViewBag.TinNhan as List<tblLienHe>;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +87,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            @foreach (var item in dsThongBao ?? new List<ThongBao>())
+            @foreach (var item in dsThongBao ?? new List<tblThongBao>())
             {
               <li class="notification-item">
                 <i class="bi bi-info-circle text-primary"></i>
@@ -128,7 +128,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            @foreach (var item in dsTinNhan ?? new List<DoAn.Models.LienHe>())
+            @foreach (var item in dsTinNhan ?? new List<DoAn.Models.tblLienHe>())
             {
               <li class="message-item">
                 <a href="#">

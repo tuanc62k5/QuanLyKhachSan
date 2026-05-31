@@ -1,56 +1,74 @@
 @model List<DoAn.Models.tblPhong>
 
 <div class="row g-4">
-@foreach (var p in Model)
-{
-    <div class="col-lg-4 col-md-6 wow fadeInUp">
-        <div class="room-item shadow rounded overflow-hidden">
-            
-            <div class="position-relative">
-                <img class="img-fluid" src="~/img/@p.P_HinhAnh" alt="">
-                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
-                    @p.P_GiaPhong đ / Giờ
-                </small>
-            </div>
+    @foreach (var p in Model)
+    {
+        <div class="col-lg-4 col-md-6 wow fadeInUp">
+            <div class="room-item shadow rounded overflow-hidden">
 
-            <div class="p-4 mt-2">
-                <div class="d-flex justify-content-between mb-3">
-                    <h5 class="mb-0">@p.P_TenPhong</h5>
-                    <div class="ps-2">
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-secondary"></small>
+                <div class="position-relative">
+                    <img class="img-fluid" src="~/img/@p.P_HinhAnh" alt="">
+                    <small
+                        class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                        @p.P_GiaPhong đ / Giờ
+                    </small>
+                </div>
+
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="mb-0">@p.P_TenPhong</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-secondary"></small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3">
+                            <i class="fa fa-hotel text-primary me-2"></i>
+                            @p.P_LoaiPhong
+                        </small>
+
+                        <small class="border-end me-3 pe-3">
+                            <i class="fa fa-users text-primary me-2"></i>
+                            @p.P_SucChua người
+                        </small>
+
+                        <small>
+                            @if (p.P_TrangThai)
+                            {
+                                <span class="text-success">
+                                    <i class="fa fa-check-circle me-2"></i>
+                                    Còn trống
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">
+                                    <i class="fa fa-times-circle me-2"></i>
+                                    Đã đầy
+                                </span>
+                            }
+                        </small>
+                    </div>
+
+                    <p class="text-body mb-3">@p.P_MoTa</p>
+
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Phong-@(p.P_ID).html">
+                            Xem chi tiết
+                        </a>
+
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4" asp-controller="Phong" asp-action="DanhSach">
+                            Đặt ngay
+                        </a>
                     </div>
                 </div>
 
-                <div class="d-flex mb-3">
-                    <small class="border-end me-3 pe-3">
-                        <i class="fa fa-bed text-primary me-2"></i>3 Bed
-                    </small>
-                    <small class="border-end me-3 pe-3">
-                        <i class="fa fa-bath text-primary me-2"></i>2 Bath
-                    </small>
-                    <small>
-                        <i class="fa fa-wifi text-primary me-2"></i>Wifi
-                    </small>
-                </div>
-
-                <p class="text-body mb-3">@p.P_MoTa</p>
-
-                <div class="d-flex justify-content-between">
-                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Phong-@(p.P_ID).html">
-                        Xem chi tiết
-                    </a>
-
-                    <a class="btn btn-sm btn-dark rounded py-2 px-4" asp-controller="Phong" asp-action="DanhSach">
-                        Đặt ngay
-                    </a>
-                </div>
             </div>
-
         </div>
-    </div>
-}
+    }
 </div>

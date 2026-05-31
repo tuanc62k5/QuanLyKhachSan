@@ -1,3 +1,10 @@
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
 @model DoAn.Models.tblPhong
 
 <div class="container mt-5">
@@ -7,17 +14,36 @@
         <div class="col-lg-8">
 
             <!-- ẢNH -->
-            <img src="~/img/@Model.P_HinhAnh" class="img-fluid rounded mb-3" />
+            <img src="~/img/@Model.P_HinhAnh" class="w-100 anhphong">
 
-            <!-- THÔNG TIN KHÁCH SẠN -->
-            <div class="bg-light p-3 rounded mb-3 shadow-sm">
-                <h5><b>Thông tin khách sạn</b></h5>
+            <!-- THÔNG TIN PHÒNG -->
+            <div class="card border-0 shadow-sm p-4 mb-4 ttp">
 
-                <div class="row mt-2">
-                    <div class="col-md-4">📍 Chưa cập nhật</div>
-                    <div class="col-md-4">🏢 Tầng: 5</div>
-                    <div class="col-md-4">🛏 Số phòng: 20</div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="fw-bold mb-3">
+                        @Model.P_TenPhong
+                    </h1>
+
+                    <h1 class="text-warning fw-bold mb-0">
+                        @Model.P_GiaPhong.ToString("N0") đ
+                        <small class="text-dark">/ giờ</small>
+                    </h1>
                 </div>
+
+                <div class="d-flex gap-4 mb-3">
+                    <span>
+                        👤 <strong>@Model.P_SucChua người</strong>
+                    </span>
+
+                    <span>
+                        🏨 <strong>@Model.P_LoaiPhong</strong>
+                    </span>
+                </div>
+
+                <p class="text-muted mb-0">
+                    @Model.P_MoTa
+                </p>
+
             </div>
 
             <!-- TIỆN NGHI -->
@@ -54,27 +80,72 @@
 
             <!-- ĐÁNH GIÁ -->
             <div class="bg-light p-3 rounded mb-3 shadow-sm">
+
                 <h5><b>Đánh giá khách hàng</b></h5>
-                @if (ViewBag.Reviews != null && ViewBag.Reviews.Count > 0)
+
+                <form asp-controller="Home" asp-action="DanhGia" method="post">
+
+                    <input type="hidden" name="P_ID" value="@Model.P_ID" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Đánh giá của bạn:</label>
+
+                        <div class="rating">
+                            <input type="radio" name="DG_Sao" value="5" id="star5">
+                            <label for="star5">★</label>
+
+                            <input type="radio" name="DG_Sao" value="4" id="star4">
+                            <label for="star4">★</label>
+
+                            <input type="radio" name="DG_Sao" value="3" id="star3">
+                            <label for="star3">★</label>
+
+                            <input type="radio" name="DG_Sao" value="2" id="star2">
+                            <label for="star2">★</label>
+
+                            <input type="radio" name="DG_Sao" value="1" id="star1">
+                            <label for="star1">★</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <textarea name="DG_NoiDung" class="form-control" rows="3"
+                                  placeholder="Nhập nhận xét"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">
+                        Gửi đánh giá
+                    </button>
+
+                </form>
+
+                <hr />
+
+                @if (ViewBag.DanhGia != null)
                 {
-                    foreach (var rv in ViewBag.Reviews)
+                    @foreach (var dg in ViewBag.DanhGia)
                     {
-                        <div class="border p-2 mb-2 rounded">
-                            <b>@rv.UserName</b>
-                            <p>
-                                @for (int i = 0; i < rv.Rating; i++)
+                        <div class="border rounded p-3 mb-2">
+
+                            <b>@dg.KhachHang?.KH_TenKhach</b>
+
+                            <div>
+                                @for (int i = 0; i < dg.DG_Sao; i++)
                                 {
-                                    <span>⭐</span>
+                                    <span class="text-warning">★</span>
                                 }
-                            </p>
-                            <p>@rv.Comment</p>
+                            </div>
+
+                            <p>@dg.DG_NoiDung</p>
+
+                            <small>
+                                @dg.DG_NgayTao.ToString("dd/MM/yyyy HH:mm")
+                            </small>
+
                         </div>
                     }
                 }
-                else
-                {
-                    <p>Chưa có đánh giá</p>
-                }
+
             </div>
 
         </div>
@@ -98,12 +169,14 @@
                     <!-- THÔNG TIN ĐẶT -->
                     <div class="mb-3">
                         <label>Ngày nhận phòng</label>
-                        <input type="datetime-local" name="DP_NgayNhan" class="form-control" required />
+                        <input type="datetime-local" name="DP_NgayNhan" class="form-control"
+                               min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
                     </div>
 
                     <div class="mb-3">
                         <label>Ngày trả phòng</label>
-                        <input type="datetime-local" name="DP_NgayTra" class="form-control" required />
+                        <input type="datetime-local" name="DP_NgayTra" class="form-control"
+                               min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
                     </div>
 
                     <div class="mb-3">
@@ -141,9 +214,9 @@
             let soGio = (d2 - d1) / (1000 * 60 * 60);
 
             if (soGio > 0) {
-            soGio = Math.ceil(soGio);
+                soGio = Math.ceil(soGio);
 
-            let tong = soGio * gia;
+                let tong = soGio * gia;
 
                 document.getElementById("tongTien").innerText = tong.toLocaleString();
             }

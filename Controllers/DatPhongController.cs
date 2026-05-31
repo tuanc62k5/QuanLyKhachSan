@@ -55,9 +55,9 @@ public class DatPhongController : Controller
 
         if (model.DP_NgayNhan < DateTime.Now)
         {
-            ModelState.AddModelError("DP_NgayNhan", "Ngày nhận phòng phải lớn hơn thời gian hiện tại!");
-            ViewBag.Phong = phong;
-            return View(model);
+            TempData["Error"] = "Không được đặt phòng trong thời gian đã qua!";
+
+            return Redirect($"/Phong-{model.P_ID}.html");
         }
 
         model.KH_ID = userId.Value;
@@ -73,7 +73,7 @@ public class DatPhongController : Controller
 
         _context.DatPhongs.Add(model);
 
-        _context.ThongBaos.Add(new ThongBao
+        _context.ThongBaos.Add(new tblThongBao
         {
             TB_NoiDung = "Khách hàng " + user.KH_TenKhach + " vừa đặt phòng " + phong.P_TenPhong,
             TB_ThoiGian = DateTime.Now,

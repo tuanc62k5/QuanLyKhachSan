@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DoAn.Models
 {
     [Table("tblLienHe")]
-    public class LienHe
+    public class tblLienHe
     {
         [Key]
         public int LH_ID { get; set; }

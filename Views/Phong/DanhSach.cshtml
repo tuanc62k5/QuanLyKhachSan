@@ -8,102 +8,144 @@
     </div>
 }
 
-<div class="container mt-5">
-    <div class="row">
+<div class="container mt-2">
 
-        <!-- LEFT: FILTER -->
-        <div class="col-md-3">
-            <div class="card p-3 shadow-sm">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body py-4">
 
-                <h5>Tìm kiếm phòng</h5>
+            <h2 class="fw-bold mb-4" style="font-size:30px">🔍 Tìm kiếm phòng</h2>
 
-                <form method="get" action="/Phong/DanhSach">
+            <form method="get" action="/Phong/DanhSach">
 
-                    <label>Số người</label>
-                    <input type="number" name="SoNguoi" class="form-control mb-2" value="@(ViewBag.SoNguoi ?? "")"
-                           min="1" />
+                <div class="row align-items-end g-3">
 
-                    <label>Giá từ</label>
-                    <input type="number" name="GiaMin" class="form-control mb-2" value="@(ViewBag.GiaMin ?? "")" />
+                    <div class="col-lg">
+                        <label class="fw-bold mb-2">Số người</label>
+                        <input type="number" name="SoNguoi" class="form-control" value="@ViewBag.SoNguoi">
+                    </div>
 
-                    <label>Đến</label>
-                    <input type="number" name="GiaMax" class="form-control mb-2" value="@(ViewBag.GiaMax ?? "")" />
+                    <div class="col-lg">
+                        <label class="fw-bold mb-2">Loại phòng</label>
+                        <select name="LoaiPhong" class="form-select">
+                            <option value="">Tất cả</option>
+                            <option value="Phòng thường">Phòng thường</option>
+                            <option value="Phòng gia đình">Phòng gia đình</option>
+                            <option value="Phòng VIP">Phòng VIP</option>
+                        </select>
+                    </div>
 
-                    <label>Sắp xếp</label>
-                    <select name="SapXep" class="form-control mb-3">
+                    <div class="col-lg">
+                        <label class="fw-bold mb-2">Giá từ</label>
+                        <input type="number" name="GiaMin" class="form-control" value="@ViewBag.GiaMin">
+                    </div>
 
-                        @if (ViewBag.SapXep == "GiaTang")
-                        {
-                            <option value="GiaTang" selected>Giá tăng dần</option>
-                        }
-                        else
-                        {
+                    <div class="col-lg">
+                        <label class="fw-bold mb-2">Giá đến</label>
+                        <input type="number" name="GiaMax" class="form-control" value="@ViewBag.GiaMax">
+                    </div>
+
+                    <div class="col-lg">
+                        <label class="fw-bold mb-2">Sắp xếp</label>
+                        <select name="SapXep" class="form-select">
+                            <option value="">Mặc định</option>
                             <option value="GiaTang">Giá tăng dần</option>
-                        }
-
-                        @if (ViewBag.SapXep == "GiaGiam")
-                        {
-                            <option value="GiaGiam" selected>Giá giảm dần</option>
-                        }
-                        else
-                        {
                             <option value="GiaGiam">Giá giảm dần</option>
-                        }
-                    </select>
+                        </select>
+                    </div>
 
-                    <button class="btn btn-primary w-100">Tìm phòng</button>
+                    <div class="col-lg-auto">
+                        <button type="submit" class="btn btn-warning w-100" style="height:48px;">TÌM PHÒNG</button>
+                    </div>
 
-                    <a href="/Phong/DanhSach" class="btn btn-secondary w-100 mt-2">
-                        Xóa lọc
-                    </a>
+                    <div class="col-lg-auto">
+                        <a href="/Phong/DanhSach" class="btn btn-secondary w-100" style="height:48px;line-height:34px;">
+                            XÓA LỌC
+                        </a>
+                    </div>
 
-                </form>
-            </div>
+                </div>
+
+            </form>
+
         </div>
+    </div>
 
-        <!-- RIGHT: LIST -->
-        <div class="col-md-9">
+    <h2 class="fw-bold mb-4 ms-3" style="font-size:30px">Danh sách phòng</h2>
 
-            <h4 class="mb-4">Danh sách phòng (@Model.Count)</h4>
+    <div class="row g-4">
 
-            @foreach (var p in Model)
-            {
-                <div class="card mb-3 shadow-sm">
-                    <div class="row g-0">
+        @foreach (var p in Model)
+        {
+            <div class="col-lg-6 mb-4">
 
-                        <!-- IMAGE -->
-                        <div class="col-md-4">
-                            <img src="~/img/@p.P_HinhAnh" class="img-fluid rounded-start" />
+                <div class="card border-0 shadow-sm room-card" style="border-radius:20px;overflow:hidden;">
+
+                    <div class="position-relative">
+                        <img src="~/img/@p.P_HinhAnh" class="w-100" style="height:260px;object-fit:cover;">
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <h3 class="fw-bold mb-2">@p.P_TenPhong</h3>
+
+                        <p class="text-muted mb-3">@p.P_MoTa</p>
+
+                        <div class="d-flex gap-4 mb-3">
+                            <span>👤 @p.P_SucChua người</span>
+                            <span>🏨 @p.P_LoaiPhong</span>
                         </div>
 
-                        <!-- INFO -->
-                        <div class="col-md-8">
-                            <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
 
-                                <h5>@p.P_TenPhong</h5>
+                            <div>
+                                <h3 class="text-warning fw-bold mb-0">
+                                    @p.P_GiaPhong.ToString("N0") đ
+                                    <small class="text-dark">/ giờ</small>
+                                </h3>
+                                <p class="text-muted mb-0">
+                                </div>
 
-                                <p>@p.P_MoTa</p>
-
-                                <p>
-                                    👤 Sức chứa: @p.P_SucChua người
-                                </p>
-
-                                <h5 class="text-primary">
-                                    @p.P_GiaPhong.ToString("N0") đ / Giờ
-                                </h5>
-
-                                <a href="/Phong-@(p.P_ID).html" class="btn btn-outline-primary">
-                                    Chi tiết phòng
-                                </a>
+                                <div>
+                                    <a href="/Phong-@(p.P_ID).html" class="btn btn-warning">Xem chi tiết</a>
+                                </div>
 
                             </div>
+
                         </div>
 
                     </div>
+
                 </div>
             }
 
         </div>
 
+        @if (ViewBag.TotalPages > 1)
+        {
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+
+                            <a class="page-link" href="@Url.Action("DanhSach", new
+                               {
+                                   page = i,
+                                   SoNguoi = ViewBag.SoNguoi,
+                                   LoaiPhong = ViewBag.LoaiPhong,
+                                   GiaMin = ViewBag.GiaMin,
+                                   GiaMax = ViewBag.GiaMax,
+                                   SapXep = ViewBag.SapXep
+                               })">
+                                @i
+                            </a>
+
+                        </li>
+                    }
+
+                </ul>
+            </nav>
+        }
+
     </div>
-</div>

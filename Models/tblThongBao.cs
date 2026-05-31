@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DoAn.Models
 {
     [Table("tblthongbao")]
-    public class ThongBao
+    public class tblThongBao
     {
         [Key]
         public int TB_ID { get; set; }
@@ -13,6 +13,6 @@ namespace DoAn.Models
 
         public DateTime? TB_ThoiGian { get; set; }
 
-        public bool TB_TrangThai { get; set; } // 0 = chưa đọc
+        public bool TB_TrangThai { get; set; }
     }
 }

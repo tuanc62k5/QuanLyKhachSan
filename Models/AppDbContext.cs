@@ -19,7 +19,8 @@ namespace DoAn.Data
         public DbSet<tblDatPhong> DatPhongs { get; set; }
         public DbSet<tblKhachHang> KhachHangs { get; set; }
         public DbSet<tblHoaDon> HoaDons { get; set; }
-        public DbSet<LienHe> LienHes { get; set; }
-        public DbSet<ThongBao> ThongBaos { get; set; }   
+        public DbSet<tblLienHe> LienHes { get; set; }
+        public DbSet<tblThongBao> ThongBaos { get; set; }
+        public DbSet<tblDanhGia> DanhGias { get; set; }   
     }
 }

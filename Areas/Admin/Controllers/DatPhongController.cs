@@ -187,7 +187,7 @@ namespace DoAn.Areas.Admin.Controllers
 
                 _context.DatPhongs.Add(dp);
 
-                _context.ThongBaos.Add(new ThongBao
+                _context.ThongBaos.Add(new tblThongBao
                 {
                     TB_NoiDung = "Đã tạo đơn đặt phòng mới",
                     TB_ThoiGian = DateTime.Now,

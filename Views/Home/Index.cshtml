@@ -9,7 +9,8 @@
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Tuan Anh Hotel
                         </h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">Khám Phá Khách Sạn Đẳng Cấp</h1>
-                        <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
+                        <a asp-controller="Phong" asp-action="DanhSach"
+                           class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
                     </div>
                 </div>
             </div>
@@ -20,7 +21,8 @@
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Tuan Anh Hotel
                         </h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">Khám Phá Khách Sạn Đẳng Cấp</h1>
-                        <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
+                        <a asp-controller="Phong" asp-action="DanhSach"
+                           class="btn btn-light py-md-3 px-md-5 animated slideInRight">Đặt Phòng Ngay</a>
                     </div>
                 </div>
             </div>
@@ -160,189 +162,151 @@
                     <p class="text-white mb-4">Tận hưởng không gian sang trọng, tiện nghi hiện đại cùng dịch vụ chuyên
                         nghiệp tại Tuan Anh Hotel. Chúng tôi mang đến cho bạn trải nghiệm nghỉ dưỡng thoải mái và đáng nhớ.
                     </p>
-                    <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-primary py-md-3 px-md-5 me-3">Xem phòng</a>
+                    <a asp-controller="Phong" asp-action="DanhSach" class="btn btn-primary py-md-3 px-md-5 me-3">Xem
+                        phòng</a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="video">
-                    <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/EnoeQ9uVxFI" data-bs-target="#videoModal">
-                        <span></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- 16:9 aspect ratio -->
-                    <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
-                                allow="autoplay"></iframe>
+                <div class="col-md-6">
+                    <div class="video">
+                        <button type="button" class="btn-play" data-bs-toggle="modal"
+                                data-src="https://www.youtube.com/embed/EnoeQ9uVxFI" data-bs-target="#videoModal">
+                            <span></span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Video Start -->
 
-
-    <!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-primary text-uppercase">DỊCH VỤ KHÁCH SẠN</h6>
-                <h1 class="mb-5">Khám Phá Dịch Vụ Của <span class="text-primary text-uppercase">Chúng Tôi</span></h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
-                        <div class="service-icon bg-transparent border rounded p-1">
-                            <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                <i class="fa fa-hotel fa-2x text-primary"></i>
-                            </div>
-                        </div>
-                        <h5 class="mb-3">Phòng & Căn hộ</h5>
-                        <p class="text-body mb-0">Cung cấp đa dạng các loại phòng và căn hộ với đầy đủ tiện nghi, phù hợp
-                            cho mọi nhu cầu nghỉ dưỡng.</p>
-                        </a>
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
-                            <div class="service-icon bg-transparent border rounded p-1">
-                                <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                    <i class="fa fa-utensils fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <h5 class="mb-3">Nhà hàng & Ẩm thực</h5>
-                            <p class="text-body mb-0">Thưởng thức các món ăn đa dạng từ ẩm thực địa phương đến quốc tế trong
-                                không gian sang trọng.</p>
-                            </a>
+                    <div class="modal-body">
+                        <!-- 16:9 aspect ratio -->
+                        <div class="ratio ratio-16x9">
+                            <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
+                                    allow="autoplay"></iframe>
                         </div>
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Video Start -->
+
+
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">DỊCH VỤ KHÁCH SẠN</h6>
+                    <h1 class="mb-5">Khám Phá Dịch Vụ Của <span class="text-primary text-uppercase">Chúng Tôi</span></h1>
+                </div>
+                @using DoAn.Models
+            @{
+                    var dichVus = ViewBag.DichVus as List<tblDichVu>
+                                  ?? new List<tblDichVu>();
+                }
+
+                <div class="row g-4">
+
+                    @foreach (var dv in dichVus)
+                    {
+                        <div class="col-lg-4 col-md-6 wow fadeInUp">
+
                             <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
+
                                 <div class="service-icon bg-transparent border rounded p-1">
                                     <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                        <i class="fa fa-spa fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                                <h5 class="mb-3">Spa & Thể hình</h5>
-                                <p class="text-body mb-0">Dịch vụ spa thư giãn kết hợp phòng tập hiện đại giúp bạn cân bằng sức khỏe
-                                    và tinh thần.</p>
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                                <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
-                                    <div class="service-icon bg-transparent border rounded p-1">
-                                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+
+                                        @if (dv.DV_TenDichVu.Contains("Spa"))
+                                        {
+                                            <i class="fa fa-spa fa-2x text-primary"></i>
+                                        }
+                                        else if (dv.DV_TenDichVu.Contains("Hồ bơi"))
+                                        {
                                             <i class="fa fa-swimmer fa-2x text-primary"></i>
-                                        </div>
+                                        }
+                                        else if (dv.DV_TenDichVu.Contains("Đưa đón"))
+                                        {
+                                            <i class="fa fa-shuttle-van fa-2x text-primary"></i>
+                                        }
+                                        else if (dv.DV_TenDichVu.Contains("Giặt"))
+                                        {
+                                            <i class="fa fa-tint fa-2x text-primary"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-concierge-bell fa-2x text-primary"></i>
+                                        }
+
                                     </div>
-                                    <h5 class="mb-3">Giải trí & Thể thao</h5>
-                                    <p class="text-body mb-0">Khu vui chơi và các hoạt động thể thao giúp bạn thư giãn và giải trí trong
-                                        suốt kỳ nghỉ.</p>
-                                    </a>
                                 </div>
-                                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                    <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
-                                        <div class="service-icon bg-transparent border rounded p-1">
-                                            <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                <i class="fa fa-glass-cheers fa-2x text-primary"></i>
-                                            </div>
-                                        </div>
-                                        <h5 class="mb-3">Sự kiện & Tiệc</h5>
-                                        <p class="text-body mb-0">Tổ chức hội nghị, tiệc cưới và sự kiện chuyên nghiệp với không gian sang
-                                            trọng.</p>
-                                        </a>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                                        <a class="service-item rounded" asp-controller="DichVu" asp-action="Index">
-                                            <div class="service-icon bg-transparent border rounded p-1">
-                                                <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
-                                                    <i class="fa fa-dumbbell fa-2x text-primary"></i>
-                                                </div>
-                                            </div>
-                                            <h5 class="mb-3">Phòng gym & Yoga</h5>
-                                            <p class="text-body mb-0">Trang bị đầy đủ máy móc hiện đại cùng không gian luyện tập thoải mái cho
-                                                khách hàng.</p>
-                                            </a>
-                                        </div>
-                                    </div>
+
+                                <h5 class="mb-3">
+                                    @dv.DV_TenDichVu
+                                </h5>
+
+                                <p class="text-body mb-0">
+                                    @dv.DV_MoTa
+                                </p>
+
+                            </a>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+        <!-- Testimonial Start -->
+        <div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s">
+            <div class="container">
+                <div class="owl-carousel testimonial-carousel py-5">
+                    <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                        <p>Khách sạn rất sạch sẽ, phòng rộng rãi và đầy đủ tiện nghi. Nhân viên thân thiện, phục vụ tận tình.
+                            Tôi sẽ quay lại lần sau!</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/avatar-1.jpg"
+                                     style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Nguyễn Thị An</h6>
+                                    <small>Khách du lịch</small>
                                 </div>
                             </div>
-                            <!-- Service End -->
-
-
-                            <!-- Testimonial Start -->
-                            <div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s">
-                                <div class="container">
-                                    <div class="owl-carousel testimonial-carousel py-5">
-                                        <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
-                                            <p>Khách sạn rất sạch sẽ, phòng rộng rãi và đầy đủ tiện nghi. Nhân viên thân thiện, phục vụ tận tình.
-                                                Tôi sẽ quay lại lần sau!</p>
-                                                <div class="d-flex align-items-center">
-                                                    <img class="img-fluid flex-shrink-0 rounded" src="img/avatar-1.jpg"
-                                                         style="width: 45px; height: 45px;">
-                                                    <div class="ps-3">
-                                                        <h6 class="fw-bold mb-1">Nguyễn Thị An</h6>
-                                                        <small>Khách du lịch</small>
-                                                    </div>
-                                                </div>
-                                                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
-                                            </div>
-                                            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
-                                                <p>Dịch vụ rất tốt, đồ ăn ngon và không gian sang trọng. Trải nghiệm tuyệt vời khi nghỉ tại Tuan Anh
-                                                    Hotel.</p>
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="img-fluid flex-shrink-0 rounded" src="img/avatar-2.jpg"
-                                                             style="width: 45px; height: 45px;">
-                                                        <div class="ps-3">
-                                                            <h6 class="fw-bold mb-1">Vi Tuấn Anh</h6>
-                                                            <small>Doanh nhân</small>
-                                                        </div>
-                                                    </div>
-                                                    <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
-                                                </div>
-                                                <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
-                                                    <p>Vị trí thuận tiện, gần trung tâm. Nhân viên nhiệt tình và hỗ trợ rất nhanh chóng. Rất hài lòng!</p>
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="img-fluid flex-shrink-0 rounded" src="img/avatar-3.jpg"
-                                                             style="width: 45px; height: 45px;">
-                                                        <div class="ps-3">
-                                                            <h6 class="fw-bold mb-1">Mạc Phàm</h6>
-                                                            <small>Gia đình</small>
-                                                        </div>
-                                                    </div>
-                                                    <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+                        </div>
+                        <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                            <p>Dịch vụ rất tốt, đồ ăn ngon và không gian sang trọng. Trải nghiệm tuyệt vời khi nghỉ tại Tuan Anh
+                                Hotel.</p>
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid flex-shrink-0 rounded" src="img/avatar-2.jpg"
+                                         style="width: 45px; height: 45px;">
+                                    <div class="ps-3">
+                                        <h6 class="fw-bold mb-1">Vi Tuấn Anh</h6>
+                                        <small>Doanh nhân</small>
                                     </div>
-                                    <!-- Testimonial End -->
-
-
-                                    <!-- Newsletter Start -->
-                                    <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
-                                        <div class="row justify-content-center">
-                                            <div class="col-lg-10 border rounded p-1">
-                                                <div class="border rounded text-center p-1">
-                                                    <div class="bg-white rounded text-center p-5">
-                                                        <h4 class="mb-4">Đăng ký nhận <span class="text-primary text-uppercase">ưu đãi</span></h4>
-                                                        <div class="position-relative mx-auto" style="max-width: 400px;">
-                                                            <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Nhập email của bạn">
-                                                            <button type="button"
-                                                                    class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Đăng ký</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                </div>
+                                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+                            </div>
+                            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                                <p>Vị trí thuận tiện, gần trung tâm. Nhân viên nhiệt tình và hỗ trợ rất nhanh chóng. Rất hài lòng!</p>
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid flex-shrink-0 rounded" src="img/avatar-3.jpg"
+                                         style="width: 45px; height: 45px;">
+                                    <div class="ps-3">
+                                        <h6 class="fw-bold mb-1">Mạc Phàm</h6>
+                                        <small>Gia đình</small>
                                     </div>
-                                    <!-- Newsletter Start -->
+                                </div>
+                                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial End -->
