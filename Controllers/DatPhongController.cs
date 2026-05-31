@@ -73,6 +73,8 @@ public class DatPhongController : Controller
 
         _context.DatPhongs.Add(model);
 
+        phong.P_TrangThai = false;
+
         _context.ThongBaos.Add(new tblThongBao
         {
             TB_NoiDung = "Khách hàng " + user.KH_TenKhach + " vừa đặt phòng " + phong.P_TenPhong,
@@ -112,6 +114,13 @@ public class DatPhongController : Controller
 
         if (dp != null)
         {
+            var phong = _context.Phongs.FirstOrDefault(p => p.P_ID == dp.P_ID);
+
+            if (phong != null)
+            {
+                phong.P_TrangThai = true;
+            }
+
             _context.DatPhongs.Remove(dp);
             _context.SaveChanges();
         }

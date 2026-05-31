@@ -12,12 +12,12 @@ public class DichVuController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int? dpId)
     {
-        var dichvus = _context.DichVus
-            .Where(d => d.DV_TrangThai)
-            .ToList();
+        ViewBag.DP_ID = dpId;
 
-        return View(dichvus);
+        var list = _context.DichVus.ToList();
+
+        return View(list);
     }
 }

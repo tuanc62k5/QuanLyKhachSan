@@ -21,18 +21,15 @@
 
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Đặt phòng</label>
-                            <select asp-for="DP_ID" asp-items="ViewBag.DatPhongList" class="form-select" required>
-                                <option value="">-- Chọn khách hàng / phòng --</option>
-                            </select>
-                            <span asp-validation-for="DP_ID" class="text-danger"></span>
+                            <input type="hidden" asp-for="DP_ID" />
+                            <input type="text" class="form-control"
+                                   value="@Model.DatPhong?.KhachHang?.KH_TenKhach - @Model.DatPhong?.Phong?.P_TenPhong" readonly />
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Dịch vụ</label>
-                            <select asp-for="DV_ID" asp-items="ViewBag.DichVuList" class="form-select" required>
-                                <option value="">-- Chọn dịch vụ --</option>
-                            </select>
-                            <span asp-validation-for="DV_ID" class="text-danger"></span>
+                            <input type="hidden" asp-for="DV_ID" />
+                            <input type="text" class="form-control" value="@Model.DichVu?.DV_TenDichVu" readonly />
                         </div>
 
                         <div class="col-md-6">
@@ -79,28 +76,3 @@
         </div>
     </section>
 </main>
-
-<script>
-    const dichVuPrices = {
-    @foreach (var dv in ViewBag.DichVuData)
-        {
-            @:@dv.DV_ID: @dv.DV_GiaTien,
-    }
-    };
-
-    function updateThanhTien() {
-        const dvId = document.getElementById("DV_ID").value;
-        const soLuong = parseInt(document.getElementById("SDDV_SoLuong").value) || 0;
-
-        if (dvId && dichVuPrices[dvId]) {
-            document.getElementById("SDDV_ThanhTien").value = dichVuPrices[dvId] * soLuong;
-        } else {
-            document.getElementById("SDDV_ThanhTien").value = 0;
-        }
-    }
-
-    document.getElementById("DV_ID").addEventListener("change", updateThanhTien);
-    document.getElementById("SDDV_SoLuong").addEventListener("input", updateThanhTien);
-
-    window.onload = updateThanhTien;
-</script>

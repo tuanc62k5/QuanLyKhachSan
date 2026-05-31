@@ -1,0 +1,88 @@
+@model List<DoAn.Models.tblSuDungDichVu>
+
+<div class="container mt-5">
+
+    <h2 class="mb-4 fw-bold">🎁 Dịch vụ đã đặt</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-warning">
+            Bạn chưa đặt dịch vụ nào.
+        </div>
+    }
+
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4 shadow-sm border-0">
+            <div class="row g-0 align-items-center">
+
+                <!-- ẢNH -->
+                <div class="col-md-3">
+                    <img src="~/img/@item.DichVu?.DV_HinhAnh" class="img-fluid rounded-start"
+                         style="height:180px;width:100%;object-fit:cover;" />
+                </div>
+
+                <!-- THÔNG TIN -->
+                <div class="col-md-6 p-3">
+                    <h4 class="fw-bold text-primary mb-2">
+                        🎁 @item.DichVu?.DV_TenDichVu
+                    </h4>
+
+                    <p class="mb-1 text-muted">
+                        🏨 Phòng:
+                        <strong>@item.DatPhong?.Phong?.P_TenPhong</strong>
+                    </p>
+
+                    <p class="mb-1 text-muted">
+                        📅 Ngày sử dụng:
+                        <strong>
+                            @item.SDDV_NgaySuDung.ToString("dd/MM/yyyy HH:mm")
+                        </strong>
+                    </p>
+
+                    <p class="mb-1 text-muted">
+                        🔢 Số lượng:
+                        <strong>@item.SDDV_SoLuong</strong>
+                    </p>
+
+                    <p class="mb-1 text-muted">
+                        📝 Trạng thái:
+                        <strong>@item.SDDV_TrangThai</strong>
+                    </p>
+                </div>
+
+                <!-- GIÁ + ACTION -->
+                <div class="col-md-3 text-end p-3">
+
+                    <h4 class="text-success fw-bold">
+                        @String.Format("{0:N0}", item.SDDV_ThanhTien) đ
+                    </h4>
+
+                    <span class="badge bg-success mb-2 px-3 py-2">
+                        ✔ Đã đặt
+                    </span>
+
+                    <form asp-controller="SuDungDichVu" asp-action="XoaDichVu" method="post">
+
+                        <input type="hidden" name="id" value="@item.SDDV_ID" />
+
+                        <button type="submit" class="btn btn-danger w-100"
+                                onclick="return confirm('Bạn có chắc muốn hủy dịch vụ này?')">
+                            ❌ Hủy dịch vụ
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>

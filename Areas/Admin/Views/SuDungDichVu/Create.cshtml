@@ -19,32 +19,24 @@
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
                     <div class="row g-3">
 
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold">Phòng</label>
-                            <select id="phongSelect" class="form-select" onchange="filterKhachHang()">
-                                <option value="">-- Chọn phòng --</option>
-                                @foreach (var phong in ViewBag.PhongList)
-                                {
-                                    <option value="@phong.Value">@phong.Text</option>
-                                }
-                            </select>
-                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Đơn đặt phòng</label>
 
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold">Khách hàng</label>
-                            <select asp-for="DP_ID" id="datPhongSelect" class="form-select">
-                                <option value="">-- Chọn khách hàng --</option>
+                            <select asp-for="DP_ID" class="form-select">
+                                <option value="">-- Chọn đơn đặt phòng --</option>
+
                                 @foreach (var dp in ViewBag.DatPhongList)
                                 {
-                                    <option value="@dp.Value" data-phong="@dp.PhongId">
+                                    <option value="@dp.Value">
                                         @dp.Text
                                     </option>
                                 }
                             </select>
+
                             <span asp-validation-for="DP_ID" class="text-danger"></span>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label fw-bold">Dịch vụ</label>
                             <select asp-for="DV_ID" id="dichVuSelect" class="form-select" onchange="calculateTotal()">
                                 <option value="">-- Chọn dịch vụ --</option>

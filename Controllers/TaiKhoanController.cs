@@ -84,6 +84,20 @@ public class TaiKhoanController : Controller
 
         return View(list);
     }
+
+    public IActionResult DichVuDaDat()
+    {
+        var userId = HttpContext.Session.GetInt32("UserID");
+
+        if (userId == null)
+            return RedirectToAction("DangNhap");
+
+        var list = _context.SuDungDichVus.Include(x => x.DichVu)
+        .Include(x => x.DatPhong).ThenInclude(dp => dp!.Phong)
+        .Where(x => x.DatPhong!.KH_ID == userId.Value).ToList();
+
+        return View(list);
+    }
     public IActionResult SuaThongTin()
     {
         var userId = HttpContext.Session.GetInt32("UserID");

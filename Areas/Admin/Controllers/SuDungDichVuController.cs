@@ -126,12 +126,11 @@ namespace DoAn.Areas.Admin.Controllers
                 Text = dp.Phong.P_TenPhong
             }).Distinct().ToList();
 
-            ViewBag.DatPhongList = _context.DatPhongs.Include(dp => dp.Phong).Include(dp => dp.KhachHang).Where(dp => dp.Phong != null && dp.KhachHang != null)
-            .Select(dp => new
+            ViewBag.DatPhongList = _context.DatPhongs.Include(x => x.KhachHang).Include(x => x.Phong)
+            .Where(x => x.DP_TrangThai != "Đã trả phòng" && x.DP_TrangThai != "Đã hủy").Select(x => new
             {
-                Value = dp.DP_ID,
-                Text = dp.KhachHang!.KH_TenKhach + " - " + dp.Phong!.P_TenPhong,
-                PhongId = dp.P_ID
+                Value = x.DP_ID,
+                Text = x.KhachHang!.KH_TenKhach + " - " + x.Phong!.P_TenPhong + " (" + x.DP_TrangThai + ")"
             }).ToList();
 
             ViewBag.DichVuList = _context.DichVus.Where(dv => dv.DV_TrangThai == true)
@@ -185,12 +184,11 @@ namespace DoAn.Areas.Admin.Controllers
                 Text = dp.Phong.P_TenPhong
             }).Distinct().ToList();
 
-            ViewBag.DatPhongList = _context.DatPhongs.Include(dp => dp.Phong).Include(dp => dp.KhachHang).Where(dp => dp.Phong != null && dp.KhachHang != null)
-            .Select(dp => new
+            ViewBag.DatPhongList = _context.DatPhongs.Include(x => x.KhachHang).Include(x => x.Phong)
+            .Where(x => x.DP_TrangThai != "Đã trả phòng" && x.DP_TrangThai != "Đã hủy").Select(x => new
             {
-                Value = dp.DP_ID,
-                Text = dp.KhachHang!.KH_TenKhach + " - " + dp.Phong!.P_TenPhong,
-                PhongId = dp.P_ID
+                Value = x.DP_ID,
+                Text = x.KhachHang!.KH_TenKhach + " - " + x.Phong!.P_TenPhong + " (" + x.DP_TrangThai + ")"
             }).ToList();
 
             ViewBag.DichVuList = _context.DichVus.Where(dv => dv.DV_TrangThai == true)
@@ -210,25 +208,11 @@ namespace DoAn.Areas.Admin.Controllers
             if (id == null || id == 0)
                 return NotFound();
 
-            var sddv = _context.SuDungDichVus.FirstOrDefault(x => x.SDDV_ID == id);
+            var sddv = _context.SuDungDichVus.Include(x => x.DichVu).Include(x => x.DatPhong).ThenInclude(dp => dp!.Phong)
+            .Include(x => x.DatPhong).ThenInclude(dp => dp!.KhachHang).FirstOrDefault(x => x.SDDV_ID == id);
 
             if (sddv == null)
                 return NotFound();
-
-            ViewBag.DatPhongList = new SelectList(_context.DatPhongs.Include(x => x.Phong).Include(x => x.KhachHang)
-            .Where(x => x.Phong != null && x.KhachHang != null).ToList().Select(x => new
-            {
-                DP_ID = x.DP_ID,
-                Display = $"{x.KhachHang!.KH_TenKhach} - {x.Phong!.P_TenPhong}"
-            }), "DP_ID", "Display", sddv.DP_ID);
-
-            ViewBag.DichVuList = new SelectList(_context.DichVus.Where(x => x.DV_TrangThai).ToList(), "DV_ID", "DV_TenDichVu", sddv.DV_ID);
-
-            ViewBag.DichVuData = _context.DichVus.Where(x => x.DV_TrangThai).Select(x => new
-            {
-                x.DV_ID,
-                x.DV_GiaTien
-            }).ToList();
 
             ViewBag.ThongBao = _context.ThongBaos.OrderByDescending(x => x.TB_ThoiGian).Take(5).ToList();
 
