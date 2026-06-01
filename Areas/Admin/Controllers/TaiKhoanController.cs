@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using DoAn.Data;
-using System.Linq;
+using DoAn.Models;
+using DoAn.Utilities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DoAn.Areas.Admin.Controllers
 {
@@ -22,30 +23,34 @@ namespace DoAn.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DangNhap(string email, string password)
         {
-            var admin = _context.KhachHangs.FirstOrDefault(x =>
-                x.KH_Email == email &&
-                x.KH_MatKhau == password &&
-                x.KH_VaiTro != null &&
-                x.KH_VaiTro.Trim().ToLower() == "admin"
-            );
+            var kh = _context.KhachHangs.FirstOrDefault(x => x.KH_Email == email &&
+                    x.KH_MatKhau == password && x.KH_TrangThai == true);
 
-            if (admin == null)
+            if (kh == null)
             {
-                ViewBag.Error = "Sai tài khoản hoặc mật khẩu!";
+                ViewBag.Error = "Email hoặc mật khẩu không đúng";
                 return View();
             }
 
-            HttpContext.Session.SetString("Admin", admin.KH_TenKhach);
-            HttpContext.Session.SetInt32("AdminID", admin.KH_ID);
+            Functions._KH_ID = kh.KH_ID;
+            Functions._TenKhach = kh.KH_TenKhach;
+            Functions._Email = kh.KH_Email;
+            Functions._VaiTro = kh.KH_VaiTro ?? "";
 
-            return Redirect("/Admin/Home");
+            if (Functions._VaiTro == "Admin")
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult DangXuat()
         {
-            HttpContext.Session.Clear();
+            Functions._KH_ID = 0;
+            Functions._TenKhach = "";
+            Functions._Email = "";
+            Functions._VaiTro = "";
 
-            return Redirect("/Admin/TaiKhoan/DangNhap");
+            return RedirectToAction("DangNhap");
         }
     }
 }

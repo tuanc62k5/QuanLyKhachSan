@@ -1,4 +1,5 @@
 @using DoAn.Models
+@using System.Text.Json
 
 @{
   Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -150,7 +151,7 @@
 
           <div class="card-body">
 
-            <h5 class="card-title">📈 Doanh thu theo thời gian</h5>
+            <h5 class="card-title">📈 Doanh thu theo @ViewBag.ChartType</h5>
 
             <div id="reportsChart"></div>
 
@@ -168,7 +169,7 @@
 
             <h5 class="card-title">🏨 Trạng thái phòng</h5>
 
-            <div id="trafficChart" style="min-height:420px;" class="echart">
+            <div id="trafficChart" style="min-height:435px;" class="echart">
             </div>
 
           </div>
@@ -188,14 +189,14 @@
               document.querySelector("#reportsChart"),
               {
                 chart: {
-                  height: 420,
                   type: 'area',
+                  height: 420,
                   toolbar: {
                     show: false
                   }
                 },
 
-                colors: ['#4154f1'],
+                colors: ['#0d6efd', '#198754', '#fd7e14'],
 
                 dataLabels: {
                   enabled: false
@@ -203,20 +204,44 @@
 
                 stroke: {
                   curve: 'smooth',
-                  width: 3
+                  width: 4
                 },
 
-                series: [{
-                  name: 'Doanh thu',
-                  data: [
-                    @tongDoanhThu
-                  ]
-                }],
+                markers: {
+                  size: 5
+                },
 
-                xaxis: {
-                  categories: [
-                    'Tổng doanh thu'
-                  ]
+                series: [
+                  {
+                    name: 'Tổng doanh thu',
+                    data: @Html.Raw(JsonSerializer.Serialize(ViewBag.ChartTong))
+                  },
+                  {
+                    name: 'Doanh thu phòng',
+                    data: @Html.Raw(JsonSerializer.Serialize(ViewBag.ChartPhong))
+                  },
+                  {
+                    name: 'Doanh thu dịch vụ',
+                    data: @Html.Raw(JsonSerializer.Serialize(ViewBag.ChartDichVu))
+                  }],
+
+                xaxis: {categories: @Html.Raw(JsonSerializer.Serialize(ViewBag.ChartLabels))
+                  },
+
+                yaxis: {
+                  labels: {
+                    formatter: function (val) {
+                      return val.toLocaleString('vi-VN');
+                    }
+                  }
+                },
+
+                tooltip: {
+                  y: {
+                    formatter: function (val) {
+                      return val.toLocaleString('vi-VN') + ' đ';
+                    }
+                  }
                 }
               }
             ).render();
@@ -224,7 +249,6 @@
           });
 
     </script>
-
 
     <script>
 
@@ -235,11 +259,12 @@
             ).setOption({
 
               tooltip: {
-                trigger: 'item'
+                trigger: 'item',
+                formatter: '{b}: {c} phòng ({d}%)'
               },
 
               legend: {
-                top: '5%',
+                top: 10,
                 left: 'center'
               },
 
@@ -249,7 +274,15 @@
 
                 type: 'pie',
 
-                radius: ['45%', '75%'],
+                radius: ['55%', '82%'],
+
+                label: {
+                  show: false
+                },
+
+                labelLine: {
+                  show: false
+                },
 
                 data: [
 
@@ -281,22 +314,15 @@
 
     </script>
 
-
-    <!-- ĐẶT PHÒNG GẦN ĐÂY + HÓA ĐƠN -->
-
     <div class="row mt-4">
-
-      <!-- ĐẶT PHÒNG GẦN ĐÂY -->
 
       <div class="col-lg-8">
 
-        <div class="card border-0 shadow-sm">
+        <div class="card border-0 shadow-sm py-4">
 
           <div class="card-body">
 
-            <h5 class="card-title">
-              📋 Đặt phòng gần đây
-            </h5>
+            <h5 class="card-title">📋 Đặt phòng gần đây</h5>
 
             <table class="table table-hover align-middle">
 
@@ -391,18 +417,13 @@
 
       </div>
 
-
-      <!-- HÓA ĐƠN GẦN ĐÂY -->
-
       <div class="col-lg-4">
 
-        <div class="card border-0 shadow-sm">
+        <div class="card border-0 shadow-sm py-1">
 
           <div class="card-body">
 
-            <h5 class="card-title">
-              💰 Hóa đơn gần đây
-            </h5>
+            <h5 class="card-title">💰 Hóa đơn gần đây</h5>
 
             <div class="activity">
 
@@ -469,12 +490,7 @@
 
     </div>
 
-
-    <!-- TOP -->
-
     <div class="row mt-4">
-
-      <!-- TOP PHÒNG -->
 
       <div class="col-lg-6">
 
@@ -516,9 +532,6 @@
         </div>
 
       </div>
-
-
-      <!-- TOP KHÁCH HÀNG -->
 
       <div class="col-lg-6">
 
